@@ -16,18 +16,42 @@ const Navbar = () => {
       </div>
       <div className={`navbar-menu ${menu ? "is-active" : ""}`}>
         <div className="navbar-end">
-          <Link to="/" className="navbar-item is-uppercase">
-            Home
-          </Link>
-          <Link to="/portfolio" className="navbar-item is-uppercase">
-            Work
-          </Link>
-          <Link to="/blog" className="navbar-item is-uppercase">
-            Blog
-          </Link>
-          <Link to="/contact" className="navbar-item is-uppercase">
-            Connect
-          </Link>
+          <div className="navbar-item">
+            <Link
+              to="/"
+              className="is-uppercase"
+              activeClassName="highlight-white"
+            >
+              Home
+            </Link>
+          </div>
+          <div className="navbar-item">
+            <Link
+              to="/portfolio"
+              className="is-uppercase"
+              activeClassName="highlight-white"
+            >
+              Work
+            </Link>
+          </div>
+          <div className="navbar-item">
+            <Link
+              to="/blog"
+              className="is-uppercase"
+              activeClassName="highlight-white"
+            >
+              Blog
+            </Link>
+          </div>
+          <div className="navbar-item">
+            <Link
+              to="/contact"
+              className="is-uppercase"
+              activeClassName="highlight-white"
+            >
+              Connect
+            </Link>
+          </div>
         </div>
       </div>
     </div>
