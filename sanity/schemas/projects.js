@@ -37,8 +37,8 @@ export default {
     {
       name: "technologies",
       title: "Technologies",
-      type: "string",
-      options: {},
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "technology" }] }],
     },
     {
       name: "body",
