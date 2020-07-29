@@ -1,7 +1,10 @@
+import { AiFillFolderOpen } from "react-icons/ai";
+
 export default {
   name: "projects",
   title: "Projects",
   type: "document",
+  icon: AiFillFolderOpen,
   fields: [
     {
       name: "title",
@@ -41,8 +44,8 @@ export default {
       of: [{ type: "reference", to: [{ type: "technology" }] }],
     },
     {
-      name: "body",
-      title: "Body",
+      name: "description",
+      title: "Description",
       type: "blockContent",
     },
   ],

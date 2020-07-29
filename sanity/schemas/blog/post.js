@@ -1,7 +1,10 @@
+import { RiFilePaper2Line } from "react-icons/ri";
+
 export default {
   name: "post",
   title: "Posts",
   type: "document",
+  icon: RiFilePaper2Line,
   fields: [
     {
       name: "title",
