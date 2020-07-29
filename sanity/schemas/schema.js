@@ -4,9 +4,11 @@ import createSchema from "part:@sanity/base/schema-creator";
 // Then import schema types from any plugins that might expose them
 import schemaTypes from "all:part:@sanity/base/schema-type";
 import projects from "./projects";
+import uses from "./uses";
 import blog from "./blog/blog";
 import post from "./blog/post";
 import blockContent from "./blockContent";
+import blockTech from "./blockTech";
 import technologies from "./technologies";
 
 // Then we give our schema to the builder and provide the result to Sanity
@@ -15,5 +17,13 @@ export default createSchema({
   name: "default",
   // Then proceed to concatenate our document type
   // to the ones provided by any plugins that are installed
-  types: schemaTypes.concat([projects, blockContent, technologies, blog, post]),
+  types: schemaTypes.concat([
+    projects,
+    uses,
+    blockContent,
+    blockTech,
+    technologies,
+    blog,
+    post,
+  ]),
 });

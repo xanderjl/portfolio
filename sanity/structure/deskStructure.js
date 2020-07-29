@@ -1,7 +1,9 @@
 import S from "@sanity/desk-tool/structure-builder";
 import { FaPencilAlt } from "react-icons/fa";
+import { GrTechnology } from "react-icons/gr";
 
-const hiddenDocTypes = (listItem) => !["blog"].includes(listItem.getId());
+const hiddenDocTypes = (listItem) =>
+  !["blog", "uses"].includes(listItem.getId());
 
 export default () =>
   S.list()
@@ -11,5 +13,9 @@ export default () =>
         .title("Blog")
         .icon(FaPencilAlt)
         .child(S.editor().id("blog").schemaType("blog").documentId("blog")),
+      S.listItem()
+        .title("Uses")
+        .icon(GrTechnology)
+        .child(S.editor().id("uses").schemaType("uses").documentId("uses")),
       ...S.documentTypeListItems().filter(hiddenDocTypes),
     ]);
