@@ -45,6 +45,15 @@ const Navbar = () => {
           </div>
           <div className="navbar-item">
             <Link
+              to="/uses"
+              className="is-uppercase"
+              activeClassName="highlight-white"
+            >
+              Uses
+            </Link>
+          </div>
+          <div className="navbar-item">
+            <Link
               to="/contact"
               className="is-uppercase"
               activeClassName="highlight-white"
