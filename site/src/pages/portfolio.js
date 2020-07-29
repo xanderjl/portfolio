@@ -29,8 +29,9 @@ const portfolio = ({ data }) => {
                       href={projectUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="has-background-white"
                     >
-                      <Img fluid={image.asset.fluid} />
+                      <Img className="gatsby-card-image" fluid={image.asset.fluid} />
                     </a>
                   </div>
                   <div className="card-content">
