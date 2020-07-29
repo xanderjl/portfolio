@@ -122,13 +122,6 @@ export const data = graphql`
           technologies {
             id
             title
-            icon {
-              asset {
-                fixed(width: 80, height: 80) {
-                  ...GatsbySanityImageFixed
-                }
-              }
-            }
             url
           }
         }
