@@ -4,7 +4,7 @@ import ContactForm from "../components/contactForm"
 
 const contact = () => {
   return (
-    <Layout>
+    <Layout title="Contact">
       <section className="section">
         <div className="container" style={{ maxWidth: "55ch" }}>
           <ContactForm />
