@@ -63,7 +63,7 @@ const ContactForm = () => {
           />
         </div>
       </div>
-      <button type="submit" className="button is-radiusless">
+      <button type="submit" className="button is-primary is-radiusless">
         Submit
       </button>
     </form>
