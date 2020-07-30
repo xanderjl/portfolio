@@ -12,22 +12,31 @@ const uses = ({ data }) => {
         const { _key, array, _rawBody } = section
         return (
           <section key={_key} className="section">
-            <div className="container">
-              <div className="level">
-                <div className="level-left">
+            <div
+              className="container"
+              style={{ maxWidth: "1200px", margin: "0 auto" }}
+            >
+              <div className="tech-grid">
+                <div className="icons">
                   {array.map(item => {
                     const { id, title, url, icon } = item
                     return (
-                      <a key={id} href={url}>
-                        <Img fixed={icon.asset.fixed} alt={`${title} logo`} />
+                      <a key={id} href={url} style={{ flex: 1 }}>
+                        <img
+                          className="mx-2"
+                          src={icon.asset.fixed.src}
+                          alt={`${title} logo`}
+                          style={{
+                            maxWidth: "80px",
+                            maxHeight: "80px",
+                          }}
+                        />
                       </a>
                     )
                   })}
                 </div>
-                <div className="level-right">
-                  <div className="content" style={{ maxWidth: "55ch" }}>
-                    <PortableText blocks={_rawBody} />
-                  </div>
+                <div className="content" style={{ maxWidth: "55ch" }}>
+                  <PortableText blocks={_rawBody} />
                 </div>
               </div>
             </div>
@@ -52,8 +61,8 @@ export const data = graphql`
           url
           icon {
             asset {
-              fixed(width: 80, height: 80) {
-                ...GatsbySanityImageFixed
+              fixed {
+                src
               }
             }
           }
