@@ -51,8 +51,7 @@ const ContactForm = ({ title }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="hidden" name="form-name" value="contact" />
+    <form name="contact" onSubmit={handleSubmit}>
       {title ? <h2 className="title is-size-3">{title}</h2> : null}
       <div className="field">
         <label htmlFor="" className="label">

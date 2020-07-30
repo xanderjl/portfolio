@@ -1,5 +1,5 @@
 import React from "react"
-import { graphl } from "gatsby"
+import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import Layout from "../components/layout"
 const portfolio = ({ data }) => {
@@ -14,7 +14,6 @@ const portfolio = ({ data }) => {
               const {
                 id,
                 title,
-                slug,
                 repoUrl,
                 projectUrl,
                 image,
@@ -31,7 +30,10 @@ const portfolio = ({ data }) => {
                       rel="noopener noreferrer"
                       className="has-background-white"
                     >
-                      <Img className="gatsby-card-image" fluid={image.asset.fluid} />
+                      <Img
+                        className="gatsby-card-image"
+                        fluid={image.asset.fluid}
+                      />
                     </a>
                   </div>
                   <div className="card-content">
@@ -104,9 +106,6 @@ export const data = graphql`
         node {
           id
           title
-          slug {
-            current
-          }
           repoUrl
           projectUrl
           image {
