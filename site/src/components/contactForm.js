@@ -51,7 +51,7 @@ const ContactForm = ({ title }) => {
   }
 
   return (
-    <form name="contact" onSubmit={handleSubmit}>
+    <form name="contact" onSubmit={handleSubmit} netlify>
       {title ? <h2 className="title is-size-3">{title}</h2> : null}
       <div className="field">
         <label htmlFor="" className="label">
