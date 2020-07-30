@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useReducer } from "react"
 import PropTypes from "prop-types"
 
 const encode = data => {
@@ -7,24 +7,47 @@ const encode = data => {
     .join("&")
 }
 
-const ContactForm = ({ title }) => {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [message, setMessage] = useState("")
+const initState = {
+  name: "",
+  email: "",
+  message: "",
+}
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "setField":
+      return {
+        ...state,
+        [action.payload.field]: action.payload.val,
+      }
+    case "reset":
+      return initState
+    default:
+      throw new Error()
+  }
+}
+
+const ContactForm = ({ title }) => {
+  const [state, dispatch] = useReducer(reducer, initState)
+  const { name, email, message } = state
+
+  const handleChange = e => {
+    dispatch({
+      type: "setField",
+      payload: { field: e.target.name, val: e.target.value },
+    })
+  }
   const handleSubmit = e => {
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({ "form-name": "contact", ...this.state }),
+      body: encode({ "form-name": "contact", name, email, message }),
     })
       .then(() => alert("success"))
       .catch(error => alert(error))
 
     e.preventDefault()
-    setName("")
-    setEmail("")
-    setMessage("")
+    dispatch({ type: "reset" })
   }
 
   return (
@@ -42,7 +65,7 @@ const ContactForm = ({ title }) => {
             value={name}
             className="input is-radiusless"
             placeholder="Jane Doe"
-            onChange={e => setName(e.target.value)}
+            onChange={handleChange}
           />
         </div>
       </div>
@@ -57,7 +80,7 @@ const ContactForm = ({ title }) => {
             value={email}
             className="input is-radiusless"
             placeholder="jane.d@gmail.com"
-            onChange={e => setEmail(e.target.value)}
+            onChange={handleChange}
           />
         </div>
       </div>
@@ -71,7 +94,7 @@ const ContactForm = ({ title }) => {
             value={message}
             className="textarea is-radiusless"
             placeholder="Hello"
-            onChange={e => setMessage(e.target.value)}
+            onChange={handleChange}
           />
         </div>
       </div>
