@@ -1,6 +1,12 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 
+const encode = data => {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&")
+}
+
 const ContactForm = ({ title }) => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -10,17 +16,21 @@ const ContactForm = ({ title }) => {
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: { "form-name": "contact", ...this.state },
+      body: encode({ "form-name": "contact", ...this.state }),
     })
       .then(() => alert("success"))
       .catch(error => alert(error))
 
     e.preventDefault()
+    setName("")
+    setEmail("")
+    setMessage("")
   }
 
   return (
-    <form name="contact" onSubmit={handleSubmit}>
-      {title ? <h2 className="title is-size-4">{title}</h2> : null}
+    <form onSubmit={handleSubmit}>
+      <input type="hidden" name="form-name" value="contact" />
+      {title ? <h2 className="title is-size-3">{title}</h2> : null}
       <div className="field">
         <label htmlFor="" className="label">
           Name
@@ -72,8 +82,8 @@ const ContactForm = ({ title }) => {
   )
 }
 
-// ContactForm.PropTypes = {
-//   title: PropTypes.string,
-// }
+ContactForm.propTypes = {
+  title: PropTypes.string,
+}
 
 export default ContactForm

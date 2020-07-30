@@ -14,7 +14,7 @@ const uses = ({ data }) => {
           <section key={_key} className="section">
             <div
               className="container"
-              style={{ maxWidth: "1200px", margin: "0 auto" }}
+              style={{ maxWidth: "960px", margin: "0 auto" }}
             >
               <div className="tech-grid">
                 <div className="icons">
