@@ -51,7 +51,12 @@ const ContactForm = ({ title }) => {
   }
 
   return (
-    <form name="contact" onSubmit={handleSubmit}>
+    <form
+      name="contact"
+      method="POST"
+      onSubmit={handleSubmit}
+      data-netlify="true"
+    >
       <input type="hidden" name="form-name" value="contact" />
       {title ? <h2 className="title is-size-3">{title}</h2> : null}
       <div className="field">
