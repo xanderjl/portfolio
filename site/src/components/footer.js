@@ -3,7 +3,7 @@ import React from "react"
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="container">
+      <div className="container" style={{ maxWidth: "960px" }}>
         <div className="content has-text-centered">
           <div className="level">
             <div className="leve-left">

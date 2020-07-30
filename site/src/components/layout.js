@@ -28,7 +28,7 @@ const Layout = ({ title, description, children }) => {
       <div className="background" />
       <div className="site">
         <main className="site-content">
-          <div className="container">
+          <div className="container" style={{ maxWidth: "960px" }}>
             <Navbar />
             {children}
           </div>
