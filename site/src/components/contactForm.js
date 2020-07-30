@@ -1,6 +1,7 @@
 import React, { useState } from "react"
+import PropTypes from "prop-types"
 
-const ContactForm = () => {
+const ContactForm = ({ title }) => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
@@ -19,6 +20,7 @@ const ContactForm = () => {
 
   return (
     <form name="contact" onSubmit={handleSubmit}>
+      {title ? <h2 className="title is-size-4">{title}</h2> : null}
       <div className="field">
         <label htmlFor="" className="label">
           Name
@@ -69,5 +71,9 @@ const ContactForm = () => {
     </form>
   )
 }
+
+// ContactForm.PropTypes = {
+//   title: PropTypes.string,
+// }
 
 export default ContactForm
