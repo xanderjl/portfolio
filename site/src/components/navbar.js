@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { Link } from "gatsby"
-import TransitionLink from "gatsby-plugin-transition-link"
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false)

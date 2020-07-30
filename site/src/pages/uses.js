@@ -2,6 +2,7 @@ import React from "react"
 import { graphql } from "gatsby"
 import PortableText from "@sanity/block-content-to-react"
 import Layout from "../components/layout"
+import { BlockRenderer, LinkTag } from "../components/serializers"
 
 const uses = ({ data }) => {
   const { title, metaDescription, body } = data.sanityUses
@@ -18,7 +19,7 @@ const uses = ({ data }) => {
                   return (
                     <a key={id} href={url} style={{ flex: 1 }}>
                       <img
-                        className="mx-2"
+                        className="uses-svg mr-4"
                         src={icon.asset.fixed.src}
                         alt={`${title} logo`}
                         style={{
@@ -31,7 +32,13 @@ const uses = ({ data }) => {
                 })}
               </div>
               <div className="content" style={{ maxWidth: "55ch" }}>
-                <PortableText blocks={_rawBody} />
+                <PortableText
+                  blocks={_rawBody}
+                  serializers={{
+                    types: { block: BlockRenderer },
+                    marks: { link: LinkTag },
+                  }}
+                />
               </div>
             </div>
           </section>
