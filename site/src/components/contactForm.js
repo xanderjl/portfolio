@@ -51,7 +51,8 @@ const ContactForm = ({ title }) => {
   }
 
   return (
-    <form name="contact" onSubmit={handleSubmit} netlify>
+    <form name="contact" onSubmit={handleSubmit}>
+      <input type="hidden" name="form-name" value="contact" />
       {title ? <h2 className="title is-size-3">{title}</h2> : null}
       <div className="field">
         <label htmlFor="" className="label">
