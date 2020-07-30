@@ -1,6 +1,5 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Img from "gatsby-image"
 import PortableText from "@sanity/block-content-to-react"
 import Layout from "../components/layout"
 

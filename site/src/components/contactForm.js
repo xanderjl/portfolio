@@ -58,7 +58,7 @@ const ContactForm = ({ title }) => {
       data-netlify="true"
     >
       <input type="hidden" name="form-name" value="contact" />
-      {title ? <h2 className="title is-size-3">{title}</h2> : null}
+      {title ? <h2 className="title is-size-3 is-size-4-mobile">{title}</h2> : null}
       <div className="field">
         <label htmlFor="" className="label">
           Name
