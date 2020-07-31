@@ -1,5 +1,6 @@
 import React, { useState, useReducer } from "react"
 import PropTypes from "prop-types"
+import Modal from "../components/modal"
 
 const encode = data => {
   return Object.keys(data)
@@ -29,6 +30,7 @@ const reducer = (state, action) => {
 
 const ContactForm = ({ title }) => {
   const [state, dispatch] = useReducer(reducer, initState)
+  const [modal, setModal] = useState(false)
   const { name, email, message } = state
 
   const handleChange = e => {
@@ -43,7 +45,7 @@ const ContactForm = ({ title }) => {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({ "form-name": "contact", name, email, message }),
     })
-      .then(() => alert("success"))
+      .then(() => setModal(!modal))
       .catch(error => alert(error))
 
     e.preventDefault()
@@ -51,62 +53,73 @@ const ContactForm = ({ title }) => {
   }
 
   return (
-    <form
-      name="contact"
-      method="POST"
-      onSubmit={handleSubmit}
-      data-netlify="true"
-    >
-      <input type="hidden" name="form-name" value="contact" />
-      {title ? <h2 className="title is-size-3 is-size-4-mobile">{title}</h2> : null}
-      <div className="field">
-        <label htmlFor="" className="label">
-          Name
-        </label>
-        <div className="control">
-          <input
-            type="text"
-            name="name"
-            value={name}
-            className="input is-radiusless"
-            placeholder="Jane Doe"
-            onChange={handleChange}
-          />
+    <>
+      <form
+        name="contact"
+        className="contact-form has-background-white has-shadow"
+        method="POST"
+        onSubmit={handleSubmit}
+        data-netlify="true"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        {title ? (
+          <h2 className="title is-size-3 is-size-4-mobile">{title}</h2>
+        ) : null}
+        <div className="field">
+          <label htmlFor="" className="label">
+            Name
+          </label>
+          <div className="control">
+            <input
+              type="text"
+              name="name"
+              value={name}
+              className="input is-radiusless"
+              placeholder="Jane Doe"
+              onChange={handleChange}
+            />
+          </div>
         </div>
-      </div>
-      <div className="field">
-        <label htmlFor="" className="label">
-          Email
-        </label>
-        <div className="control">
-          <input
-            type="text"
-            name="email"
-            value={email}
-            className="input is-radiusless"
-            placeholder="jane.d@gmail.com"
-            onChange={handleChange}
-          />
+        <div className="field">
+          <label htmlFor="" className="label">
+            Email
+          </label>
+          <div className="control">
+            <input
+              type="text"
+              name="email"
+              value={email}
+              className="input is-radiusless"
+              placeholder="jane.d@gmail.com"
+              onChange={handleChange}
+            />
+          </div>
         </div>
-      </div>
-      <div className="field">
-        <label htmlFor="" className="label">
-          Message
-        </label>
-        <div className="control">
-          <textarea
-            name="message"
-            value={message}
-            className="textarea is-radiusless"
-            placeholder="Hello"
-            onChange={handleChange}
-          />
+        <div className="field">
+          <label htmlFor="" className="label">
+            Message
+          </label>
+          <div className="control">
+            <textarea
+              name="message"
+              value={message}
+              className="textarea is-radiusless"
+              placeholder="Hello"
+              onChange={handleChange}
+            />
+          </div>
         </div>
-      </div>
-      <button type="submit" className="button is-primary is-radiusless">
-        Submit
-      </button>
-    </form>
+        <button type="submit" className="button is-primary is-radiusless">
+          Submit
+        </button>
+      </form>
+      {modal ? (
+        <Modal>
+          <h1 className="title is-size-5-mobile">Thanks For Reaching Out!</h1>
+          <p>I'll get back to you shortly :)</p>
+        </Modal>
+      ) : null}
+    </>
   )
 }
 

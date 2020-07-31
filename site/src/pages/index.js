@@ -5,13 +5,17 @@ import ContactForm from "../components/contactForm"
 const IndexPage = () => (
   <Layout title="Home">
     <section className="section">
-      <h1 className="title is-playfair is-italic is-size-1-desktop mb-1">Alex Low</h1>
-      <span className="subtitle is-size-5 is-size-6-mobile">Front End Web Developer</span>
+      <h1 className="title is-playfair is-italic is-size-1-desktop mb-1">
+        Alex Low
+      </h1>
+      <span className="subtitle is-size-5 is-size-6-mobile">
+        Front End Web Developer
+      </span>
     </section>
     <section className="section py-0">
       <div className="container">
         <div
-          className="is-pulled-right has-background-white has-shadow"
+          className="is-pulled-right"
           style={{ maxWidth: "55ch", padding: "3rem 1.5rem" }}
         >
           <ContactForm title="Let's Talk." />
