@@ -7,7 +7,10 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar-brand">
-        <div className="navbar-burger" onClick={() => setMenu(!menu)}>
+        <div
+          className={`navbar-burger ${menu ? "is-active" : ""}`}
+          onClick={() => setMenu(!menu)}
+        >
           <span></span>
           <span></span>
           <span></span>
