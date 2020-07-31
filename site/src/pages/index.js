@@ -14,10 +14,7 @@ const IndexPage = () => (
     </section>
     <section className="section py-0">
       <div className="container">
-        <div
-          className="is-pulled-right"
-          style={{ maxWidth: "55ch", padding: "3rem 1.5rem" }}
-        >
+        <div className="is-pulled-right pulled-override">
           <ContactForm title="Let's Talk." />
         </div>
       </div>
