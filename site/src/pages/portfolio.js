@@ -1,6 +1,8 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
+import { motion } from "framer-motion"
+
 import Layout from "../components/layout"
 const portfolio = ({ data }) => {
   const projects = data.projects.edges
@@ -10,7 +12,7 @@ const portfolio = ({ data }) => {
       <section className="section">
         <div className="container">
           <div className="card-grid">
-            {projects.map(({ node: project }) => {
+            {projects.map(({ node: project }, i) => {
               const {
                 id,
                 title,
@@ -22,7 +24,13 @@ const portfolio = ({ data }) => {
 
               const { [technologies.length - 1]: last } = technologies
               return (
-                <div key={id} className="card">
+                <motion.div
+                  key={id}
+                  className="card"
+                  initial={{ y: 40, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: `0.${i}`, type: "tween" }}
+                >
                   <div className="card-image">
                     <a
                       href={projectUrl}
@@ -89,7 +97,7 @@ const portfolio = ({ data }) => {
                       })}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )
             })}
           </div>

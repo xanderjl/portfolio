@@ -1,21 +1,44 @@
 import React from "react"
+import { motion } from "framer-motion"
+
 import Layout from "../components/layout"
 import ContactForm from "../components/contactForm"
 
 const IndexPage = () => (
   <Layout title="Home">
     <section className="section">
-      <h1 className="title is-playfair is-italic is-size-1-desktop mb-1">
+      <motion.h1
+        className="title is-playfair is-italic is-size-1-desktop "
+        initial={{ x: -30, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.4, type: "tween" }}
+      >
         Alex Low
-      </h1>
-      <span className="subtitle is-size-5 is-size-6-mobile">
+      </motion.h1>
+      <motion.p
+        className="subtitle is-size-5 is-size-6-mobile"
+        initial={{ x: -30, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.2, type: "tween" }}
+      >
         Front End Web Developer
-      </span>
+      </motion.p>
     </section>
     <section className="section py-0">
       <div className="container">
         <div className="is-pulled-right pulled-override">
-          <ContactForm title="Let's Talk." />
+          <motion.div
+            initial={{ y: 60, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              duration: 0.1,
+              delay: 0.3,
+              type: "spring",
+              stiffness: 100,
+            }}
+          >
+            <ContactForm title="Let's Talk." />
+          </motion.div>
         </div>
       </div>
     </section>
