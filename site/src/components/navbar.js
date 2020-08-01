@@ -21,7 +21,7 @@ const Navbar = () => {
       </div>
       <motion.div
         className={`navbar-menu ${menu ? "is-active" : ""}`}
-        onTap={}
+        onTap={{}}
         // initial={{ y: -200, opacity: 0 }}
         // animate={{ y: 0, opacity: 1 }}
         // transition={{ duration: 0.5, type: "spring", stiffness: 60 }}
