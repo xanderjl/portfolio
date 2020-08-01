@@ -44,7 +44,7 @@ const Navbar = () => {
           </Link>
           <Link to="/contact" className="navbar-item is-uppercase">
             <span
-              className={currentPath === "/connect" ? "highlight-white" : ""}
+              className={currentPath === "/contact" ? "highlight-white" : ""}
             >
               Connect
             </span>
