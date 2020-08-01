@@ -1,8 +1,10 @@
 import React, { useState } from "react"
+import { useLocation } from "@reach/router"
 import { Link } from "gatsby"
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false)
+  const currentPath = useLocation().pathname
 
   return (
     <div className="navbar">
@@ -18,51 +20,35 @@ const Navbar = () => {
       </div>
       <div className={`navbar-menu ${menu ? "is-active" : ""}`}>
         <div className="navbar-end">
-          <div className="navbar-item">
-            <Link
-              to="/"
-              className="is-uppercase"
-              activeClassName="highlight-white"
-            >
+          <Link to="/" className="navbar-item is-uppercase">
+            <span className={currentPath === "/" ? "highlight-white" : ""}>
               Home
-            </Link>
-          </div>
-          <div className="navbar-item">
-            <Link
-              to="/portfolio"
-              className="is-uppercase"
-              activeClassName="highlight-white"
+            </span>
+          </Link>
+          <Link to="/portfolio" className="navbar-item is-uppercase">
+            <span
+              className={currentPath === "/portfolio" ? "highlight-white" : ""}
             >
               Work
-            </Link>
-          </div>
-          <div className="navbar-item">
-            <Link
-              to="/blog"
-              className="is-uppercase"
-              activeClassName="highlight-white"
-            >
+            </span>
+          </Link>
+          <Link to="/blog" className="navbar-item is-uppercase">
+            <span className={currentPath === "/blog" ? "highlight-white" : ""}>
               Blog
-            </Link>
-          </div>
-          <div className="navbar-item">
-            <Link
-              to="/uses"
-              className="is-uppercase"
-              activeClassName="highlight-white"
-            >
+            </span>
+          </Link>
+          <Link to="/uses" className="navbar-item is-uppercase">
+            <span className={currentPath === "/uses" ? "highlight-white" : ""}>
               Uses
-            </Link>
-          </div>
-          <div className="navbar-item">
-            <Link
-              to="/contact"
-              className="is-uppercase"
-              activeClassName="highlight-white"
+            </span>
+          </Link>
+          <Link to="/contact" className="navbar-item is-uppercase">
+            <span
+              className={currentPath === "/connect" ? "highlight-white" : ""}
             >
               Connect
-            </Link>
-          </div>
+            </span>
+          </Link>
         </div>
       </div>
     </div>
