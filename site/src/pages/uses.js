@@ -90,6 +90,10 @@ const uses = ({ data }) => {
                           }}
                           whileHover={{
                             scale: 1.1,
+                            transition: {
+                              duration: 0.1,
+                              type: "tween",
+                            },
                           }}
                         />
                       </motion.a>
