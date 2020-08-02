@@ -83,10 +83,10 @@ const uses = ({ data }) => {
                           initial={{ y: 20, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           transition={{
-                            duration: 0.5,
+                            duration: 0.3,
                             delay: i * 0.3,
                             type: "spring",
-                            stiffness: 100,
+                            stiffness: 200,
                           }}
                           whileHover={{
                             scale: 1.1,
