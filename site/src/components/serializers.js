@@ -17,7 +17,12 @@ export const BlockRenderer = props => {
 
 export const LinkTag = ({ mark, children }) => {
   return (
-    <a href={mark.href} className="highlight-white">
+    <a
+      href={mark.href}
+      className="highlight-white"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       {children}
     </a>
   )

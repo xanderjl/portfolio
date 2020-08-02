@@ -66,7 +66,12 @@ const uses = ({ data }) => {
                   {array.map((item, i) => {
                     const { id, title, url, icon } = item
                     return (
-                      <motion.a key={id} href={url}>
+                      <motion.a
+                        key={id}
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <motion.img
                           className="mr-4"
                           src={icon.asset.fixed.src}
