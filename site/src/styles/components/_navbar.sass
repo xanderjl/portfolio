@@ -4,10 +4,13 @@
 
     @media screen and ( max-width: $desktop )
       display: block
+      max-height: 0
       opacity: 0
       transform: translateY(-350px)
       transition: all 0.3s ease-in-out
 
       &.is-active
+        display: block
+        max-height: 100%
         opacity: 1
         transform: translateY(0px)

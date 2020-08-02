@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { useLocation } from "@reach/router"
 import { Link } from "gatsby"
-import { motion } from "framer-motion"
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false)
@@ -19,13 +18,7 @@ const Navbar = () => {
           <span></span>
         </div>
       </div>
-      <motion.div
-        className={`navbar-menu ${menu ? "is-active" : ""}`}
-        onTap={{}}
-        // initial={{ y: -200, opacity: 0 }}
-        // animate={{ y: 0, opacity: 1 }}
-        // transition={{ duration: 0.5, type: "spring", stiffness: 60 }}
-      >
+      <div className={`navbar-menu ${menu ? "is-active" : ""}`}>
         <div className="navbar-end">
           <Link to="/" className="navbar-item is-uppercase">
             <span className={currentPath === "/" ? "highlight-white" : ""}>
@@ -57,7 +50,7 @@ const Navbar = () => {
             </span>
           </Link>
         </div>
-      </motion.div>
+      </div>
     </div>
   )
 }
