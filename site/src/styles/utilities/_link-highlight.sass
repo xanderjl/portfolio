@@ -12,3 +12,14 @@
 
     @media screen and ( max-width: $tablet )
       background: linear-gradient(to top, $primary 45%, transparent 45%)
+
+.highlight-helper
+  width: calc(100% - 1.5rem)
+  height: calc(100% - 1.7rem)
+  position: absolute
+  z-index: -1
+
+  @media screen and ( max-width: $desktop )
+    width: 8ch
+    height: calc(100% - 1rem)
+    top: 0.4rem

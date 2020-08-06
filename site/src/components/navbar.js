@@ -32,8 +32,7 @@ const Navbar = () => {
             {currentPath === "/" && (
               <motion.div
                 layoutId="underline"
-                className="highlight-white"
-                style={highlightStyle}
+                className="highlight-white highlight-helper"
                 transition={{ duration: 0.3 }}
               />
             )}
@@ -43,8 +42,7 @@ const Navbar = () => {
             {currentPath === "/portfolio" && (
               <motion.div
                 layoutId="underline"
-                className="highlight-white"
-                style={highlightStyle}
+                className="highlight-white highlight-helper"
                 transition={{ duration: 0.3 }}
               />
             )}
@@ -54,8 +52,7 @@ const Navbar = () => {
             {currentPath === "/blog" && (
               <motion.div
                 layoutId="underline"
-                className="highlight-white"
-                style={highlightStyle}
+                className="highlight-white highlight-helper"
                 transition={{ duration: 0.3 }}
               />
             )}
@@ -65,8 +62,7 @@ const Navbar = () => {
             {currentPath === "/uses" && (
               <motion.div
                 layoutId="underline"
-                className="highlight-white"
-                style={highlightStyle}
+                className="highlight-white highlight-helper"
                 transition={{ duration: 0.3 }}
               />
             )}
@@ -76,8 +72,7 @@ const Navbar = () => {
             {currentPath === "/contact" && (
               <motion.div
                 layoutId="underline"
-                className="highlight-white"
-                style={highlightStyle}
+                className="highlight-white highlight-helper"
                 transition={{ duration: 0.3 }}
               />
             )}

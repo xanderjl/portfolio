@@ -36,10 +36,6 @@ const IndexPage = () => {
               type: "spring",
               stiffness: 100,
             }}
-            // style={{
-            //   position: "absolute",
-            //   right: "1.5rem",
-            // }}
           >
             <ContactForm title="Let's Talk." />
           </motion.div>
