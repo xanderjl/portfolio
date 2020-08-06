@@ -7,6 +7,7 @@
   "author": "Alexander Low <alexanderjameslow@gmail.com>",
   "license": "UNLICENSED",
   "scripts": {
+    "sanity": "sanity",
     "start": "sanity start",
     "test": "sanity check"
   },
