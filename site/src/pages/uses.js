@@ -3,7 +3,7 @@ import { graphql } from "gatsby"
 import PortableText from "@sanity/block-content-to-react"
 import { motion } from "framer-motion"
 
-import Layout from "../components/layout"
+import SEO from "../components/seo"
 import { BlockRenderer, LinkTag } from "../components/serializers"
 
 const sectionVariants = {
@@ -52,6 +52,7 @@ const uses = ({ data }) => {
   const { title, metaDescription, body } = data.sanityUses
   return (
     <>
+      <SEO title={title} description={metaDescription} />
       <motion.div initial="hidden" animate="visible" variants={sectionVariants}>
         {body.map(section => {
           const { _key, array, _rawBody } = section

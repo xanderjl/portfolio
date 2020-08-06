@@ -13,6 +13,7 @@ const Modal = ({ children }) => {
     <div className={modal ? "modal" : "modal is-active"}>
       <div
         role="button"
+        aria-label="Close button"
         ref={modalRef}
         tabIndex={-1}
         className="modal-background"
@@ -35,6 +36,7 @@ const Modal = ({ children }) => {
         </div>
       </div>
       <button
+        aria-label="Close button"
         className="modal-close is-large"
         onClick={() => setModal(!modal)}
       ></button>

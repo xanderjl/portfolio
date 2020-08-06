@@ -1,7 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 
-import Layout from "../components/layout"
+import SEO from "../components/seo"
 import svg from "../images/under_construction.svg"
 
 const textVariations = {
@@ -38,6 +38,7 @@ const textChild = {
 const blog = () => {
   return (
     <>
+      <SEO title="Blog" />
       <section className="section">
         <motion.div
           className="container"

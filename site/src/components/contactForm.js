@@ -1,6 +1,5 @@
 import React, { useState, useReducer } from "react"
 import PropTypes from "prop-types"
-import { motion } from "framer-motion"
 
 import Modal from "../components/modal"
 
@@ -68,12 +67,13 @@ const ContactForm = ({ title }) => {
           <h2 className="title is-size-3 is-size-4-mobile">{title}</h2>
         ) : null}
         <div className="field">
-          <label htmlFor="" className="label">
+          <label htmlFor="name" className="label">
             Name
           </label>
           <div className="control">
             <input
               type="text"
+              id="name"
               name="name"
               value={name}
               className="input is-radiusless"
@@ -83,12 +83,13 @@ const ContactForm = ({ title }) => {
           </div>
         </div>
         <div className="field">
-          <label htmlFor="" className="label">
+          <label htmlFor="email" className="label">
             Email
           </label>
           <div className="control">
             <input
               type="text"
+              id="email"
               name="email"
               value={email}
               className="input is-radiusless"
@@ -98,11 +99,12 @@ const ContactForm = ({ title }) => {
           </div>
         </div>
         <div className="field">
-          <label htmlFor="" className="label">
+          <label htmlFor="message" className="label">
             Message
           </label>
           <div className="control">
             <textarea
+              id="message"
               name="message"
               value={message}
               className="textarea is-radiusless"

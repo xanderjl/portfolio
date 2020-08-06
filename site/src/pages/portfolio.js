@@ -3,12 +3,14 @@ import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import { motion } from "framer-motion"
 
-import Layout from "../components/layout"
+import SEO from "../components/seo"
+
 const portfolio = ({ data }) => {
   const projects = data.projects.edges
 
   return (
     <>
+      <SEO title="Portfolio" />
       <section className="section">
         <div className="container">
           <div className="card-grid">

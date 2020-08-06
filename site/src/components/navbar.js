@@ -1,24 +1,20 @@
 import React, { useState } from "react"
 import { useLocation } from "@reach/router"
 import { Link } from "gatsby"
-import { motion, AnimateSharedLayout } from "framer-motion"
+import { motion } from "framer-motion"
 const Navbar = () => {
   const [menu, setMenu] = useState(false)
   const currentPath = useLocation().pathname
-
-  const highlightStyle = {
-    width: "calc(100% - 1.5rem)",
-    height: "calc(100% - 1.7rem)",
-    position: "absolute",
-    zIndex: -1,
-  }
 
   return (
     <div className="navbar">
       <div className="navbar-brand">
         <div
+          role="button"
+          tabIndex={0}
           className={`navbar-burger ${menu ? "is-active" : ""}`}
           onClick={() => setMenu(!menu)}
+          onKeyDown={() => {}}
         >
           <span></span>
           <span></span>
