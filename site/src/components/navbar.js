@@ -1,10 +1,17 @@
 import React, { useState } from "react"
 import { useLocation } from "@reach/router"
 import { Link } from "gatsby"
-
+import { motion, AnimateSharedLayout } from "framer-motion"
 const Navbar = () => {
   const [menu, setMenu] = useState(false)
   const currentPath = useLocation().pathname
+
+  const highlightStyle = {
+    width: "calc(100% - 1.5rem)",
+    height: "calc(100% - 1.7rem)",
+    position: "absolute",
+    zIndex: -1,
+  }
 
   return (
     <div className="navbar">
@@ -21,33 +28,59 @@ const Navbar = () => {
       <div className={`navbar-menu ${menu ? "is-active" : ""}`}>
         <div className="navbar-end">
           <Link to="/" className="navbar-item is-uppercase">
-            <span className={currentPath === "/" ? "highlight-white" : ""}>
-              Home
-            </span>
+            <motion.span>Home</motion.span>
+            {currentPath === "/" && (
+              <motion.div
+                layoutId="underline"
+                className="highlight-white"
+                style={highlightStyle}
+                transition={{ duration: 0.3 }}
+              />
+            )}
           </Link>
           <Link to="/portfolio" className="navbar-item is-uppercase">
-            <span
-              className={currentPath === "/portfolio" ? "highlight-white" : ""}
-            >
-              Work
-            </span>
+            <motion.span>Work</motion.span>
+            {currentPath === "/portfolio" && (
+              <motion.div
+                layoutId="underline"
+                className="highlight-white"
+                style={highlightStyle}
+                transition={{ duration: 0.3 }}
+              />
+            )}
           </Link>
           <Link to="/blog" className="navbar-item is-uppercase">
-            <span className={currentPath === "/blog" ? "highlight-white" : ""}>
-              Blog
-            </span>
+            <motion.span>Blog</motion.span>
+            {currentPath === "/blog" && (
+              <motion.div
+                layoutId="underline"
+                className="highlight-white"
+                style={highlightStyle}
+                transition={{ duration: 0.3 }}
+              />
+            )}
           </Link>
           <Link to="/uses" className="navbar-item is-uppercase">
-            <span className={currentPath === "/uses" ? "highlight-white" : ""}>
-              Uses
-            </span>
+            <motion.span>Uses</motion.span>
+            {currentPath === "/uses" && (
+              <motion.div
+                layoutId="underline"
+                className="highlight-white"
+                style={highlightStyle}
+                transition={{ duration: 0.3 }}
+              />
+            )}
           </Link>
           <Link to="/contact" className="navbar-item is-uppercase">
-            <span
-              className={currentPath === "/contact" ? "highlight-white" : ""}
-            >
-              Connect
-            </span>
+            <motion.span>Connect</motion.span>
+            {currentPath === "/contact" && (
+              <motion.div
+                layoutId="underline"
+                className="highlight-white"
+                style={highlightStyle}
+                transition={{ duration: 0.3 }}
+              />
+            )}
           </Link>
         </div>
       </div>

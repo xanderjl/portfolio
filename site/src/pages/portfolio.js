@@ -8,7 +8,7 @@ const portfolio = ({ data }) => {
   const projects = data.projects.edges
 
   return (
-    <Layout title="Portfolio">
+    <>
       <section className="section">
         <div className="container">
           <div className="card-grid">
@@ -103,7 +103,7 @@ const portfolio = ({ data }) => {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   )
 }
 

@@ -37,7 +37,7 @@ const textChild = {
 
 const blog = () => {
   return (
-    <Layout title="Blog">
+    <>
       <section className="section">
         <motion.div
           className="container"
@@ -63,7 +63,7 @@ const blog = () => {
           />
         </motion.div>
       </section>
-    </Layout>
+    </>
   )
 }
 

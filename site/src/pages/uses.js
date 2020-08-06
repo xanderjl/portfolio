@@ -51,7 +51,7 @@ const textChild = {
 const uses = ({ data }) => {
   const { title, metaDescription, body } = data.sanityUses
   return (
-    <Layout title={title} description={metaDescription}>
+    <>
       <motion.div initial="hidden" animate="visible" variants={sectionVariants}>
         {body.map(section => {
           const { _key, array, _rawBody } = section
@@ -118,7 +118,7 @@ const uses = ({ data }) => {
           )
         })}
       </motion.div>
-    </Layout>
+    </>
   )
 }
 
