@@ -5,10 +5,10 @@ const Layout = require("./src/components/layout").default
 
 exports.wrapRootElement = ({ element }) => {
   return (
-    <LocationProvider>
-      <AnimateSharedLayout>
+    <AnimateSharedLayout>
+      <LocationProvider>
         <Layout>{element}</Layout>
-      </AnimateSharedLayout>
-    </LocationProvider>
+      </LocationProvider>
+    </AnimateSharedLayout>
   )
 }

@@ -7,10 +7,10 @@ require("./src/styles/styles.sass")
 
 exports.wrapRootElement = ({ element }) => {
   return (
-    <LocationProvider>
-      <AnimateSharedLayout>
+    <AnimateSharedLayout>
+      <LocationProvider>
         <Layout>{element}</Layout>
-      </AnimateSharedLayout>
-    </LocationProvider>
+      </LocationProvider>
+    </AnimateSharedLayout>
   )
 }
