@@ -1,41 +1,21 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
-import SEO from "./seo"
 import Navbar from "./navbar"
 import Footer from "./footer"
+import { motion } from "framer-motion"
 
-const Layout = ({ title, description, children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-          description
-        }
-      }
-    }
-  `)
-
+const Layout = ({ children }) => {
   return (
-    <>
-      <SEO
-        title={title ? title : data.site.siteMetadata.title}
-        description={
-          description ? description : data.site.siteMetadata.description
-        }
-      />
+    <motion.div className="site">
       <div className="background" />
-      <div className="site">
-        <main className="site-content">
-          <div className="container" style={{ maxWidth: "960px" }}>
-            <Navbar />
-            {children}
-          </div>
-        </main>
-        <Footer />
-      </div>
-    </>
+      <main className="site-content">
+        <div className="container" style={{ maxWidth: "960px" }}>
+          <Navbar />
+          {children}
+        </div>
+      </main>
+      <Footer />
+    </motion.div>
   )
 }
 

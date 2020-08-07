@@ -23,7 +23,11 @@ const Navbar = () => {
       </div>
       <div className={`navbar-menu ${menu ? "is-active" : ""}`}>
         <div className="navbar-end">
-          <Link to="/" className="navbar-item is-uppercase">
+          <Link
+            to="/"
+            className="navbar-item is-uppercase"
+            onClick={() => setMenu(!menu)}
+          >
             <motion.span>Home</motion.span>
             {currentPath === "/" && (
               <motion.div
@@ -33,7 +37,11 @@ const Navbar = () => {
               />
             )}
           </Link>
-          <Link to="/portfolio" className="navbar-item is-uppercase">
+          <Link
+            to="/portfolio"
+            className="navbar-item is-uppercase"
+            onClick={() => setMenu(!menu)}
+          >
             <motion.span>Work</motion.span>
             {currentPath === "/portfolio" && (
               <motion.div
@@ -43,7 +51,11 @@ const Navbar = () => {
               />
             )}
           </Link>
-          <Link to="/blog" className="navbar-item is-uppercase">
+          <Link
+            to="/blog"
+            className="navbar-item is-uppercase"
+            onClick={() => setMenu(!menu)}
+          >
             <motion.span>Blog</motion.span>
             {currentPath === "/blog" && (
               <motion.div
@@ -53,7 +65,11 @@ const Navbar = () => {
               />
             )}
           </Link>
-          <Link to="/uses" className="navbar-item is-uppercase">
+          <Link
+            to="/uses"
+            className="navbar-item is-uppercase"
+            onClick={() => setMenu(!menu)}
+          >
             <motion.span>Uses</motion.span>
             {currentPath === "/uses" && (
               <motion.div
@@ -63,7 +79,11 @@ const Navbar = () => {
               />
             )}
           </Link>
-          <Link to="/contact" className="navbar-item is-uppercase">
+          <Link
+            to="/contact"
+            className="navbar-item is-uppercase"
+            onClick={() => setMenu(!menu)}
+          >
             <motion.span>Connect</motion.span>
             {currentPath === "/contact" && (
               <motion.div

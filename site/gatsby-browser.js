@@ -7,19 +7,10 @@ require("./src/styles/styles.sass")
 
 exports.wrapRootElement = ({ element }) => {
   return (
-    <AnimateSharedLayout>
-      <LocationProvider>
+    <LocationProvider>
+      <AnimateSharedLayout>
         <Layout>{element}</Layout>
-      </LocationProvider>
-    </AnimateSharedLayout>
+      </AnimateSharedLayout>
+    </LocationProvider>
   )
-}
-
-exports.shouldUpdateScroll = ({
-  routerProps: { location },
-  getSavedScrollPosition,
-}) => {
-  window.scrollTo(...[0, 0])
-
-  return false
 }
