@@ -12,6 +12,14 @@ export default {
       type: "string",
     },
     {
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: {
+        source: "title",
+      },
+    },
+    {
       name: "heroImage",
       title: "Hero Image",
       type: "image",
