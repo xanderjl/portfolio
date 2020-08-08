@@ -1,6 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 
+import Layout from "../components/layout"
 import SEO from "../components/seo"
 import svg from "../images/under_construction.svg"
 
@@ -37,7 +38,7 @@ const textChild = {
 
 const blog = () => {
   return (
-    <>
+    <Layout>
       <SEO title="Blog" />
       <section className="section">
         <motion.div
@@ -64,7 +65,7 @@ const blog = () => {
           />
         </motion.div>
       </section>
-    </>
+    </Layout>
   )
 }
 

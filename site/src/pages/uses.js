@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 import PortableText from "@sanity/block-content-to-react"
 import { motion } from "framer-motion"
 
+import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { BlockRenderer, LinkTag } from "../components/serializers"
 
@@ -51,7 +52,7 @@ const textChild = {
 const uses = ({ data }) => {
   const { title, metaDescription, body } = data.sanityUses
   return (
-    <>
+    <Layout>
       <SEO title={title} description={metaDescription} />
       <motion.div initial="hidden" animate="visible" variants={sectionVariants}>
         {body.map(section => {
@@ -119,7 +120,7 @@ const uses = ({ data }) => {
           )
         })}
       </motion.div>
-    </>
+    </Layout>
   )
 }
 

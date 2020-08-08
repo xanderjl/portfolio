@@ -1,12 +1,13 @@
 import React from "react"
 import { motion } from "framer-motion"
 
+import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ContactForm from "../components/contactForm"
 
 const IndexPage = () => {
   return (
-    <>
+    <Layout>
       <SEO title="Home" />
       <section className="section">
         <motion.h1
@@ -42,7 +43,7 @@ const IndexPage = () => {
           </motion.div>
         </div>
       </section>
-    </>
+    </Layout>
   )
 }
 

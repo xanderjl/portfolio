@@ -1,6 +1,7 @@
 import React, { createElement } from "react"
 import PortableText from "@sanity/block-content-to-react"
 import urlBuilder from "@sanity/image-url"
+import CodeBlock from "../components/codeBlock"
 
 export const BlockRenderer = props => {
   const { style = "normal" } = props.node
@@ -12,7 +13,6 @@ export const BlockRenderer = props => {
         { className: "title is-size-1  is-size-3-mobile" },
         props.children
       )
-      break
 
     case "h2":
       return createElement(
@@ -20,7 +20,6 @@ export const BlockRenderer = props => {
         { className: "title is-size-3 is-size-5-mobile" },
         props.children
       )
-      break
 
     case "h3":
       return createElement(
@@ -28,7 +27,6 @@ export const BlockRenderer = props => {
         { className: "title is-size-4 is-size-6-mobile" },
         props.children
       )
-      break
 
     default:
       return PortableText.defaultSerializers.types.block(props)
@@ -47,7 +45,8 @@ export const BlockImage = ({ node }) => {
 }
 
 export const Code = ({ node }) => {
-  return <pre>{JSON.stringify(node, null, 2)}</pre>
+  const { code } = node
+  return <CodeBlock>{code}</CodeBlock>
 }
 
 export const LinkTag = ({ mark, children }) => {

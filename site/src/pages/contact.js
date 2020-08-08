@@ -1,12 +1,13 @@
 import React from "react"
 import { motion } from "framer-motion"
 
+import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ContactForm from "../components/contactForm"
 
 const contact = () => {
   return (
-    <>
+    <Layout>
       <SEO title="Contact" />
       <motion.section
         className="section"
@@ -21,7 +22,7 @@ const contact = () => {
       >
         <ContactForm title="Reach Out." />
       </motion.section>
-    </>
+    </Layout>
   )
 }
 

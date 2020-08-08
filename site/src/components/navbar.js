@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { useLocation } from "@reach/router"
 import { Link } from "gatsby"
-import { motion } from "framer-motion"
 const Navbar = () => {
   const [menu, setMenu] = useState(false)
   const currentPath = useLocation().pathname
@@ -28,70 +27,45 @@ const Navbar = () => {
             className="navbar-item is-uppercase"
             onClick={() => setMenu(!menu)}
           >
-            <motion.span>Home</motion.span>
-            {currentPath === "/" && (
-              <motion.div
-                layoutId="underline"
-                className="highlight-white highlight-helper"
-                transition={{ duration: 0.3 }}
-              />
-            )}
+            <span className={currentPath === "/" && "highlight-white"}>
+              Home
+            </span>
           </Link>
           <Link
             to="/portfolio"
             className="navbar-item is-uppercase"
             onClick={() => setMenu(!menu)}
           >
-            <motion.span>Work</motion.span>
-            {currentPath === "/portfolio" && (
-              <motion.div
-                layoutId="underline"
-                className="highlight-white highlight-helper"
-                transition={{ duration: 0.3 }}
-              />
-            )}
+            <span className={currentPath === "/portfolio" && "highlight-white"}>
+              Work
+            </span>
           </Link>
           <Link
             to="/blog"
             className="navbar-item is-uppercase"
             onClick={() => setMenu(!menu)}
           >
-            <motion.span>Blog</motion.span>
-            {currentPath === "/blog" && (
-              <motion.div
-                layoutId="underline"
-                className="highlight-white highlight-helper"
-                transition={{ duration: 0.3 }}
-              />
-            )}
+            <span className={currentPath === "/blog" && "highlight-white"}>
+              Blog
+            </span>
           </Link>
           <Link
             to="/uses"
             className="navbar-item is-uppercase"
             onClick={() => setMenu(!menu)}
           >
-            <motion.span>Uses</motion.span>
-            {currentPath === "/uses" && (
-              <motion.div
-                layoutId="underline"
-                className="highlight-white highlight-helper"
-                transition={{ duration: 0.3 }}
-              />
-            )}
+            <span className={currentPath === "/uses" && "highlight-white"}>
+              Uses
+            </span>
           </Link>
           <Link
             to="/contact"
             className="navbar-item is-uppercase"
             onClick={() => setMenu(!menu)}
           >
-            <motion.span>Connect</motion.span>
-            {currentPath === "/contact" && (
-              <motion.div
-                layoutId="underline"
-                className="highlight-white highlight-helper"
-                transition={{ duration: 0.3 }}
-              />
-            )}
+            <span className={currentPath === "/contact" && "highlight-white"}>
+              Connect
+            </span>
           </Link>
         </div>
       </div>
