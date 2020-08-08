@@ -8,6 +8,7 @@ import uses from "./uses";
 import blog from "./blog/blog";
 import post from "./blog/post";
 import blockContent from "./blockContent";
+import blockImage from "./blockImage";
 import blockTech from "./blockTech";
 import technologies from "./technologies";
 
@@ -21,6 +22,7 @@ export default createSchema({
     projects,
     uses,
     blockContent,
+    blockImage,
     blockTech,
     technologies,
     blog,
