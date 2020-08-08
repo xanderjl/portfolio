@@ -20,14 +20,6 @@ export default {
       },
     },
     {
-      name: "heroImage",
-      title: "Hero Image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
-    },
-    {
       name: "publishDate",
       title: "Publish Date",
       type: "date",
