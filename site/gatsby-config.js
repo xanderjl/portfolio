@@ -54,7 +54,7 @@ const queries = [
 module.exports = {
   siteMetadata: {
     title: `Alex Low`,
-    description: `Alex Low is a freelance front end web developer focusing on the Jamstack, based in London, ON.`,
+    description: `Alex Low is a front end web developer focusing on the Jamstack, based in London, ON.`,
     author: `Alex Low`,
   },
   plugins: [
