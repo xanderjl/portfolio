@@ -13,12 +13,12 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: site/public
-          key: cache-public-${{hashfiles("public/**")}}
+          key: cache-public-${{hashfiles('site/public/**')}}
 
       - uses: actions/cache@v2
         with:
           path: site/.cache
-          key: cache-cache-${{hashfiles(".cache/**")}}
+          key: cache-cache-${{hashfiles('site/.cache/**')}}
 
       - run: yarn install
 
