@@ -78,8 +78,8 @@ module.exports = {
     {
       resolve: `gatsby-source-sanity`,
       options: {
-        projectId: process.env.SANITY_ID,
-        dataset: process.env.SANITY_DATASET,
+        projectId: process.env.GATSBY_SANITY_ID,
+        dataset: process.env.GATSBY_SANITY_DATASET,
       },
     },
     `gatsby-transformer-sharp`,

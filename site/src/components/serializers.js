@@ -37,8 +37,8 @@ export const BlockImage = ({ node }) => {
   const { image, alt } = node
   const urlFor = src =>
     urlBuilder({
-      projectId: process.env.SANITY_ID,
-      dataset: process.env.SANITY_DATASET,
+      projectId: process.env.GATSBY_SANITY_ID,
+      dataset: process.env.GATSBY_SANITY_DATASET,
     }).image(src)
 
   return <img src={urlFor(image)} alt={alt} />
