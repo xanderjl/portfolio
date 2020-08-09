@@ -2,6 +2,55 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
+const algoliaQuery = `{
+  allSanityPost {
+    edges {
+      node {
+        id
+        slug {
+          current
+        }
+        title
+        publishDate
+        _rawBody
+      }
+    }
+  }
+}`
+
+const queries = [
+  {
+    query: algoliaQuery,
+    transformer: ({ data }) => {
+      function toPlainText(blocks = []) {
+        return (
+          blocks
+            // loop through each block
+            .map(block => {
+              if (block._type !== "block" || !block.children) {
+                return ""
+              }
+              return block.children.map(child => child.text).join("")
+            })
+            .join("\n\n")
+        )
+      }
+
+      return data.allSanityPost.edges.map(({ node: post }) => {
+        const { id, slug, title, _rawBody } = post
+        const body = toPlainText(_rawBody)
+        const chunk = {
+          id,
+          slug,
+          title,
+          body,
+        }
+        return chunk
+      })
+    },
+  },
+]
+
 module.exports = {
   siteMetadata: {
     title: `Alex Low`,
@@ -15,6 +64,15 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-algolia`,
+      options: {
+        appId: process.env.ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_API_KEY,
+        indexName: process.env.ALGOLIA_INDEX_NAME,
+        queries
       },
     },
     {
