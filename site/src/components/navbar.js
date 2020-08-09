@@ -35,7 +35,7 @@ const Navbar = () => {
             </span>
           </Link>
           <Link to="/blog" className="navbar-item is-uppercase">
-            <span className={currentPath === "/blog" ? "highlight-white" : ""}>
+            <span className={currentPath.includes("/blog") ? "highlight-white" : ""}>
               Blog
             </span>
           </Link>
