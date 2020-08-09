@@ -1,0 +1,26 @@
+.ais-SearchBox
+  display: flex
+  justify-content: flex-start
+
+  &-input
+    color: $text !important
+    background: transparent !important
+    box-shadow: none !important
+    border-radius: 0 !important
+    border: none !important
+    border-bottom: 1px solid $text !important
+
+    &:focus
+      outline: none
+
+  &-submit,
+  &-reset
+    svg
+      margin: 0 0.25rem
+      fill: $text
+      width: 1rem
+      height: auto
+
+.custom-search
+  @media screen and ( min-width: $tablet )
+    width: 45%
