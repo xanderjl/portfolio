@@ -31,8 +31,8 @@ jobs:
           cmd: install
 
       - uses: borales/actions-yarn@v2.0.0
-          with:
-            cmd: workspace site build
+        with:
+          cmd: workspace site build
 
       - name: deploy to Netlify
         env:
