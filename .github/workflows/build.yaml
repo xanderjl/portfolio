@@ -1,0 +1,31 @@
+name: cache build files
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/cache@v2
+        with:
+          path: site/public
+          key: cache-public-${{hashfiles("site/public/**")}}
+
+      - uses: actions/cache@v2
+        with:
+          path: site/.cache
+          key: cache-cache-${{hashfiles("site/.cache/**")}}
+
+      - run: yarn install
+
+      - run: yarn workspace site build
+
+      - name: deploy to Netlify
+        env:
+          NETLIFY_SITE_ID: ${{secrets.NETLIFY_SITE_ID}}
+          NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
+        run: npx netlify-cli deploy --dir=site/public --prod
