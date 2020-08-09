@@ -4,13 +4,21 @@ import { motion } from "framer-motion"
 import PortableText from "@sanity/block-content-to-react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { BlockRenderer, BlockImage, Code } from "../components/serializers"
+import {
+  BlockRenderer,
+  BlockImage,
+  Code,
+  toPlainText,
+} from "../components/serializers"
 
 const BlogPost = ({ data }) => {
   const { title, publishDate, _rawBody } = data.sanityPost
   return (
     <Layout>
-      <SEO title={`${title} - Blog`} />
+      <SEO
+        title={`${title} - Blog`}
+        description={toPlainText(_rawBody).slice(0, 156) + "..."}
+      />
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -20,8 +28,8 @@ const BlogPost = ({ data }) => {
         style={{ maxWidth: "75ch", margin: "0 auto" }}
       >
         <section className="section pb-0">
-          <h1 className="title is-size-1 is-size-3-mobile mb-0">{title}</h1>
-          <span className="subtitle is-size-5 is-size-6-mobile my-0">
+          <h1 className="title is-size-2 is-size-3-mobile mb-1">{title}</h1>
+          <span className="subtitle is-size-5 is-size-6-mobile my-0 has-text-grey">
             {publishDate}
           </span>
         </section>
