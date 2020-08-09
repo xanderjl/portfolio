@@ -1,10 +1,10 @@
 name: cache build files
-env: 
-  GATSBY_SANITY_DATASET: ${{secrets.GATSBY_SANITY_DATASET}}
-  GATSBY_SANITY_ID: ${{secrets.GATSBY_SANITY_ID}}
-  ALGOLIA_INDEX_NAME: ${{secrets.ALGOLIA_INDEX_NAME}}
-  ALGOLIA_APP_ID: ${{secrets.ALGOLIA_APP_ID}}
-  ALGOLIA_API_KEY: ${{secrets.ALGOLIA_API_KEY}} 
+env:
+  GATSBY_SANITY_DATASET: ${{ secrets.GATSBY_SANITY_DATASET }}
+  GATSBY_SANITY_ID: ${{ secrets.GATSBY_SANITY_ID }}
+  ALGOLIA_INDEX_NAME: ${{ secrets.ALGOLIA_INDEX_NAME }}
+  ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
+  ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
 on:
   push:
     branches:
@@ -18,13 +18,18 @@ jobs:
 
       - uses: actions/cache@v2
         with:
+          path: ./
+          key: cache-yarnlock-${{ hashFiles('./yarn.lock') }}
+
+      - uses: actions/cache@v2
+        with:
           path: site/public
-          key: cache-public-${{hashfiles('site/public/**')}}
+          key: cache-public-${{ hashFiles('site/public/**') }}
 
       - uses: actions/cache@v2
         with:
           path: site/.cache
-          key: cache-cache-${{hashfiles('site/.cache/**')}}
+          key: cache-cache-${{ hashFiles('site/.cache/**') }}
 
       - uses: borales/actions-yarn@v2.0.0
         with:
@@ -36,6 +41,6 @@ jobs:
 
       - name: deploy to Netlify
         env:
-          NETLIFY_SITE_ID: ${{secrets.NETLIFY_SITE_ID}}
-          NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         run: npx netlify-cli deploy --dir=site/public --prod
