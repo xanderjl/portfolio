@@ -20,9 +20,13 @@ jobs:
           path: site/.cache
           key: cache-cache-${{hashfiles('site/.cache/**')}}
 
-      - run: yarn install
+      - uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: install
 
-      - run: yarn workspace site build
+      - uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: workspace site build
 
       - name: deploy to Netlify
         env:
