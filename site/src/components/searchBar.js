@@ -27,6 +27,7 @@ const listVariants = {
     opacity: 1,
     transition: {
       duration: 0.3,
+      delay: 0.3,
       when: "beforeChildren",
       staggerChildren: 0.7,
     },
@@ -35,7 +36,7 @@ const listVariants = {
 
 const itemVariants = {
   hidden: {
-    x: -20,
+    x: -40,
     opacity: 0,
   },
   visible: i => ({
@@ -73,10 +74,14 @@ const SearchBar = () => {
   return (
     <div className="custom-search">
       <InstantSearch searchClient={searchClient} indexName="Blog">
-        <SearchBox />
-        <motion.div initial="hidden" animate="visible" variants={listVariants}>
-          <CustomHits hitComponent={SearchPreview} />
+        <motion.div
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <SearchBox />
         </motion.div>
+        <CustomHits hitComponent={SearchPreview} />
       </InstantSearch>
     </div>
   )
