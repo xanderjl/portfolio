@@ -1,4 +1,10 @@
 name: cache build files
+env: 
+  GATSBY_SANITY_DATASET: ${{secrets.GATSBY_SANITY_DATASET}}
+  GATSBY_SANITY_ID: ${{secrets.GATSBY_SANITY_ID}}
+  ALGOLIA_INDEX_NAME: ${{secrets.ALGOLIA_INDEX_NAME}}
+  ALGOLIA_APP_ID: ${{secrets.ALGOLIA_APP_ID}}
+  ALGOLIA_API_KEY: ${{secrets.ALGOLIA_APP_ID}} 
 on:
   push:
     branches:
@@ -24,13 +30,7 @@ jobs:
         with:
           cmd: install
 
-      - env: 
-        GATSBY_SANITY_DATASET: ${{secrets.GATSBY_SANITY_DATASET}}
-        GATSBY_SANITY_ID: ${{secrets.GATSBY_SANITY_ID}}
-        ALGOLIA_INDEX_NAME: ${{secrets.ALGOLIA_INDEX_NAME}}
-        ALGOLIA_APP_ID: ${{secrets.ALGOLIA_APP_ID}}
-        ALGOLIA_API_KEY: ${{secrets.ALGOLIA_APP_ID}} 
-        uses: borales/actions-yarn@v2.0.0
+      - uses: borales/actions-yarn@v2.0.0
           with:
             cmd: workspace site build
 
