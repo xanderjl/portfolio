@@ -1,11 +1,13 @@
 import React from "react"
 import { Link } from "gatsby"
+import { motion } from "framer-motion"
 import algoliasearch from "algoliasearch/lite"
 import {
   InstantSearch,
-  Hits,
+  connectHits,
   SearchBox,
   Highlight,
+  connectHighlight,
 } from "react-instantsearch-dom"
 import "instantsearch.css/themes/reset.css"
 
@@ -14,9 +16,41 @@ const searchClient = algoliasearch(
   "3e3d1e667c2daf1293dba20bbc8e3e8d"
 )
 
+const listVariants = {
+  hidden: {
+    opacity: 0,
+    transition: {
+      when: "afterChildren",
+    },
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.3,
+      when: "beforeChildren",
+      staggerChildren: 0.7,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: {
+    x: -20,
+    opacity: 0,
+  },
+  visible: i => ({
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      delay: i * 0.2,
+    },
+  }),
+}
+
 const SearchPreview = ({ hit }) => {
-  const { id, slug, title, body } = hit
-  console.log(title, body)
+  const { slug } = hit
+
   return (
     <Link to={`/blog/${slug.current}`}>
       <h3 className="subtitle mt-4 mb-2 is-size-5">
@@ -40,10 +74,30 @@ const SearchBar = () => {
     <div className="custom-search">
       <InstantSearch searchClient={searchClient} indexName="Blog">
         <SearchBox />
-        <Hits hitComponent={SearchPreview} />
+        <motion.div initial="hidden" animate="visible" variants={listVariants}>
+          <CustomHits hitComponent={SearchPreview} />
+        </motion.div>
       </InstantSearch>
     </div>
   )
 }
+
+const Hits = ({ hits }) => {
+  return (
+    <motion.ul initial="hidden" animate="visible" variants={listVariants}>
+      {hits.map((hit, i) => (
+        <motion.li key={i} custom={i} variants={itemVariants}>
+          <SearchPreview hit={hit} />
+        </motion.li>
+      ))}
+    </motion.ul>
+  )
+}
+
+const CustomHits = connectHits(Hits)
+
+// const Highlight = () => {}
+
+// const customHighlight = connectHighlight(Highlight)
 
 export default SearchBar
