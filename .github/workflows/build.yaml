@@ -19,7 +19,9 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - uses: actions/cache@v2
         with:
@@ -40,14 +42,6 @@ jobs:
 
       - name: Run site build
         run: yarn workspace site build
-
-      # - uses: borales/actions-yarn@v2.0.0
-      #   with:
-      #     cmd: install
-
-      # - uses: borales/actions-yarn@v2.0.0
-      #   with:
-      #     cmd: workspace site build
 
       - name: deploy to Netlify
         env:
