@@ -20,16 +20,22 @@ jobs:
         with:
           path: ./
           key: cache-yarnlock-${{ hashFiles('./yarn.lock') }}
+          restore-keys: |
+            cache-yarnlock-
 
       - uses: actions/cache@v2
         with:
           path: site/public
           key: cache-public-${{ hashFiles('site/public/**') }}
+          restore-keys: |
+            cache-public-
 
       - uses: actions/cache@v2
         with:
           path: site/.cache
           key: cache-cache-${{ hashFiles('site/.cache/**') }}
+          restore-keys: |
+            cache-cache-
 
       - uses: borales/actions-yarn@v2.0.0
         with:
