@@ -35,13 +35,19 @@ jobs:
           restore-keys: |
             cache-cache-
 
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: install
+      - name: Install packages
+        run: yarn install
 
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: workspace site build
+      - name: Run site build
+        run: yarn workspace site build
+
+      # - uses: borales/actions-yarn@v2.0.0
+      #   with:
+      #     cmd: install
+
+      # - uses: borales/actions-yarn@v2.0.0
+      #   with:
+      #     cmd: workspace site build
 
       - name: deploy to Netlify
         env:
