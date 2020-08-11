@@ -3,12 +3,20 @@ import { FaPencilAlt } from "react-icons/fa";
 import { GrTechnology } from "react-icons/gr";
 
 const hiddenDocTypes = (listItem) =>
-  !["blog", "uses"].includes(listItem.getId());
+  !["settings", "blog", "uses"].includes(listItem.getId());
 
 export default () =>
   S.list()
     .title("Content")
     .items([
+      S.listItem()
+        .title("Settings")
+        .child(
+          S.editor()
+            .id("settings")
+            .schemaType("settings")
+            .documentId("settings")
+        ),
       S.listItem()
         .title("Blog")
         .icon(FaPencilAlt)
