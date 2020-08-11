@@ -1,7 +1,14 @@
 const fetch = require("node-fetch")
 require("dotenv").config()
 
-exports.handler = async () => {
+exports.handler = async (event, context) => {
+  console.log(
+    `{\ncontext: ${JSON.stringify(context, null, 2)},\nevent: ${JSON.stringify(
+      event,
+      null,
+      2
+    )}\n}`
+  )
   try {
     await fetch("https://api.github.com/repos/XanderJL/portfolio/dispatches", {
       method: "POST",
