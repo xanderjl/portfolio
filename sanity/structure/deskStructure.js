@@ -1,4 +1,5 @@
 import S from "@sanity/desk-tool/structure-builder";
+import { AiOutlineSetting } from "react-icons/ai";
 import { FaPencilAlt } from "react-icons/fa";
 import { GrTechnology } from "react-icons/gr";
 
@@ -8,6 +9,7 @@ const hiddenDocTypes = (listItem) =>
 export default () =>
   S.list()
     .title("Content")
+    .icon(AiOutlineSetting)
     .items([
       S.listItem()
         .title("Settings")
