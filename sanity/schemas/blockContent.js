@@ -7,7 +7,7 @@ export default {
     { type: "blockImage" },
     {
       type: "code",
-      options: { language: "js", theme: "terminal", withFilename: true },
+      options: { theme: "terminal", withFilename: true },
     },
   ],
 };
