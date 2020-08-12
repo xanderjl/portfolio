@@ -9,10 +9,10 @@ const hiddenDocTypes = (listItem) =>
 export default () =>
   S.list()
     .title("Content")
-    .icon(AiOutlineSetting)
     .items([
       S.listItem()
         .title("Settings")
+        .icon(AiOutlineSetting)
         .child(
           S.editor()
             .id("settings")
