@@ -2,6 +2,7 @@ import React from "react"
 import { graphql } from "gatsby"
 import { motion } from "framer-motion"
 import PortableText from "@sanity/block-content-to-react"
+import getShareImage from "@jlengstorf/get-share-image"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import {
@@ -13,6 +14,14 @@ import {
 
 const BlogPost = ({ data }) => {
   const { title, publishDate, _rawBody } = data.sanityPost
+  const shareCard = getShareImage({
+    title,
+    cloudName: `alexlow-dev`,
+    imagePublicID: `share-card`,
+    titleFont: `Poppins`,
+    textColor: `0c0e0f`,
+  })
+
   return (
     <Layout>
       <SEO
