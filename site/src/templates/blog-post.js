@@ -17,9 +17,11 @@ const BlogPost = ({ data }) => {
   const shareCard = getShareImage({
     title,
     cloudName: `alexlow-dev`,
-    imagePublicID: `share-card`,
+    imagePublicID: `share-card.jpg`,
     titleFont: `Poppins`,
     textColor: `0c0e0f`,
+    titleBottomOffset: 446,
+    titleFontSize: 80,
   })
 
   return (
@@ -27,6 +29,7 @@ const BlogPost = ({ data }) => {
       <SEO
         title={`${title} - Blog`}
         description={toPlainText(_rawBody).slice(0, 156) + "..."}
+        shareCard={shareCard}
       />
       <motion.div
         initial={{ y: 20, opacity: 0 }}
