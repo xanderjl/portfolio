@@ -50,7 +50,7 @@ function SEO({ description, lang, meta, title, shareCard }) {
         },
         {
           name: `twitter:card`,
-          content: `summary`,
+          content: `summary_large_image`,
         },
         {
           name: `twitter:creator`,
@@ -63,10 +63,6 @@ function SEO({ description, lang, meta, title, shareCard }) {
         {
           name: `twitter:description`,
           content: metaDescription,
-        },
-        {
-          name: `twitter:summary_large_image`,
-          content: `summary`,
         },
         {
           name: `twitter:image`,
