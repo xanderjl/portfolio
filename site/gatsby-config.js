@@ -83,9 +83,15 @@ module.exports = {
         dataset: process.env.GATSBY_SANITY_DATASET,
       },
     },
+    {
+      resolve: `gatsby-plugin-chakra-ui`,
+      options: {
+        isResettingCSS: true,
+        isUsingColorMode: false,
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-plugin-sass`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

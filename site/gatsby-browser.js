@@ -1,1 +1,1 @@
-require("./src/styles/styles.sass")
+import "./src/styles/fonts.css"
