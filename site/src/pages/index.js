@@ -1,6 +1,6 @@
 import React from "react"
+import { Heading } from "@chakra-ui/core"
 import { motion } from "framer-motion"
-
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ContactForm from "../components/contactForm"
@@ -10,14 +10,16 @@ const IndexPage = () => {
     <Layout>
       <SEO title="Home" />
       <section className="section">
-        <motion.h1
+        <motion.div
           className="title is-playfair is-italic is-size-1-desktop "
           initial={{ x: -30, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.4, type: "tween" }}
         >
-          Alex Low
-        </motion.h1>
+          <Heading as="h1" fontSize="5xl" fontStyle="italic" fontWeight="400">
+            Alex Low
+          </Heading>
+        </motion.div>
         <motion.p
           className="subtitle is-size-5 is-size-6-mobile"
           initial={{ x: -30, opacity: 0 }}

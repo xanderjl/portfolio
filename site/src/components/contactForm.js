@@ -1,5 +1,16 @@
-import React, { useState, useReducer } from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
+import {
+  Box,
+  Text,
+  Heading,
+  Button,
+  Input,
+  Textarea,
+  FormControl,
+  FormLabel,
+} from "@chakra-ui/core"
+import { useForm } from "react-hook-form"
 
 import Modal from "../components/modal"
 
@@ -9,118 +20,95 @@ const encode = data => {
     .join("&")
 }
 
-const initState = {
-  name: "",
-  email: "",
-  message: "",
-}
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "setField":
-      return {
-        ...state,
-        [action.payload.field]: action.payload.val,
-      }
-    case "reset":
-      return initState
-    default:
-      throw new Error()
-  }
-}
-
 const ContactForm = ({ title }) => {
-  const [state, dispatch] = useReducer(reducer, initState)
+  const { register, handleSubmit, reset, errors } = useForm()
   const [modal, setModal] = useState(false)
-  const { name, email, message } = state
-
-  const handleChange = e => {
-    dispatch({
-      type: "setField",
-      payload: { field: e.target.name, val: e.target.value },
-    })
-  }
-  const handleSubmit = e => {
+  const onSubmit = data => {
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({ "form-name": "contact", name, email, message }),
+      body: encode({ "form-name": "contact", ...data }),
     })
-      .then(() => setModal(!modal))
+      .then(() => {
+        setModal(!modal)
+        reset()
+      })
       .catch(error => alert(error))
-
-    e.preventDefault()
-    dispatch({ type: "reset" })
   }
 
   return (
     <>
-      <form
-        name="contact"
-        className="contact-form has-background-white has-shadow"
-        method="POST"
-        onSubmit={handleSubmit}
-        data-netlify="true"
-      >
-        <input type="hidden" name="form-name" value="contact" />
-        {title ? (
-          <h2 className="title is-size-3 is-size-4-mobile">{title}</h2>
-        ) : null}
-        <div className="field">
-          <label htmlFor="name" className="label">
-            Name
-          </label>
-          <div className="control">
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={name}
-              className="input is-radiusless"
-              placeholder="Jane Doe"
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className="field">
-          <label htmlFor="email" className="label">
-            Email
-          </label>
-          <div className="control">
-            <input
-              type="text"
-              id="email"
-              name="email"
-              value={email}
-              className="input is-radiusless"
-              placeholder="jane.d@gmail.com"
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className="field">
-          <label htmlFor="message" className="label">
-            Message
-          </label>
-          <div className="control">
-            <textarea
-              id="message"
-              name="message"
-              value={message}
-              className="textarea is-radiusless"
-              placeholder="Hello"
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <button type="submit" className="button is-primary is-radiusless">
-          Submit
-        </button>
-      </form>
+      <Box bg="white" p="3rem 1.5rem">
+        <form
+          name="contact"
+          method="POST"
+          onSubmit={handleSubmit(onSubmit)}
+          data-netlify="true"
+        >
+          <Input
+            type="hidden"
+            name="form-name"
+            value="contact"
+            ref={register({ required: true })}
+          />
+          {title ? (
+            <Heading as="h2" fontFamily="body">
+              {title}
+            </Heading>
+          ) : null}
+          <FormControl>
+            <FormLabel htmlFor="name" className="label">
+              Name
+            </FormLabel>
+            <div className="control">
+              <Input
+                name="name"
+                placeholder="Jane Doe"
+                ref={register({ required: true })}
+              />
+            </div>
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="email" className="label">
+              Email
+            </FormLabel>
+            <div className="control">
+              <Input
+                name="email"
+                placeholder="jane.d@gmail.com"
+                ref={register({ required: true })}
+              />
+            </div>
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="message" className="label">
+              Message
+            </FormLabel>
+            <div className="control">
+              <Textarea
+                name="message"
+                rows={10}
+                placeholder="Hello"
+                ref={register({ required: true })}
+              />
+            </div>
+          </FormControl>
+          <Button
+            type="submit"
+            colorScheme="cyan"
+            color="white"
+            borderRadius={0}
+          >
+            Submit
+          </Button>
+        </form>
+      </Box>
       {modal ? (
         <Modal>
-          <h1 className="title is-size-5-mobile">Thanks For Reaching Out!</h1>
-          <p>I'll get back to you shortly :)</p>
+          <Heading as="h2" fontSize="3xl" fontFamily="body">
+            Thanks For Reaching Out!
+          </Heading>
+          <Text>I'll get back to you shortly :)</Text>
         </Modal>
       ) : null}
     </>

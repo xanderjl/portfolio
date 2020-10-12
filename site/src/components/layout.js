@@ -1,28 +1,23 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { Box, Flex, Container } from "@chakra-ui/core"
 import Navbar from "./navbar"
 import Footer from "./footer"
-import { motion } from "framer-motion"
 
 const Layout = ({ children }) => {
   return (
-    <motion.div className="site">
-      <div className="background" />
-      <main className="site-content">
-        <div className="container" style={{ maxWidth: "960px" }}>
-          <Navbar />
-          {children}
-        </div>
-      </main>
+    <Flex direction="column" minH="100vh" overflowX="hidden">
+      <Box flex={1}>
+        <Navbar />
+        <Container maxW="xl">{children}</Container>
+      </Box>
       <Footer />
-    </motion.div>
+    </Flex>
   )
 }
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-  title: PropTypes.string,
-  description: PropTypes.string,
 }
 
 export default Layout

@@ -1,59 +1,99 @@
 import React, { useState } from "react"
-import { useLocation } from "@reach/router"
 import { Link } from "gatsby"
+import { useLocation } from "@reach/router"
+import { Box, Flex, Link as ChakraLink, Container } from "@chakra-ui/core"
+import { LogoIcon } from "./icons"
+import { Squash as Hamburger } from "hamburger-react"
 const Navbar = () => {
   const [menu, setMenu] = useState(false)
-  const currentPath = useLocation().pathname
 
   return (
-    <div className="navbar">
-      <div className="navbar-brand">
-        <div
-          role="button"
-          tabIndex={0}
-          className={`navbar-burger ${menu ? "is-active" : ""}`}
-          onClick={() => setMenu(!menu)}
-          onKeyDown={() => {}}
+    <Flex as="nav" bg="transparent" color="gray.700">
+      <Container
+        d="flex"
+        flexDirection={{ base: "column", sm: "column", md: "row" }}
+        p="0.5rem 1rem"
+        alignItems="center"
+        justifyContent="space-between"
+        wrap="wrap"
+        maxW="xl"
+      >
+        <Box
+          d="flex"
+          justifyContent="space-between"
+          w={{ base: "100%", sm: "100%", md: "max-content" }}
         >
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-      <div className={`navbar-menu ${menu ? "is-active" : ""}`}>
-        <div className="navbar-end">
-          <Link to="/" className="navbar-item is-uppercase">
-            <span className={currentPath === "/" ? "highlight-white" : ""}>
+          <LogoIcon boxSize="3rem" />
+          <Box display={{ base: "block", md: "none" }}>
+            <Hamburger toggled={menu} toggle={setMenu} />
+          </Box>
+        </Box>
+        <Box
+          display={{
+            base: menu ? "flex" : "none",
+            sm: menu ? "flex" : "none",
+            md: "flex",
+          }}
+          flexDirection={{ base: "column", sm: "column", md: "row" }}
+          w={{ base: "full", sm: "full", md: "auto" }}
+          pt={{ base: "1rem", sm: "1rem", md: 0 }}
+          alignItems={{ base: "flex-start", sm: "flex-start", md: "center" }}
+          justifyContent={{ md: "flex-end" }}
+          flexGrow={1}
+        >
+          <ChakraLink
+            as="span"
+            w={{ base: "100%", sm: "100%", md: "max-content" }}
+            pl={{ base: 0, sm: 0, md: "1.5rem" }}
+            pb={{ base: "1rem", sm: "1rem", md: 0 }}
+          >
+            <Link style={{ display: "block" }} to="/">
               Home
-            </span>
-          </Link>
-          <Link to="/portfolio" className="navbar-item is-uppercase">
-            <span
-              className={currentPath === "/portfolio" ? "highlight-white" : ""}
-            >
+            </Link>
+          </ChakraLink>
+          <ChakraLink
+            as="span"
+            w={{ base: "100%", sm: "100%", md: "max-content" }}
+            pl={{ base: 0, sm: 0, md: "1.5rem" }}
+            pb={{ base: "1rem", sm: "1rem", md: 0 }}
+          >
+            <Link style={{ display: "block" }} to="/portfolio">
               Work
-            </span>
-          </Link>
-          <Link to="/blog" className="navbar-item is-uppercase">
-            <span className={currentPath.includes("/blog") ? "highlight-white" : ""}>
-              Blog
-            </span>
-          </Link>
-          <Link to="/uses" className="navbar-item is-uppercase">
-            <span className={currentPath === "/uses" ? "highlight-white" : ""}>
+            </Link>
+          </ChakraLink>
+          <ChakraLink
+            as="span"
+            w={{ base: "100%", sm: "100%", md: "max-content" }}
+            pl={{ base: 0, sm: 0, md: "1.5rem" }}
+            pb={{ base: "1rem", sm: "1rem", md: 0 }}
+          >
+            <Link style={{ display: "block" }} to="/garden">
+              Garden
+            </Link>
+          </ChakraLink>
+          <ChakraLink
+            as="span"
+            w={{ base: "100%", sm: "100%", md: "max-content" }}
+            pl={{ base: 0, sm: 0, md: "1.5rem" }}
+            pb={{ base: "1rem", sm: "1rem", md: 0 }}
+          >
+            <Link style={{ display: "block" }} to="/uses">
               Uses
-            </span>
-          </Link>
-          <Link to="/contact" className="navbar-item is-uppercase">
-            <span
-              className={currentPath === "/contact" ? "highlight-white" : ""}
-            >
+            </Link>
+          </ChakraLink>
+          <ChakraLink
+            as="span"
+            w={{ base: "100%", sm: "100%", md: "max-content" }}
+            pl={{ base: 0, sm: 0, md: "1.5rem" }}
+            pb={{ base: "1rem", sm: "1rem", md: 0 }}
+          >
+            <Link style={{ display: "block" }} to="/contact">
               Connect
-            </span>
-          </Link>
-        </div>
-      </div>
-    </div>
+            </Link>
+          </ChakraLink>
+        </Box>
+      </Container>
+    </Flex>
   )
 }
 

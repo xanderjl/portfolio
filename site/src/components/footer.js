@@ -1,25 +1,23 @@
 import React from "react"
+import { Link as ChakraLink, Container, Flex } from "@chakra-ui/core"
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="container" style={{ maxWidth: "960px" }}>
-        <div className="content has-text-centered">
-          <div className="level">
-            <div className="leve-left">
-              <a
-                className="is-relative"
-                href="mailto:me@alexlow.dev"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                me@alexlow.dev
-              </a>
-            </div>
-          </div>
+      <Container p="1.5rem 1rem" centerContent>
+        <Flex direction="column">
+          <ChakraLink
+            className="is-relative"
+            href="mailto:me@alexlow.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            pb="1rem"
+          >
+            me@alexlow.dev
+          </ChakraLink>
           <span>&copy; Alex Low 2020</span>
-        </div>
-      </div>
+        </Flex>
+      </Container>
     </footer>
   )
 }
