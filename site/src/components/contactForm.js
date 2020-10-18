@@ -42,6 +42,7 @@ const ContactForm = ({ title }) => {
 
   return (
     <Box
+      minW={[0, 0, "45ch"]}
       maxW="45ch"
       p="3rem 1.5rem"
       bg="white"

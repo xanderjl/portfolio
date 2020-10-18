@@ -1,4 +1,5 @@
 import React from "react"
+import { Container } from "@chakra-ui/core"
 import { motion } from "framer-motion"
 
 import Layout from "../components/layout"
@@ -9,8 +10,7 @@ const contact = () => {
   return (
     <Layout>
       <SEO title="Contact" />
-      <motion.section
-        className="section"
+      <motion.div
         initial={{ y: 60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{
@@ -20,8 +20,10 @@ const contact = () => {
           stiffness: 100,
         }}
       >
-        <ContactForm title="Reach Out." />
-      </motion.section>
+        <Container p="3rem 1.25rem" centerContent>
+          <ContactForm title="Reach Out." />
+        </Container>
+      </motion.div>
     </Layout>
   )
 }
