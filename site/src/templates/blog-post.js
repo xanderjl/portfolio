@@ -35,8 +35,13 @@ const BlogPost = ({ data }) => {
         shareCard={shareCard}
       />
       <MotionBox
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
         maxW="75ch"
         m="0 auto"
+        bg="white"
+        boxShadow="0 0.5rem 1em -0.125em rgba(0,0,0,0.1)"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{
