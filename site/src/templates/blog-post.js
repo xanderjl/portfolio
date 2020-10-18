@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
+import { Box, Heading, Text, Container } from "@chakra-ui/core"
 import { motion } from "framer-motion"
 import PortableText from "@sanity/block-content-to-react"
 import getShareImage from "@jlengstorf/get-share-image"
@@ -11,6 +12,8 @@ import {
   Code,
   toPlainText,
 } from "../components/serializers"
+
+const MotionBox = motion.custom(Box)
 
 const BlogPost = ({ data }) => {
   const { title, publishDate, _rawBody } = data.sanityPost
@@ -31,35 +34,34 @@ const BlogPost = ({ data }) => {
         description={toPlainText(_rawBody).slice(0, 156) + "..."}
         shareCard={shareCard}
       />
-      <motion.div
+      <MotionBox
+        maxW="75ch"
+        m="0 auto"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{
           duration: 0.5,
         }}
-        style={{ maxWidth: "75ch", margin: "0 auto" }}
       >
-        <section className="section pb-0">
-          <h1 className="title is-size-2 is-size-3-mobile mb-1">{title}</h1>
-          <span className="subtitle is-size-5 is-size-6-mobile my-0 has-text-grey">
-            {publishDate}
-          </span>
-        </section>
-        <section className="section">
-          <div className="content">
-            <PortableText
-              blocks={_rawBody}
-              serializers={{
-                types: {
-                  block: BlockRenderer,
-                  blockImage: BlockImage,
-                  code: Code,
-                },
-              }}
-            />
-          </div>
-        </section>
-      </motion.div>
+        <Container p="3rem 1.25rem 2rem 1.25rem">
+          <Heading as="h1" fontFamily="body">
+            {title}
+          </Heading>
+          <Text as="span">{publishDate}</Text>
+        </Container>
+        <Container p="0 1.25rem 3rem 1.25rem">
+          <PortableText
+            blocks={_rawBody}
+            serializers={{
+              types: {
+                block: BlockRenderer,
+                blockImage: BlockImage,
+                code: Code,
+              },
+            }}
+          />
+        </Container>
+      </MotionBox>
     </Layout>
   )
 }
