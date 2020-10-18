@@ -1,5 +1,5 @@
 import React from "react"
-import { Heading } from "@chakra-ui/core"
+import { Heading, Container, Flex } from "@chakra-ui/core"
 import { motion } from "framer-motion"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -9,7 +9,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <section className="section">
+      <Container p="3rem 1.25rem">
         <motion.div
           className="title is-playfair is-italic is-size-1-desktop "
           initial={{ x: -30, opacity: 0 }}
@@ -28,10 +28,11 @@ const IndexPage = () => {
         >
           Front End Web Developer
         </motion.p>
-      </section>
-      <section className="section py-0">
-        <div className="is-pulled-right pulled-override">
+      </Container>
+      <Container p="0 1.25rem 3rem 1.25rem">
+        <Flex justify={["center", "flex-end"]}>
           <motion.div
+            style={{ flex: 1 }}
             initial={{ y: 60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{
@@ -43,8 +44,8 @@ const IndexPage = () => {
           >
             <ContactForm title="Let's Talk." />
           </motion.div>
-        </div>
-      </section>
+        </Flex>
+      </Container>
     </Layout>
   )
 }

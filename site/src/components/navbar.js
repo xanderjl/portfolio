@@ -23,7 +23,9 @@ const Navbar = () => {
           justifyContent="space-between"
           w={{ base: "100%", sm: "100%", md: "max-content" }}
         >
-          <LogoIcon boxSize="3rem" />
+          <Link to="/">
+            <LogoIcon boxSize="3rem" />
+          </Link>
           <Box display={{ base: "block", md: "none" }}>
             <Hamburger toggled={menu} toggle={setMenu} />
           </Box>
@@ -46,6 +48,7 @@ const Navbar = () => {
             w={{ base: "100%", sm: "100%", md: "max-content" }}
             pl={{ base: 0, sm: 0, md: "1.5rem" }}
             pb={{ base: "1rem", sm: "1rem", md: 0 }}
+            textTransform="uppercase"
           >
             <Link style={{ display: "block" }} to="/">
               Home
@@ -56,6 +59,7 @@ const Navbar = () => {
             w={{ base: "100%", sm: "100%", md: "max-content" }}
             pl={{ base: 0, sm: 0, md: "1.5rem" }}
             pb={{ base: "1rem", sm: "1rem", md: 0 }}
+            textTransform="uppercase"
           >
             <Link style={{ display: "block" }} to="/portfolio">
               Work
@@ -66,6 +70,7 @@ const Navbar = () => {
             w={{ base: "100%", sm: "100%", md: "max-content" }}
             pl={{ base: 0, sm: 0, md: "1.5rem" }}
             pb={{ base: "1rem", sm: "1rem", md: 0 }}
+            textTransform="uppercase"
           >
             <Link style={{ display: "block" }} to="/garden">
               Garden
@@ -76,6 +81,7 @@ const Navbar = () => {
             w={{ base: "100%", sm: "100%", md: "max-content" }}
             pl={{ base: 0, sm: 0, md: "1.5rem" }}
             pb={{ base: "1rem", sm: "1rem", md: 0 }}
+            textTransform="uppercase"
           >
             <Link style={{ display: "block" }} to="/uses">
               Uses
@@ -86,6 +92,7 @@ const Navbar = () => {
             w={{ base: "100%", sm: "100%", md: "max-content" }}
             pl={{ base: 0, sm: 0, md: "1.5rem" }}
             pb={{ base: "1rem", sm: "1rem", md: 0 }}
+            textTransform="uppercase"
           >
             <Link style={{ display: "block" }} to="/contact">
               Connect

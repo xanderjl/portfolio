@@ -1,4 +1,5 @@
 import React from "react"
+import { Box, Heading, Divider } from "@chakra-ui/core"
 import { Link } from "gatsby"
 import { motion } from "framer-motion"
 import algoliasearch from "algoliasearch/lite"
@@ -7,7 +8,6 @@ import {
   connectHits,
   SearchBox,
   Highlight,
-  connectHighlight,
 } from "react-instantsearch-dom"
 import "instantsearch.css/themes/reset.css"
 
@@ -54,25 +54,20 @@ const SearchPreview = ({ hit }) => {
 
   return (
     <Link to={`/blog/${slug.current}`}>
-      <h3 className="subtitle mt-4 mb-2 is-size-5">
+      <Heading as="h2" fontFamily="body" fontSize="3xl">
         <Highlight hit={hit} attribute="title" tagName="mark" />
-      </h3>
-      <h4 className="subtitle mb-0 is-size-6">
+      </Heading>
+      <Heading as="h3" fontFamily="body" fontSize="xl" fontWeight="normal">
         <Highlight hit={hit} attribute="body" tagName="mark" />
-      </h4>
-      <hr
-        style={{
-          margin: "1rem 0",
-          border: "1px solid #e4e4e4",
-        }}
-      />
+      </Heading>
+      <Divider p="0.5rem" />
     </Link>
   )
 }
 
 const SearchBar = () => {
   return (
-    <div className="custom-search">
+    <Box className="custom-search">
       <InstantSearch searchClient={searchClient} indexName="Blog">
         <motion.div
           initial={{ x: -20, opacity: 0 }}
@@ -83,7 +78,7 @@ const SearchBar = () => {
         </motion.div>
         <CustomHits hitComponent={SearchPreview} />
       </InstantSearch>
-    </div>
+    </Box>
   )
 }
 
@@ -100,9 +95,5 @@ const Hits = ({ hits }) => {
 }
 
 const CustomHits = connectHits(Hits)
-
-// const Highlight = () => {}
-
-// const customHighlight = connectHighlight(Highlight)
 
 export default SearchBar
