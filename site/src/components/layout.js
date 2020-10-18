@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Box, Flex, Container } from "@chakra-ui/core"
-import Navbar from "./navbar"
+import Navbar from "./navbar/navbar"
 import Footer from "./footer"
 
 const Layout = ({ children }) => {

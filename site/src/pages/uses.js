@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
+import { Box, Link, Container, Grid, Image } from "@chakra-ui/core"
 import PortableText from "@sanity/block-content-to-react"
 import { motion } from "framer-motion"
 
@@ -49,39 +50,39 @@ const textChild = {
   },
 }
 
-const uses = ({ data }) => {
+const MotionBox = motion.custom(Box)
+const MotionLink = motion.custom(Link)
+const MotionContainer = motion.custom(Container)
+const MotionGrid = motion.custom(Grid)
+const MotionImage = motion.custom(Image)
+
+const Uses = ({ data }) => {
   const { title, metaDescription, body } = data.sanityUses
   return (
     <Layout>
       <SEO title={title} description={metaDescription} />
-      <motion.div initial="hidden" animate="visible" variants={sectionVariants}>
+      <MotionBox initial="hidden" animate="visible" variants={sectionVariants}>
         {body.map(section => {
           const { _key, array, _rawBody } = section
           return (
-            <motion.section
-              key={_key}
-              className="section"
-              variants={sectionVariants}
-            >
-              <motion.div className="tech-grid" variants={gridVariants}>
-                <motion.div className="icons">
+            <MotionContainer key={_key} variants={sectionVariants}>
+              <MotionGrid variants={gridVariants}>
+                <MotionBox>
                   {array.map((item, i) => {
                     const { id, title, url, icon } = item
                     return (
-                      <motion.a
+                      <MotionLink
                         key={id}
                         href={url}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <motion.img
-                          className="mr-4"
+                        <MotionImage
+                          maxW="80px"
+                          maxH="80px"
+                          mr="1rem"
                           src={icon.asset.fixed.src}
                           alt={`${title} logo`}
-                          style={{
-                            maxWidth: "80px",
-                            maxHeight: "80px",
-                          }}
                           initial={{ y: 20, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           transition={{
@@ -98,15 +99,11 @@ const uses = ({ data }) => {
                             },
                           }}
                         />
-                      </motion.a>
+                      </MotionLink>
                     )
                   })}
-                </motion.div>
-                <motion.div
-                  className="content"
-                  style={{ maxWidth: "55ch" }}
-                  variants={textChild}
-                >
+                </MotionBox>
+                <MotionBox maxW="55ch" variants={textChild}>
                   <PortableText
                     blocks={_rawBody}
                     serializers={{
@@ -114,12 +111,12 @@ const uses = ({ data }) => {
                       marks: { link: LinkTag },
                     }}
                   />
-                </motion.div>
-              </motion.div>
-            </motion.section>
+                </MotionBox>
+              </MotionGrid>
+            </MotionContainer>
           )
         })}
-      </motion.div>
+      </MotionBox>
     </Layout>
   )
 }
@@ -149,4 +146,4 @@ export const data = graphql`
   }
 `
 
-export default uses
+export default Uses

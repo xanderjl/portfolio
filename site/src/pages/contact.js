@@ -6,11 +6,15 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ContactForm from "../components/contactForm"
 
+const MotionContainer = motion.custom(Container)
+
 const contact = () => {
   return (
     <Layout>
       <SEO title="Contact" />
-      <motion.div
+      <MotionContainer
+        p="3rem 1.25rem"
+        centerContent
         initial={{ y: 60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{
@@ -20,10 +24,8 @@ const contact = () => {
           stiffness: 100,
         }}
       >
-        <Container p="3rem 1.25rem" centerContent>
-          <ContactForm title="Reach Out." />
-        </Container>
-      </motion.div>
+        <ContactForm title="Reach Out." />
+      </MotionContainer>
     </Layout>
   )
 }

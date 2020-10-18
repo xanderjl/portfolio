@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Heading, Divider } from "@chakra-ui/core"
+import { Box, Heading, Divider, List, ListItem } from "@chakra-ui/core"
 import { Link } from "gatsby"
 import { motion } from "framer-motion"
 import algoliasearch from "algoliasearch/lite"
@@ -49,6 +49,10 @@ const itemVariants = {
   }),
 }
 
+const MotionBox = motion.custom(Box)
+const MotionList = motion.custom(List)
+const MotionListItem = motion.custom(ListItem)
+
 const SearchPreview = ({ hit }) => {
   const { slug } = hit
 
@@ -69,13 +73,13 @@ const SearchBar = () => {
   return (
     <Box className="custom-search">
       <InstantSearch searchClient={searchClient} indexName="Blog">
-        <motion.div
+        <MotionBox
           initial={{ x: -20, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
           <SearchBox />
-        </motion.div>
+        </MotionBox>
         <CustomHits hitComponent={SearchPreview} />
       </InstantSearch>
     </Box>
@@ -84,13 +88,13 @@ const SearchBar = () => {
 
 const Hits = ({ hits }) => {
   return (
-    <motion.ul initial="hidden" animate="visible" variants={listVariants}>
+    <MotionList initial="hidden" animate="visible" variants={listVariants}>
       {hits.map((hit, i) => (
-        <motion.li key={i} custom={i} variants={itemVariants}>
+        <MotionListItem key={i} custom={i} variants={itemVariants}>
           <SearchPreview hit={hit} />
-        </motion.li>
+        </MotionListItem>
       ))}
-    </motion.ul>
+    </MotionList>
   )
 }
 
