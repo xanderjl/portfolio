@@ -12,7 +12,7 @@ const theme = extendTheme({
         },
       },
       "body::after": {
-        display: ["none", "block"],
+        display: ["none", "none", "block"],
         position: "absolute",
         right: 0,
         top: 0,
