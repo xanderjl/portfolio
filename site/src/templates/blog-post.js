@@ -24,7 +24,6 @@ const BlogPost = ({ data }) => {
     imagePublicID: `share-card.jpg`,
     titleFont: `Poppins`,
     textColor: `0c0e0f`,
-    titleBottomOffset: 446,
     titleFontSize: 80,
   })
 
