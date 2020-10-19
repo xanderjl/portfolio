@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import {
   Box,
   Heading,
+  Text,
   Button,
   Input,
   Textarea,
@@ -40,6 +41,8 @@ const ContactForm = ({ title }) => {
       .catch(error => alert(error))
   }
 
+  const re = /\S+@\S+\.\S+/
+
   return (
     <Box
       minW={[0, 0, "45ch"]}
@@ -69,38 +72,50 @@ const ContactForm = ({ title }) => {
           <FormLabel htmlFor="name" className="label" fontWeight="semibold">
             Name
           </FormLabel>
-          <div className="control">
-            <Input
-              name="name"
-              placeholder="Jane Doe"
-              ref={register({ required: true })}
-            />
-          </div>
+          <Input
+            name="name"
+            placeholder="Jane Doe"
+            ref={register({ required: true })}
+            borderColor={errors.name ? "red.300" : "gray.200"}
+          />
+          {errors.name && (
+            <Text as="span" color="red.300">
+              Please enter your name.
+            </Text>
+          )}
         </FormControl>
         <FormControl pb="1rem">
           <FormLabel htmlFor="email" className="label" fontWeight="semibold">
             Email
           </FormLabel>
-          <div className="control">
-            <Input
-              name="email"
-              placeholder="jane.d@gmail.com"
-              ref={register({ required: true })}
-            />
-          </div>
+          <Input
+            name="email"
+            placeholder="jane.d@gmail.com"
+            ref={register({ required: true, pattern: re })}
+            borderColor={errors.email ? "red.300" : "gray.200"}
+          />
+          {errors.email && (
+            <Text as="span" color="red.300">
+              A valid email address is required.
+            </Text>
+          )}
         </FormControl>
         <FormControl pb="1rem">
           <FormLabel htmlFor="message" className="label" fontWeight="semibold">
             Message
           </FormLabel>
-          <div className="control">
-            <Textarea
-              name="message"
-              rows={10}
-              placeholder="Hello"
-              ref={register({ required: true })}
-            />
-          </div>
+          <Textarea
+            name="message"
+            rows={10}
+            placeholder="Hello"
+            ref={register({ required: true, minLength: 2 })}
+            borderColor={errors.message ? "red.300" : "gray.200"}
+          />
+          {errors.message && (
+            <Text as="span" color="red.300">
+              Please enter a message longer than two characters.
+            </Text>
+          )}
         </FormControl>
         <Button type="submit" colorScheme="blue" color="white">
           Submit
@@ -109,7 +124,7 @@ const ContactForm = ({ title }) => {
       {isOpen ? (
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay>
-            <ModalContent>
+            <ModalContent p="2rem 0" borderRadius={0}>
               <ModalHeader>Thanks For Reaching Out!</ModalHeader>
               <ModalCloseButton />
               <ModalBody>I'll get back to you shortly :)</ModalBody>
