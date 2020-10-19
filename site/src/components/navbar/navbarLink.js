@@ -1,18 +1,17 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { useLocation } from "@reach/router"
 import { Link as GatsbyLink } from "gatsby"
-import { Box, Link } from "@chakra-ui/core"
+import { theme, Box, Link, Text } from "@chakra-ui/core"
 
 const NavbarLink = ({ children, to }) => {
+  const location = useLocation()
+
   return (
     <Box
       display="block"
       w={["100%", "100%", "max-content"]}
       textTransform="uppercase"
-      _hover={{
-        bg: "rgba(0,0,0,0.035)",
-        borderRadius: "4px",
-      }}
     >
       <Link
         display="inherit"
@@ -20,9 +19,28 @@ const NavbarLink = ({ children, to }) => {
         p={{ base: "0.75rem", md: "0.25rem 0.5rem" }}
         as={GatsbyLink}
         to={to}
-        _hover={{ textDecor: "none" }}
+        _hover={{
+          base: { bg: "blue.100", textDecor: "none", borderRadius: "4px" },
+          md: { bg: "transparent", borderRadius: 0 },
+        }}
       >
-        {children}
+        <Text
+          as="span"
+          bg={
+            location.pathname === to && {
+              base: `linear-gradient(to top, ${theme.colors.blue[100]} 50%, transparent 50% )`,
+              md: `linear-gradient(to top, ${theme.colors.white} 50%, transparent 50% )`,
+            }
+          }
+          _hover={{
+            bg: {
+              base: `linear-gradient(to top, ${theme.colors.blue[100]} 50%, transparent 50% )`,
+              md: `linear-gradient(to top, ${theme.colors.white} 50%, transparent 50% )`,
+            },
+          }}
+        >
+          {children}
+        </Text>
       </Link>
     </Box>
   )

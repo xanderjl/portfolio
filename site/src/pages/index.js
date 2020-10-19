@@ -13,7 +13,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <Container p="3rem 1.25rem">
+      <Container maxW="xl" p="3rem 1.25rem">
         <MotionHeading
           as="h1"
           fontSize="5xl"
@@ -33,7 +33,7 @@ const IndexPage = () => {
           Front End Web Developer
         </MotionText>
       </Container>
-      <Container p="0 1.25rem 3rem 1.25rem">
+      <Container p="0 1.25rem 3rem 1.25rem" centerContent>
         <Flex justify={["center", "flex-end"]}>
           <MotionBox
             flex={1}

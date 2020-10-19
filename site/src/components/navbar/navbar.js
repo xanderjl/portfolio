@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { Link } from "gatsby"
-import { useLocation } from "@reach/router"
 import { Box, Flex, Container } from "@chakra-ui/core"
 import { LogoIcon } from "../icons"
 import { Squash as Hamburger } from "hamburger-react"
@@ -11,13 +10,13 @@ const Navbar = () => {
   return (
     <Flex as="nav" bg="transparent" color="gray.700">
       <Container
+        maxW="xl"
         d="flex"
         flexDirection={{ base: "column", sm: "column", md: "row" }}
-        p="0.5rem 1rem"
+        p="0.5rem 1.25rem"
         alignItems="center"
         justifyContent="space-between"
         wrap="wrap"
-        maxW="xl"
       >
         <Box
           d="flex"

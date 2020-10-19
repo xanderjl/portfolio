@@ -24,10 +24,10 @@ exports.createPages = async ({ graphql, actions }) => {
     throw response.errors
   }
 
-  const { blogPosts } = response.data
+  const { blogPosts, sanityBlog } = response.data
 
   blogPosts.edges.map(({ node: post }) => {
-    const path = `/blog/${post.slug.current}`
+    const path = `/garden/${post.slug.current}`
 
     createPage({
       path,

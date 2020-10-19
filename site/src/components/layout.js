@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Box, Flex, Container } from "@chakra-ui/core"
+import { Box, Flex } from "@chakra-ui/core"
 import Navbar from "./navbar/navbar"
 import Footer from "./footer"
 
@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
     <Flex direction="column" minH="100vh" overflowX="hidden" bg="transparent">
       <Box flex={1}>
         <Navbar />
-        <Container maxW="xl">{children}</Container>
+        {children}
       </Box>
       <Footer />
     </Flex>

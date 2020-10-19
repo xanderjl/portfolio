@@ -15,7 +15,14 @@ const CodeBlock = ({ children, className }) => {
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
           className={className}
-          style={{ ...style, overflow: "auto", maxWidth: "100vw" }}
+          style={{
+            ...style,
+            margin: "1rem 0",
+            padding: "1rem 1rem 2rem 1rem",
+            overflow: "auto",
+            maxWidth: "100vw",
+            borderRadius: "4px",
+          }}
         >
           <code
             style={{

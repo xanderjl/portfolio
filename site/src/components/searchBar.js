@@ -8,8 +8,10 @@ import {
   connectHits,
   SearchBox,
   Highlight,
+  connectHighlight,
 } from "react-instantsearch-dom"
 import "instantsearch.css/themes/reset.css"
+import "../styles/ais-search.css"
 
 const searchClient = algoliasearch(
   "TLPTLTMHHX",
@@ -57,21 +59,18 @@ const SearchPreview = ({ hit }) => {
   const { slug } = hit
 
   return (
-    <Link to={`/blog/${slug.current}`}>
-      <Heading as="h2" fontFamily="body" fontSize="3xl">
+    <Link to={`/garden/${slug.current}`}>
+      <Heading p="1rem 0" as="h2" fontFamily="body" fontSize="3xl">
         <Highlight hit={hit} attribute="title" tagName="mark" />
       </Heading>
-      <Heading as="h3" fontFamily="body" fontSize="xl" fontWeight="normal">
-        <Highlight hit={hit} attribute="body" tagName="mark" />
-      </Heading>
-      <Divider p="0.5rem" />
+      <Divider />
     </Link>
   )
 }
 
 const SearchBar = () => {
   return (
-    <Box className="custom-search">
+    <Box>
       <InstantSearch searchClient={searchClient} indexName="Blog">
         <MotionBox
           initial={{ x: -20, opacity: 0 }}

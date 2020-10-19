@@ -61,26 +61,47 @@ const Uses = ({ data }) => {
   return (
     <Layout>
       <SEO title={title} description={metaDescription} />
-      <MotionBox initial="hidden" animate="visible" variants={sectionVariants}>
+      <MotionBox
+        initial="hidden"
+        animate="visible"
+        variants={sectionVariants}
+        p="3rem 1.25rem"
+      >
         {body.map(section => {
           const { _key, array, _rawBody } = section
           return (
-            <MotionContainer key={_key} variants={sectionVariants}>
-              <MotionGrid variants={gridVariants}>
-                <MotionBox>
+            <MotionContainer
+              key={_key}
+              maxW="xl"
+              variants={sectionVariants}
+              p="0"
+              pb={{ base: "3rem", md: "5rem" }}
+            >
+              <MotionGrid
+                variants={gridVariants}
+                gridTemplateColumns={{
+                  base: "minmax(0, 1fr)",
+                  md: "repeat(2, 1fr)",
+                }}
+                columnGap={{ base: 0, md: "1rem" }}
+                rowGap="2rem"
+                justifyContent="start"
+                alignItems="start"
+              >
+                <MotionBox display="flex">
                   {array.map((item, i) => {
                     const { id, title, url, icon } = item
                     return (
                       <MotionLink
+                        maxW={{ base: "60px", sm: "72px", md: "80px" }}
+                        maxH="auto"
+                        mr="1rem"
                         key={id}
                         href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        isExternal
+                        flex={1}
                       >
                         <MotionImage
-                          maxW="80px"
-                          maxH="80px"
-                          mr="1rem"
                           src={icon.asset.fixed.src}
                           alt={`${title} logo`}
                           initial={{ y: 20, opacity: 0 }}

@@ -11,6 +11,7 @@ import {
   BlockImage,
   Code,
   toPlainText,
+  LinkTag,
 } from "../components/serializers"
 
 const MotionBox = motion.custom(Box)
@@ -30,7 +31,7 @@ const BlogPost = ({ data }) => {
   return (
     <Layout>
       <SEO
-        title={`${title} - Blog`}
+        title={`${title} - Garden`}
         description={toPlainText(_rawBody).slice(0, 156) + "..."}
         shareCard={shareCard}
       />
@@ -38,8 +39,9 @@ const BlogPost = ({ data }) => {
         display="flex"
         flexDirection="column"
         alignItems="center"
-        maxW="75ch"
+        maxW="70ch"
         m="0 auto"
+        mt="3rem"
         bg="white"
         boxShadow="0 0.5rem 1em -0.125em rgba(0,0,0,0.1)"
         initial={{ y: 20, opacity: 0 }}
@@ -48,13 +50,13 @@ const BlogPost = ({ data }) => {
           duration: 0.5,
         }}
       >
-        <Container p="3rem 1.25rem 2rem 1.25rem">
+        <Container maxW="xl" p="3rem 1.25rem 2rem 1.25rem">
           <Heading as="h1" fontFamily="body">
             {title}
           </Heading>
           <Text as="span">{publishDate}</Text>
         </Container>
-        <Container p="0 1.25rem 3rem 1.25rem">
+        <Container maxW="xl" p="0 1.25rem 7rem 1.25rem">
           <PortableText
             blocks={_rawBody}
             serializers={{
@@ -63,6 +65,7 @@ const BlogPost = ({ data }) => {
                 blockImage: BlockImage,
                 code: Code,
               },
+              marks: { link: LinkTag },
             }}
           />
         </Container>

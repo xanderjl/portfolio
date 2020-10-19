@@ -14,7 +14,7 @@ const portfolio = ({ data }) => {
   return (
     <Layout>
       <SEO title="Portfolio" />
-      <Container p="3rem 1.25rem">
+      <Container maxW="xl" p="3rem 1.25rem">
         <Grid>
           {projects.map(({ node: project }, i) => {
             const {

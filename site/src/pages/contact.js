@@ -13,6 +13,7 @@ const contact = () => {
     <Layout>
       <SEO title="Contact" />
       <MotionContainer
+        maxW="xl"
         p="3rem 1.25rem"
         centerContent
         initial={{ y: 60, opacity: 0 }}

@@ -9,9 +9,8 @@ const Footer = () => {
           <ChakraLink
             className="is-relative"
             href="mailto:me@alexlow.dev"
-            target="_blank"
-            rel="noopener noreferrer"
             pb="1rem"
+            isExternal
           >
             me@alexlow.dev
           </ChakraLink>

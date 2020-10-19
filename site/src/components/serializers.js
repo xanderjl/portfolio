@@ -1,4 +1,5 @@
-import React, { createElement } from "react"
+import React from "react"
+import { theme, Heading, Text, Image, Link } from "@chakra-ui/core"
 import PortableText from "@sanity/block-content-to-react"
 import urlBuilder from "@sanity/image-url"
 import CodeBlock from "../components/codeBlock"
@@ -6,31 +7,28 @@ import CodeBlock from "../components/codeBlock"
 export const BlockRenderer = props => {
   const { style = "normal" } = props.node
 
-  switch (style) {
-    case "h1":
-      return createElement(
-        style,
-        { className: "title is-size-1  is-size-3-mobile" },
-        props.children
-      )
-
-    case "h2":
-      return createElement(
-        style,
-        { className: "title is-size-3 is-size-5-mobile" },
-        props.children
-      )
-
-    case "h3":
-      return createElement(
-        style,
-        { className: "title is-size-4 is-size-6-mobile" },
-        props.children
-      )
-
-    default:
-      return PortableText.defaultSerializers.types.block(props)
+  if (/^h\d/.test(style)) {
+    return (
+      <Heading as={style} fontFamily="body" fontSize="xl" pb="0.5rem">
+        {props.children}
+      </Heading>
+    )
   }
+
+  if (style === "blockquote") {
+    return (
+      <Text
+        as="blockquote"
+        p="0.5rem 1rem"
+        bg="gray.50"
+        borderLeft={`4px solid ${theme.colors.blue[200]}`}
+      >
+        {props.children}
+      </Text>
+    )
+  }
+
+  return PortableText.defaultSerializers.types.block(props)
 }
 
 export const BlockImage = ({ node }) => {
@@ -41,7 +39,7 @@ export const BlockImage = ({ node }) => {
       dataset: process.env.GATSBY_SANITY_DATASET,
     }).image(src)
 
-  return <img src={urlFor(image)} alt={alt} />
+  return <Image src={urlFor(image)} alt={alt} />
 }
 
 export const Code = ({ node }) => {
@@ -51,14 +49,16 @@ export const Code = ({ node }) => {
 
 export const LinkTag = ({ mark, children }) => {
   return (
-    <a
+    <Link
       href={mark.href}
-      className="highlight-white"
-      target="_blank"
-      rel="noopener noreferrer"
+      isExternal
+      bg={{
+        base: `linear-gradient(to top, ${theme.colors.blue[100]} 50%, transparent 50% )`,
+        md: `linear-gradient(to top, ${theme.colors.white} 50%, transparent 50% )`,
+      }}
     >
       {children}
-    </a>
+    </Link>
   )
 }
 

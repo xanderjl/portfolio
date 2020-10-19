@@ -1,0 +1,30 @@
+.ais-SearchBox-form {
+  display: flex;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+
+.ais-SearchBox-input {
+  padding: 0.25rem;
+}
+
+.ais-SearchBox-submit {
+  margin-left: 0.5rem;
+}
+
+.ais-SearchBox-submitIcon {
+  flex: 1;
+  width: 1.25rem;
+  height: auto;
+}
+
+.ais-SearchBox-resetIcon {
+  flex: 1;
+  width: 1.25rem;
+  height: auto;
+  margin-left: 0.5rem;
+}
+
+.ais-Highlight-highlighted {
+  background-color: aqua;
+}
