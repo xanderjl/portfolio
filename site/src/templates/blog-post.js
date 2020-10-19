@@ -11,7 +11,7 @@ import {
   BlockImage,
   Code,
   toPlainText,
-  LinkTag,
+  BlogLink,
 } from "../components/serializers"
 
 const MotionBox = motion.custom(Box)
@@ -64,7 +64,7 @@ const BlogPost = ({ data }) => {
                 blockImage: BlockImage,
                 code: Code,
               },
-              marks: { link: LinkTag },
+              marks: { link: BlogLink },
             }}
           />
         </Container>

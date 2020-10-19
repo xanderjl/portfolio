@@ -62,6 +62,18 @@ export const LinkTag = ({ mark, children }) => {
   )
 }
 
+export const BlogLink = ({ mark, children }) => {
+  return (
+    <Link
+      href={mark.href}
+      isExternal
+      bg={`linear-gradient(to top, ${theme.colors.blue[100]} 50%, transparent 50% )`}
+    >
+      {children}
+    </Link>
+  )
+}
+
 export const toPlainText = (blocks = []) => {
   return blocks
     .map(block => {
