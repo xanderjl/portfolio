@@ -3,7 +3,7 @@ name: cache build files
 on:
   push:
     branches:
-      - master
+      - main
   repository_dispatch:
     event_type:
       - "sanity-deploy"
