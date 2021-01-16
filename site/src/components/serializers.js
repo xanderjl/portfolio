@@ -71,7 +71,7 @@ export default {
         <Link
           href={mark.href}
           isExternal
-          bg="linear-gradient(to top, ${theme.colors.blue[100]} 50%, transparent 50% )"
+          bg={`linear-gradient(to top, ${theme.colors.blue[100]} 50%, transparent 50% )`}
         >
           {children}
         </Link>

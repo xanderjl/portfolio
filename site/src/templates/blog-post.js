@@ -43,13 +43,13 @@ const BlogPost = ({ data }) => {
           duration: 0.5,
         }}
       >
-        <Container maxW="xl" p="3rem 1.25rem 2rem 1.25rem">
+        <Container maxW="3xl" p="3rem 1.25rem 2rem 1.25rem">
           <Heading as="h1" fontFamily="body">
             {title}
           </Heading>
           <Text as="span">{publishDate}</Text>
         </Container>
-        <Container maxW="xl" p="0 1.25rem 7rem 1.25rem">
+        <Container maxW="3xl" p="0 1.25rem 7rem 1.25rem">
           <PortableText blocks={_rawBody} serializers={serializers} />
         </Container>
       </MotionBox>

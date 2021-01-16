@@ -23,6 +23,7 @@ const CodeBlock = ({ children, className }) => {
             maxWidth: "100vw",
             maxHeight: "40em",
             borderRadius: "4px",
+            fontSize: "16px",
           }}
         >
           <code

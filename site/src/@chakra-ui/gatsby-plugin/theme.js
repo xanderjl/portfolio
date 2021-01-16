@@ -22,9 +22,6 @@ const theme = extendTheme({
         bg: "blue.100",
         content: "''",
       },
-      "a:hover": {
-        textDecoration: "none",
-      },
     },
   },
   colors: {
