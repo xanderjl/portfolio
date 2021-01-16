@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useLocation } from "@reach/router"
 import { Link as GatsbyLink } from "gatsby"
-import { theme, Box, Link, Text } from "@chakra-ui/core"
+import { theme, Box, Link, Text } from "@chakra-ui/react"
 
 const NavbarLink = ({ children, to }) => {
   const location = useLocation()

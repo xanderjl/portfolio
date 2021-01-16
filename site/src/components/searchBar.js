@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Heading, Divider, List, ListItem } from "@chakra-ui/core"
+import { Box, Heading, Divider, List, ListItem } from "@chakra-ui/react"
 import { Link } from "gatsby"
 import { motion } from "framer-motion"
 import algoliasearch from "algoliasearch/lite"

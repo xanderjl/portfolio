@@ -1,5 +1,5 @@
 import React from "react"
-import { Container } from "@chakra-ui/core"
+import { Container } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 
 import Layout from "../components/layout"

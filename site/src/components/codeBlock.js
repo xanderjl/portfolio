@@ -21,6 +21,7 @@ const CodeBlock = ({ children, className }) => {
             padding: "1rem 1rem 2rem 1rem",
             overflow: "auto",
             maxWidth: "100vw",
+            maxHeight: "40em",
             borderRadius: "4px",
           }}
         >

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import {
   Box,
@@ -16,7 +16,7 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
 
 const encode = data => {

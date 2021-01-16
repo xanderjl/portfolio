@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { Link, Heading, Container, Box, Grid, Flex } from "@chakra-ui/core"
+import { Link, Heading, Container, Box, Grid, Flex } from "@chakra-ui/react"
 import PortableText from "@sanity/block-content-to-react"
 import Img from "gatsby-image"
 import { motion } from "framer-motion"
@@ -8,7 +8,7 @@ import { motion } from "framer-motion"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { GithubIcon } from "../components/icons"
-import { BlockRenderer, BlogLink } from "../components/serializers"
+import serializers from "../components/serializers"
 
 const portfolio = ({ data }) => {
   const projects = data.projects.edges
@@ -104,10 +104,7 @@ const portfolio = ({ data }) => {
                     {_rawDescription && (
                       <PortableText
                         blocks={_rawDescription}
-                        serializers={{
-                          types: { block: BlockRenderer },
-                          marks: { link: BlogLink },
-                        }}
+                        serializers={serializers}
                       />
                     )}
                   </Flex>

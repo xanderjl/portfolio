@@ -1,12 +1,12 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { Box, Link, Container, Grid, Image } from "@chakra-ui/core"
+import { Box, Link, Container, Grid, Image } from "@chakra-ui/react"
 import PortableText from "@sanity/block-content-to-react"
 import { motion } from "framer-motion"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { BlockRenderer, LinkTag } from "../components/serializers"
+import serializers from "../components/serializers"
 
 const sectionVariants = {
   hidden: {
@@ -125,13 +125,7 @@ const Uses = ({ data }) => {
                   })}
                 </MotionBox>
                 <MotionBox maxW="55ch" variants={textChild}>
-                  <PortableText
-                    blocks={_rawBody}
-                    serializers={{
-                      types: { block: BlockRenderer },
-                      marks: { link: LinkTag },
-                    }}
-                  />
+                  <PortableText blocks={_rawBody} serializers={serializers} />
                 </MotionBox>
               </MotionGrid>
             </MotionContainer>

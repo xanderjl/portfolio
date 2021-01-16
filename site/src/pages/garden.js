@@ -1,7 +1,6 @@
 import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
-import { Container, Flex } from "@chakra-ui/core"
-import { motion } from "framer-motion"
+import { graphql } from "gatsby"
+import { Container, Flex } from "@chakra-ui/react"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"

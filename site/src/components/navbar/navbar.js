@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link } from "gatsby"
-import { Box, Flex, Container } from "@chakra-ui/core"
+import { Box, Flex, Container } from "@chakra-ui/react"
 import { LogoIcon } from "../icons"
 import { Squash as Hamburger } from "hamburger-react"
 import NavbarLink from "./navbarLink"

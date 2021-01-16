@@ -1,18 +1,12 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { Box, Heading, Text, Container } from "@chakra-ui/core"
+import { Box, Heading, Text, Container } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import PortableText from "@sanity/block-content-to-react"
 import getShareImage from "@jlengstorf/get-share-image"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import {
-  BlockRenderer,
-  BlockImage,
-  Code,
-  toPlainText,
-  BlogLink,
-} from "../components/serializers"
+import serializers, { toPlainText } from "../components/serializers"
 
 const MotionBox = motion.custom(Box)
 
@@ -56,17 +50,7 @@ const BlogPost = ({ data }) => {
           <Text as="span">{publishDate}</Text>
         </Container>
         <Container maxW="xl" p="0 1.25rem 7rem 1.25rem">
-          <PortableText
-            blocks={_rawBody}
-            serializers={{
-              types: {
-                block: BlockRenderer,
-                blockImage: BlockImage,
-                code: Code,
-              },
-              marks: { link: BlogLink },
-            }}
-          />
+          <PortableText blocks={_rawBody} serializers={serializers} />
         </Container>
       </MotionBox>
     </Layout>

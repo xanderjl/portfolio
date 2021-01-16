@@ -1,4 +1,4 @@
-import { extendTheme } from "@chakra-ui/core"
+import { extendTheme } from "@chakra-ui/react"
 
 const theme = extendTheme({
   styles: {
@@ -21,6 +21,9 @@ const theme = extendTheme({
         minH: "100%",
         bg: "blue.100",
         content: "''",
+      },
+      "a:hover": {
+        textDecoration: "none",
       },
     },
   },

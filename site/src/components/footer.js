@@ -1,5 +1,5 @@
 import React from "react"
-import { Link as ChakraLink, Container, Flex } from "@chakra-ui/core"
+import { Link as ChakraLink, Container, Flex } from "@chakra-ui/react"
 
 const Footer = () => {
   return (

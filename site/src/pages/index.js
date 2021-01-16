@@ -1,5 +1,5 @@
 import React from "react"
-import { Heading, Text, Container, Flex, Box } from "@chakra-ui/core"
+import { Heading, Text, Container, Flex, Box } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
