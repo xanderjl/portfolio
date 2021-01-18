@@ -48,7 +48,7 @@ export default {
           dataset: process.env.GATSBY_SANITY_DATASET,
         }).image(src)
 
-      return <Image src={urlFor(image)} alt={alt} p="5rem 0" m="0 auto" />
+      return <Image src={urlFor(image)} alt={alt} p="1.25rem 0 2.5rem 0" m="0 auto" />
     },
     code: ({ node }) => {
       const { code } = node
@@ -72,6 +72,9 @@ export default {
           href={mark.href}
           isExternal
           bg={`linear-gradient(to top, ${theme.colors.blue[100]} 50%, transparent 50% )`}
+          _hover={{
+            background: `linear-gradient(to top, ${theme.colors.blue[200]} 50%, transparent 50% )`,
+          }}
         >
           {children}
         </Link>

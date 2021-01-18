@@ -24,6 +24,16 @@ const theme = extendTheme({
       },
     },
   },
+  components: {
+    Link: {
+      baseStyle: {
+        textDecor: "none",
+        _hover: {
+          textDecor: "none",
+        },
+      },
+    },
+  },
   colors: {
     blue: {
       "50": "#e9f7ff",

@@ -43,7 +43,7 @@ const BlogPost = ({ data }) => {
           duration: 0.5,
         }}
       >
-        <Container maxW="3xl" p="3rem 1.25rem 2rem 1.25rem">
+        <Container maxW="3xl" p="3rem 1.25rem 1.25rem 1.25rem">
           <Heading as="h1" fontFamily="body">
             {title}
           </Heading>
