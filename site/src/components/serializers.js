@@ -48,11 +48,18 @@ export default {
           dataset: process.env.GATSBY_SANITY_DATASET,
         }).image(src)
 
-      return <Image src={urlFor(image)} alt={alt} p="1.25rem 0 2.5rem 0" m="0 auto" />
+      return (
+        <Image
+          src={urlFor(image)}
+          alt={alt}
+          p="1.25rem 0 2.5rem 0"
+          m="0 auto"
+        />
+      )
     },
     code: ({ node }) => {
-      const { code } = node
-      return <CodeBlock>{code}</CodeBlock>
+      const { code, language } = node
+      return <CodeBlock className={language}>{code}</CodeBlock>
     },
   },
   list: ({ children, type }) => {
