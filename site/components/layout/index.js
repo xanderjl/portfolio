@@ -31,7 +31,14 @@ const Layout = ({ title, metadescription, children }) => {
         <meta property="twitter:card" content="summary" />
         <meta property="twitter:creator" content={config.social.twitter} />
         <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
+        <meta
+          property="twitter:description"
+          content={
+            metadescription
+              ? metadescription
+              : "Alex Low is a front end web developer focusing on the Jamstack, based in London, ON."
+          }
+        />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Flex direction="column" minH="100vh" overflowX="hidden" bg="transparent">
