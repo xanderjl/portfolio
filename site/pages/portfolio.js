@@ -55,6 +55,7 @@ const Portfolio = ({ data }) => {
                 <Link href={projectUrl} _hover={{ opacity: "0.75" }}>
                   <Image
                     src={image.asset.url}
+                    alt={`A screenshot of ${title}'s homepage.`}
                     layout="intrinsic"
                     quality={100}
                     objectFit="cover"
