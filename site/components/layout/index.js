@@ -8,6 +8,7 @@ const Layout = ({ title, metadescription, children }) => {
   return (
     <>
       <Head>
+        <html lang="en" />
         <title>{title && `${title} | `}Alex Low</title>
         <meta
           name="description"
