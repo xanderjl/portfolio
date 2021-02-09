@@ -1,4 +1,4 @@
-// import Image from "next/image"
+import Image from "next/image"
 import {
   Link,
   Heading,
@@ -7,7 +7,6 @@ import {
   Grid,
   Flex,
   Icon,
-  Image,
 } from "@chakra-ui/react"
 import PortableText from "@sanity/block-content-to-react"
 import { motion } from "framer-motion"
@@ -56,9 +55,11 @@ const Portfolio = ({ data }) => {
                 <Link href={projectUrl} _hover={{ opacity: "0.75" }}>
                   <Image
                     src={image.asset.url}
+                    layout="intrinsic"
+                    quality={100}
                     objectFit="cover"
-                    w="100%"
-                    h="auto"
+                    width="100%"
+                    height={600}
                   />
                 </Link>
                 <Flex flexDir="column" p="2rem 1.25rem 5rem 1.25rem">

@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "nd": "netlify dev",
+    "vd": "vercel dev",
     "build": "next build",
     "start": "next start",
     "export": "next export"
