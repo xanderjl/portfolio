@@ -9,7 +9,14 @@ const Layout = ({ title, metadescription, children }) => {
     <>
       <Head>
         <title>{title && `${title} | `}Alex Low</title>
-        <meta name="description" content={metadescription && metadescription} />
+        <meta
+          name="description"
+          content={
+            metadescription
+              ? metadescription
+              : "Alex Low is a front end web developer focusing on the Jamstack, based in London, ON."
+          }
+        />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Flex direction="column" minH="100vh" overflowX="hidden" bg="transparent">
