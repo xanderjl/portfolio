@@ -58,7 +58,7 @@ const Portfolio = ({ data }) => {
                     layout="intrinsic"
                     quality={100}
                     objectFit="cover"
-                    width="100%"
+                    width={800}
                     height={600}
                   />
                 </Link>
