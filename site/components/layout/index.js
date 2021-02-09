@@ -27,7 +27,7 @@ const Layout = ({ title, metadescription, children }) => {
               : "Alex Low is a front end web developer focusing on the Jamstack, based in London, ON."
           }
         />
-        <meta property="og:site_name" content={siteTitle} />
+        <meta property="og:site_name" content="Alex Low" />
         <meta property="twitter:card" content="summary" />
         <meta property="twitter:creator" content={config.social.twitter} />
         <meta property="twitter:title" content={title} />
