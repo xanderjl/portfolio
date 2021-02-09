@@ -8,7 +8,7 @@ import serializers, { toPlainText } from "../../components/serializers"
 const MotionBox = motion.custom(Box)
 
 const BlogPost = ({ data }) => {
-  const { title, publishDate, bodyRaw } = data
+  const { title, publishDate, bodyRaw } = data.allPost[0]
   const shareCard = getShareImage({
     title,
     cloudName: `alexlow-dev`,
@@ -32,6 +32,7 @@ const BlogPost = ({ data }) => {
         m="0 auto"
         mt="3rem"
         bg="white"
+        borderRadius={4}
         boxShadow="lg"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -53,11 +54,85 @@ const BlogPost = ({ data }) => {
   )
 }
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticPaths = async () => {
+  const req = await fetch(
+    `https://${process.env.SANITY_ID}.api.sanity.io/v1/graphql/${process.env.SANITY_DATASET}/default`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query: `
+          query {
+            allPost {
+              slug {
+                current
+              }
+            }
+          }
+        `,
+      }),
+    }
+  )
+  const props = await req.json()
+
+  const paths = await props.data.allPost.map((path) => {
+    const { slug } = path
+    return {
+      params: { post: slug.current },
+    }
+  })
+
   return {
-    props: {
-      ...params,
-    },
+    paths,
+    fallback: false,
+  }
+}
+
+export const getStaticProps = async ({ params }) => {
+  const req = await fetch(
+    `https://${process.env.SANITY_ID}.api.sanity.io/v1/graphql/${process.env.SANITY_DATASET}/default`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query: `
+          query($slug: String!) {
+            allPost(where: { slug: { current: { eq: $slug } } }) {
+              _id
+              title
+              publishDate
+              bodyRaw
+              slug {
+                current
+              }
+            }
+          }
+        
+        `,
+        variables: {
+          slug: params.post,
+        },
+      }),
+    }
+  )
+
+  const props = await req.json()
+
+  if (!props) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props,
   }
 }
 

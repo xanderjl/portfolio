@@ -48,7 +48,9 @@ const Portfolio = ({ data }) => {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: `0.${i}`, type: "tween" }}
                 bg="white"
+                borderRadius={4}
                 boxShadow="lg"
+                overflow="hidden"
               >
                 <Link href={projectUrl} _hover={{ opacity: "0.75" }}>
                   <Image
@@ -60,7 +62,7 @@ const Portfolio = ({ data }) => {
                   />
                 </Link>
                 <Flex flexDir="column" p="2rem 1.25rem 5rem 1.25rem">
-                  <Heading pb="1rem" fontFamily="body">
+                  <Heading pb="1rem" size="lg" fontFamily="body">
                     <Link
                       href={projectUrl}
                       p="0.25rem 0.5rem"

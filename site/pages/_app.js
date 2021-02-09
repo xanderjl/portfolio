@@ -1,7 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react"
 import theme from "../theme"
 import "../styles/fonts.css"
-import "../styles/ais-search.css"
 
 function MyApp({ Component, pageProps }) {
   return (

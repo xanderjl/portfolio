@@ -49,7 +49,8 @@ const ContactForm = ({ title }) => {
       maxW="45ch"
       p="3rem 1.5rem"
       bg="white"
-      boxShadow="0 0.5rem 1em -0.125em rgba(0,0,0,0.1)"
+      borderRadius={4}
+      boxShadow="lg"
     >
       <form
         name="contact"
@@ -117,7 +118,7 @@ const ContactForm = ({ title }) => {
             </Text>
           )}
         </FormControl>
-        <Button type="submit" colorScheme="blue" color="white">
+        <Button type="submit" colorScheme="blue" color="white" borderRadius={4}>
           Submit
         </Button>
       </form>

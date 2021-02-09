@@ -17,17 +17,14 @@
     "@jlengstorf/get-share-image": "^0.8.0",
     "@sanity/block-content-to-react": "^2.0.7",
     "@sanity/image-url": "^0.140.22",
-    "algoliasearch": "^4.8.5",
     "framer-motion": "^3.3.0",
     "hamburger-react": "^2.4.0",
-    "instantsearch.css": "^7.4.5",
     "next": "10.0.6",
     "prism-react-renderer": "^1.1.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-hook-form": "^6.15.1",
-    "react-icons": "^4.2.0",
-    "react-instantsearch-dom": "^6.9.0"
+    "react-icons": "^4.2.0"
   },
   "prettier": {
     "semi": false
