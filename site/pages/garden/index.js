@@ -1,13 +1,6 @@
 import Layout from "../../components/layout"
 import { Link as NextLink } from "next/link"
-import {
-  Container,
-  Stack,
-  Link,
-  Heading,
-  theme,
-  StackDivider,
-} from "@chakra-ui/react"
+import { Container, Stack, Link, Heading, StackDivider } from "@chakra-ui/react"
 
 const Garden = ({ data }) => {
   const { title, metaDescription } = data.Blog
