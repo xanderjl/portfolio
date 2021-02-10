@@ -17,6 +17,7 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  Text,
 } from "@chakra-ui/react"
 
 const Header = ({ children }) => (
@@ -24,8 +25,8 @@ const Header = ({ children }) => (
     {children}
   </Heading>
 )
-const TextInput = () => <Input borderRadius={4} />
-const Textarea = () => <Tarea borderRadius={4} rows={8} />
+const TextInput = (props) => <Input borderRadius={4} {...props} />
+const Textarea = (props) => <Tarea borderRadius={4} rows={8} {...props} />
 const SubmitButton = ({ children }) => (
   <Button type="submit" colorScheme="blue" color="white" borderRadius={4}>
     {children}
@@ -44,7 +45,19 @@ const ContactForm = ({ title, form }) => {
   }) {
     return (
       <FControl pb="1rem">
-        {label && <FormLabel htmlFor={labelFor}>{label}</FormLabel>}
+        {label && (
+          <FormLabel
+            htmlFor={labelFor}
+            requiredIndicator={
+              <Text as="span" color="blue.600">
+                {" "}
+                *
+              </Text>
+            }
+          >
+            {label}
+          </FormLabel>
+        )}
         {description && <Text>{description}</Text>}
         {children}
         {error && <FormErrorMessage>{error}</FormErrorMessage>}
@@ -79,6 +92,7 @@ const ContactForm = ({ title, form }) => {
         }}
         onSubmit={async (vals) => {
           await formium.submitForm("contact", vals)
+          onOpen()
         }}
       />
       {isOpen ? (
