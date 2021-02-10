@@ -13,7 +13,7 @@ import CodeBlock from "../components/codeBlock"
 
 export default {
   types: {
-    block: props => {
+    block: (props) => {
       const { style = "normal" } = props.node
 
       if (/^h\d/.test(style)) {
@@ -42,10 +42,10 @@ export default {
     },
     blockImage: ({ node }) => {
       const { image, alt } = node
-      const urlFor = src =>
+      const urlFor = (src) =>
         urlBuilder({
-          projectId: process.env.GATSBY_SANITY_ID,
-          dataset: process.env.GATSBY_SANITY_DATASET,
+          projectId: "akwcuf3t",
+          dataset: "production",
         }).image(src)
 
       return (
@@ -104,11 +104,11 @@ export const BlogLink = ({ mark, children }) => {
 
 export const toPlainText = (blocks = []) => {
   return blocks
-    .map(block => {
+    .map((block) => {
       if (block._type !== "block" || !block.children) {
         return ""
       }
-      return block.children.map(child => child.text).join("")
+      return block.children.map((child) => child.text).join("")
     })
     .join("\n\n")
 }

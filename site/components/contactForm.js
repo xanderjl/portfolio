@@ -1,14 +1,15 @@
-import React from "react"
-import PropTypes from "prop-types"
+import { memo } from "react"
+import { FormiumForm, defaultComponents } from "@formium/react"
+import formium from "../lib/formiumClient"
 import {
   Box,
   Heading,
-  Text,
   Button,
-  Input,
-  Textarea,
-  FormControl,
+  FormControl as FControl,
   FormLabel,
+  FormErrorMessage,
+  Input,
+  Textarea as Tarea,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -17,31 +18,39 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react"
-import { useForm } from "react-hook-form"
 
-const encode = data => {
-  return Object.keys(data)
-    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&")
-}
+const Header = ({ children }) => (
+  <Heading as="h1" fontFamily="body">
+    {children}
+  </Heading>
+)
+const TextInput = () => <Input borderRadius={4} />
+const Textarea = () => <Tarea borderRadius={4} rows={8} />
+const SubmitButton = ({ children }) => (
+  <Button type="submit" colorScheme="blue" color="white" borderRadius={4}>
+    {children}
+  </Button>
+)
 
-const ContactForm = ({ title }) => {
-  const { register, handleSubmit, reset, errors } = useForm()
+const ContactForm = ({ title, form }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const onSubmit = data => {
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({ "form-name": "contact", ...data }),
-    })
-      .then(() => {
-        onOpen()
-        reset()
-      })
-      .catch(error => alert(error))
-  }
 
-  const re = /\S+@\S+\.\S+/
+  const FormControl = memo(function FormControl({
+    children,
+    description,
+    error,
+    label,
+    labelFor,
+  }) {
+    return (
+      <FControl pb="1rem">
+        {label && <FormLabel htmlFor={labelFor}>{label}</FormLabel>}
+        {description && <Text>{description}</Text>}
+        {children}
+        {error && <FormErrorMessage>{error}</FormErrorMessage>}
+      </FControl>
+    )
+  })
 
   return (
     <Box
@@ -52,76 +61,26 @@ const ContactForm = ({ title }) => {
       borderRadius={4}
       boxShadow="lg"
     >
-      <form
-        name="contact"
-        method="POST"
-        onSubmit={handleSubmit(onSubmit)}
-        data-netlify="true"
-      >
-        <Input
-          type="hidden"
-          name="form-name"
-          value="contact"
-          ref={register({ required: true })}
-        />
-        {title ? (
-          <Heading as="h2" pb="1.25rem" fontFamily="body">
-            {title}
-          </Heading>
-        ) : null}
-        <FormControl pb="1rem">
-          <FormLabel htmlFor="name" className="label" fontWeight="semibold">
-            Name
-          </FormLabel>
-          <Input
-            name="name"
-            placeholder="Jane Doe"
-            ref={register({ required: true })}
-            borderColor={errors.name ? "red.300" : "gray.200"}
-          />
-          {errors.name && (
-            <Text as="span" color="red.300">
-              Please enter your name.
-            </Text>
-          )}
-        </FormControl>
-        <FormControl pb="1rem">
-          <FormLabel htmlFor="email" className="label" fontWeight="semibold">
-            Email
-          </FormLabel>
-          <Input
-            name="email"
-            placeholder="jane.d@gmail.com"
-            ref={register({ required: true, pattern: re })}
-            borderColor={errors.email ? "red.300" : "gray.200"}
-          />
-          {errors.email && (
-            <Text as="span" color="red.300">
-              A valid email address is required.
-            </Text>
-          )}
-        </FormControl>
-        <FormControl pb="1rem">
-          <FormLabel htmlFor="message" className="label" fontWeight="semibold">
-            Message
-          </FormLabel>
-          <Textarea
-            name="message"
-            rows={10}
-            placeholder="Hello"
-            ref={register({ required: true, minLength: 2 })}
-            borderColor={errors.message ? "red.300" : "gray.200"}
-          />
-          {errors.message && (
-            <Text as="span" color="red.300">
-              Please enter a message longer than two characters.
-            </Text>
-          )}
-        </FormControl>
-        <Button type="submit" colorScheme="blue" color="white" borderRadius={4}>
-          Submit
-        </Button>
-      </form>
+      {title && (
+        <Heading as="h2" pb="1.25rem" fontFamily="body">
+          {title}
+        </Heading>
+      )}
+      <FormiumForm
+        data={form}
+        slug="contact"
+        components={{
+          ...defaultComponents,
+          FormControl,
+          Header,
+          TextInput,
+          Textarea,
+          SubmitButton,
+        }}
+        onSubmit={async (vals) => {
+          await formium.submitForm("contact", vals)
+        }}
+      />
       {isOpen ? (
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay>
@@ -135,10 +94,6 @@ const ContactForm = ({ title }) => {
       ) : null}
     </Box>
   )
-}
-
-ContactForm.propTypes = {
-  title: PropTypes.string,
 }
 
 export default ContactForm

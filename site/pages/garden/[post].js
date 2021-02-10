@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import PortableText from "@sanity/block-content-to-react"
 import getShareImage from "@jlengstorf/get-share-image"
 import Layout from "../../components/layout"
-import serializers, { toPlainText } from "../../components/serializers"
+import serializers, { toPlainText } from "../../lib/serializers"
 
 const MotionBox = motion.custom(Box)
 

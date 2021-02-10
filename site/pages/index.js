@@ -1,3 +1,4 @@
+import formium from "../lib/formiumClient"
 import { Heading, Text, Container, Flex, Box } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import Layout from "../components/layout"
@@ -7,7 +8,7 @@ const MotionHeading = motion.custom(Heading)
 const MotionText = motion.custom(Text)
 const MotionBox = motion.custom(Box)
 
-const IndexPage = () => {
+const IndexPage = ({ form }) => {
   return (
     <Layout title="Home">
       <Container maxW="xl" p="3rem 1.25rem">
@@ -43,12 +44,20 @@ const IndexPage = () => {
               stiffness: 100,
             }}
           >
-            <ContactForm title="Let's Talk." />
+            <ContactForm title="Let's Talk." form={form} />
           </MotionBox>
         </Flex>
       </Container>
     </Layout>
   )
+}
+
+export const getStaticProps = async ({ previewData = {} }) => {
+  const form = await formium.getFormBySlug("contact", previewData)
+
+  return {
+    props: { form },
+  }
 }
 
 export default IndexPage

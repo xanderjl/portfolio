@@ -1,3 +1,4 @@
+import formium from "../lib/formiumClient"
 import { Container } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 
@@ -6,7 +7,7 @@ import ContactForm from "../components/contactForm"
 
 const MotionContainer = motion.custom(Container)
 
-const contact = () => {
+const contact = ({ form }) => {
   return (
     <Layout title="Contact">
       <MotionContainer
@@ -22,10 +23,18 @@ const contact = () => {
           stiffness: 100,
         }}
       >
-        <ContactForm title="Reach Out." />
+        <ContactForm title="Reach Out." form={form} />
       </MotionContainer>
     </Layout>
   )
+}
+
+export const getStaticProps = async ({ previewData = {} }) => {
+  const form = await formium.getFormBySlug("contact", previewData)
+
+  return {
+    props: { form },
+  }
 }
 
 export default contact

@@ -12,7 +12,7 @@ import PortableText from "@sanity/block-content-to-react"
 import { motion } from "framer-motion"
 import Layout from "../components/layout"
 import { AiFillGithub } from "react-icons/ai"
-import serializers from "../components/serializers"
+import serializers from "../lib/serializers"
 
 const Portfolio = ({ data }) => {
   const projects = data.projects
