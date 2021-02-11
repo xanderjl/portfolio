@@ -28,7 +28,7 @@ const Layout = ({ title, metadescription, children }) => {
           }
         />
         <meta property="og:site_name" content="Alex Low" />
-        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:creator" content="Alex Low" />
         <meta property="twitter:title" content={title} />
         <meta

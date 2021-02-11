@@ -28,7 +28,6 @@ const BlogPost = ({ data }) => {
       <Head>
         <meta name="og:image" content={shareCard} />
         <meta name="twitter:image" content={shareCard} />
-        <meta name="twitter:summary_large_image" content="summary" />
       </Head>
       <MotionBox
         display="flex"
