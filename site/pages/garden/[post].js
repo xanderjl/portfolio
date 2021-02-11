@@ -1,3 +1,4 @@
+import Head from "next/head"
 import { Box, Heading, Text, Container } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import PortableText from "@sanity/block-content-to-react"
@@ -24,6 +25,11 @@ const BlogPost = ({ data }) => {
       description={toPlainText(bodyRaw).slice(0, 156) + "..."}
       shareCard={shareCard}
     >
+      <Head>
+        <meta name="og:image" content={shareCard} />
+        <meta name="twitter:image" content={shareCard} />
+        <meta name="twitter:summary_large_image" content="summary" />
+      </Head>
       <MotionBox
         display="flex"
         flexDirection="column"
