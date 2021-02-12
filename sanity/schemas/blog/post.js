@@ -32,5 +32,14 @@ export default {
       title: "Body",
       type: "blockContent",
     },
+    {
+      name: "content",
+      title: "Content",
+      type: "markdown",
+      options: {
+        autoGrow: false,
+        minRows: 40,
+      },
+    },
   ],
 };

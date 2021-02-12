@@ -1,15 +1,17 @@
 import Head from "next/head"
 import { Box, Heading, Text, Container } from "@chakra-ui/react"
 import { motion } from "framer-motion"
-import PortableText from "@sanity/block-content-to-react"
 import getShareImage from "@jlengstorf/get-share-image"
 import Layout from "../../components/layout"
-import serializers, { toPlainText } from "../../lib/serializers"
+import hydrate from "next-mdx-remote/hydrate"
+import renderToString from "next-mdx-remote/render-to-string"
+import blogPostComponenets from "../../lib/blogPostComponents"
 
 const MotionBox = motion.custom(Box)
 
-const BlogPost = ({ data }) => {
-  const { title, publishDate, bodyRaw } = data.allPost[0]
+const BlogPost = ({ pageData, title, content }) => {
+  console.log(content)
+  const { publishDate } = pageData
   const shareCard = getShareImage({
     title,
     cloudName: `alexlow-dev`,
@@ -18,13 +20,12 @@ const BlogPost = ({ data }) => {
     textColor: `0c0e0f`,
     titleFontSize: 80,
   })
+  const renderedContent = hydrate(content, {
+    components: blogPostComponenets,
+  })
 
   return (
-    <Layout
-      title={`${title} - Garden`}
-      description={toPlainText(bodyRaw).slice(0, 156) + "..."}
-      shareCard={shareCard}
-    >
+    <Layout title={`${title} - Garden`} shareCard={shareCard}>
       <Head>
         <meta name="og:image" content={shareCard} />
         <meta name="twitter:image" content={shareCard} />
@@ -52,7 +53,7 @@ const BlogPost = ({ data }) => {
           <Text as="span">{publishDate}</Text>
         </Container>
         <Container maxW="3xl" p="0 1.25rem 7rem 1.25rem">
-          <PortableText blocks={bodyRaw} serializers={serializers} />
+          {renderedContent}
         </Container>
       </MotionBox>
     </Layout>
@@ -80,6 +81,7 @@ export const getStaticPaths = async () => {
       }),
     }
   )
+
   const props = await req.json()
 
   const paths = await props.data.allPost.map((path) => {
@@ -110,13 +112,12 @@ export const getStaticProps = async ({ params }) => {
               _id
               title
               publishDate
-              bodyRaw
+              content
               slug {
                 current
               }
             }
           }
-        
         `,
         variables: {
           slug: params.post,
@@ -125,19 +126,18 @@ export const getStaticProps = async ({ params }) => {
     }
   )
 
-  const props = await req.json()
+  const { data } = await req.json()
 
-  if (!props) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    }
-  }
+  const [pageData] = await data.allPost
+
+  const content = await renderToString(pageData.content)
 
   return {
-    props,
+    props: {
+      pageData,
+      title: pageData.title,
+      content,
+    },
   }
 }
 
