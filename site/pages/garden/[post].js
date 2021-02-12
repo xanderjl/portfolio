@@ -10,7 +10,6 @@ import blogPostComponenets from "../../lib/blogPostComponents"
 const MotionBox = motion.custom(Box)
 
 const BlogPost = ({ pageData, title, content }) => {
-  console.log(content)
   const { publishDate } = pageData
   const shareCard = getShareImage({
     title,
