@@ -91,7 +91,7 @@ const Uses = ({ data }) => {
                         maxW={{ base: "60px", sm: "72px", md: "80px" }}
                         maxH="auto"
                         mr="1rem"
-                        key={id}
+                        key={i}
                         href={url}
                         isExternal
                         flex={1}
