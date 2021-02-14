@@ -1,9 +1,36 @@
 import React, { useState } from "react"
 import { Link as NextLink } from "next/link"
 import { Box, Flex, Container, Link } from "@chakra-ui/react"
+import { motion } from "framer-motion"
 import { LogoIcon } from "../icons"
 import { Squash as Hamburger } from "hamburger-react"
 import NavbarLink from "./navbarLink"
+
+const MotionBox = motion.custom(Box)
+const MotionNavbarLink = motion.custom(NavbarLink)
+
+const parent = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+}
+
+const children = {
+  hidden: { x: 100 },
+  visible: {
+    x: 0,
+    transition: {
+      duration: 0.4,
+    },
+  },
+}
+
 const Navbar = () => {
   const [menu, setMenu] = useState(false)
 
@@ -30,7 +57,7 @@ const Navbar = () => {
             <Hamburger toggled={menu} toggle={setMenu} />
           </Box>
         </Box>
-        <Box
+        <MotionBox
           display={{ base: menu ? "flex" : "none", md: "flex" }}
           flexDirection={{ base: "column", sm: "column", md: "row" }}
           w={{ base: "full", sm: "full", md: "auto" }}
@@ -38,13 +65,26 @@ const Navbar = () => {
           alignItems={{ base: "flex-start", sm: "flex-start", md: "center" }}
           justifyContent={{ md: "flex-end" }}
           flexGrow={1}
+          variants={parent}
+          inital="hidden"
+          animate="visible"
         >
-          <NavbarLink href="/">Home</NavbarLink>
-          <NavbarLink href="/portfolio">Work</NavbarLink>
-          <NavbarLink href="/garden">Garden</NavbarLink>
-          <NavbarLink href="/uses">Uses</NavbarLink>
-          <NavbarLink href="/contact">Connect</NavbarLink>
-        </Box>
+          <MotionNavbarLink variants={children} href="/">
+            Home
+          </MotionNavbarLink>
+          <MotionNavbarLink variants={children} href="/portfolio">
+            Work
+          </MotionNavbarLink>
+          <MotionNavbarLink variants={children} href="/garden">
+            Garden
+          </MotionNavbarLink>
+          <MotionNavbarLink variants={children} href="/uses">
+            Uses
+          </MotionNavbarLink>
+          <MotionNavbarLink variants={children} href="/contact">
+            Connect
+          </MotionNavbarLink>
+        </MotionBox>
       </Container>
     </Flex>
   )

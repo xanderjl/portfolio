@@ -11,17 +11,6 @@ const theme = extendTheme({
           md: "lg",
         },
       },
-      "body::after": {
-        display: ["none", "none", "block"],
-        position: "absolute",
-        right: 0,
-        top: 0,
-        zIndex: -1,
-        minW: "50vw",
-        minH: "100%",
-        bg: "blue.100",
-        content: "''",
-      },
     },
   },
   colors: {
