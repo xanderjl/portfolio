@@ -73,8 +73,6 @@ export const getStaticPaths = async () => {
     `,
   })
 
-  console.log(data)
-
   const paths = data.data.allPost.map((path) => {
     const { slug } = path
     return {
