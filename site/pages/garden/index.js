@@ -1,6 +1,7 @@
 import Layout from "../../components/layout"
 import { Link as NextLink } from "next/link"
 import { Container, Stack, Link, Heading, StackDivider } from "@chakra-ui/react"
+import { fetchSanityContent } from "../../lib/queries"
 
 const Garden = ({ data }) => {
   const { title, metaDescription } = data.Blog
@@ -43,35 +44,25 @@ const Garden = ({ data }) => {
 }
 
 export const getStaticProps = async () => {
-  const req = await fetch(
-    `https://${process.env.SANITY_ID}.api.sanity.io/v1/graphql/${process.env.SANITY_DATASET}/default`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        query: `
-          query {
-            Blog(id: "blog") {
-              title
-              metaDescription
-            }
-            allPost(sort:{publishDate:DESC}) {
-              _id
-              title
-              slug {
-                current
-              }
-            }
+  const data = await fetchSanityContent({
+    query: `
+      query {
+        Blog(id: "blog") {
+          title
+          metaDescription
+        }
+        allPost(sort: { publishDate: DESC }) {
+          _id
+          title
+          slug {
+            current
           }
-        `,
-      }),
-    }
-  )
-  const props = await req.json()
+        }
+      }
+    `,
+  })
 
-  if (!props) {
+  if (!data) {
     return {
       redirect: {
         destination: "/",
@@ -81,7 +72,7 @@ export const getStaticProps = async () => {
   }
 
   return {
-    props: { ...props },
+    props: { ...data },
   }
 }
 

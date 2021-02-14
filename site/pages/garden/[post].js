@@ -6,6 +6,7 @@ import Layout from "../../components/layout"
 import hydrate from "next-mdx-remote/hydrate"
 import renderToString from "next-mdx-remote/render-to-string"
 import blogPostComponenets from "../../lib/blogPostComponents"
+import { fetchSanityContent } from "../../lib/queries"
 
 const MotionBox = motion.custom(Box)
 
@@ -60,30 +61,21 @@ const BlogPost = ({ pageData, title, content }) => {
 }
 
 export const getStaticPaths = async () => {
-  const req = await fetch(
-    `https://${process.env.SANITY_ID}.api.sanity.io/v1/graphql/${process.env.SANITY_DATASET}/default`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        query: `
-          query {
-            allPost {
-              slug {
-                current
-              }
-            }
+  const data = await fetchSanityContent({
+    query: `
+      query {
+        allPost {
+          slug {
+            current
           }
-        `,
-      }),
-    }
-  )
+        }
+      }
+    `,
+  })
 
-  const props = await req.json()
+  console.log(data)
 
-  const paths = await props.data.allPost.map((path) => {
+  const paths = data.data.allPost.map((path) => {
     const { slug } = path
     return {
       params: { post: slug.current },
@@ -97,37 +89,26 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const req = await fetch(
-    `https://${process.env.SANITY_ID}.api.sanity.io/v1/graphql/${process.env.SANITY_DATASET}/default`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        query: `
-          query($slug: String!) {
-            allPost(where: { slug: { current: { eq: $slug } } }) {
-              _id
-              title
-              publishDate
-              content
-              slug {
-                current
-              }
-            }
-          }
-        `,
-        variables: {
-          slug: params.post,
-        },
-      }),
+  const data = await fetchSanityContent({
+    query: `
+    query($slug: String!) {
+      allPost(where: { slug: { current: { eq: $slug } } }) {
+        _id
+        title
+        publishDate
+        content
+        slug {
+          current
+        }
+      }
     }
-  )
+    `,
+    variables: {
+      slug: params.post,
+    },
+  })
 
-  const { data } = await req.json()
-
-  const [pageData] = await data.allPost
+  const [pageData] = data.data.allPost
 
   const content = await renderToString(pageData.content)
 

@@ -13,6 +13,7 @@ import { motion } from "framer-motion"
 import Layout from "../components/layout"
 import { AiFillGithub } from "react-icons/ai"
 import serializers from "../lib/serializers"
+import { fetchSanityContent } from "../lib/queries"
 
 const Portfolio = ({ data }) => {
   const projects = data.projects
@@ -130,48 +131,37 @@ const Portfolio = ({ data }) => {
 }
 
 export const getStaticProps = async () => {
-  const req = await fetch(
-    `https://${process.env.SANITY_ID}.api.sanity.io/v1/graphql/${process.env.SANITY_DATASET}/default`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        query: `
-          query {
-            projects: allProjects {
-              _id
+  const data = await fetchSanityContent({
+    query: `
+      query {
+        projects: allProjects {
+          _id
+          title
+          repoUrl
+          projectUrl
+          descriptionRaw
+          image {
+            asset {
               title
-              repoUrl
-              projectUrl
-              descriptionRaw
-              image {
-                asset {
-                  title
-                  description
-                  url
-                }
-                hotspot {
-                  x
-                  y
-                }
-              }
-              technologies {
-                _id
-                title
-                url
-              }
+              description
+              url
+            }
+            hotspot {
+              x
+              y
             }
           }
-        `,
-      }),
-    }
-  )
+          technologies {
+            _id
+            title
+            url
+          }
+        }
+      }
+    `,
+  })
 
-  const props = await req.json()
-
-  if (!props) {
+  if (!data) {
     return {
       redirect: {
         destination: "/",
@@ -181,7 +171,7 @@ export const getStaticProps = async () => {
   }
 
   return {
-    props: { ...props },
+    props: { ...data },
   }
 }
 

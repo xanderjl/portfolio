@@ -3,6 +3,7 @@ import PortableText from "@sanity/block-content-to-react"
 import { motion } from "framer-motion"
 import Layout from "../components/layout"
 import serializers from "../lib/serializers"
+import { fetchSanityContent } from "../lib/queries"
 
 const sectionVariants = {
   hidden: {
@@ -132,42 +133,32 @@ const Uses = ({ data }) => {
 }
 
 export const getStaticProps = async () => {
-  const req = await fetch(
-    `https://${process.env.SANITY_ID}.api.sanity.io/v1/graphql/${process.env.SANITY_DATASET}/default`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        query: `
-          query {
-            Uses(id: "uses") {
+  const data = await fetchSanityContent({
+    query: `
+      query {
+        Uses(id: "uses") {
+          title
+          metaDescription
+          body {
+            _key
+            bodyRaw
+            array {
+              _id
               title
-              metaDescription
-              body {
-                _key
-                bodyRaw
-                array {
-                  _id
-                  title
+              url
+              icon {
+                asset {
                   url
-                  icon {
-                    asset {
-                      url
-                    }
-                  }
                 }
               }
             }
           }
-        `,
-      }),
-    }
-  )
-  const props = await req.json()
+        }
+      }
+    `,
+  })
 
-  if (!props) {
+  if (!data) {
     return {
       redirect: {
         destination: "/",
@@ -177,7 +168,7 @@ export const getStaticProps = async () => {
   }
 
   return {
-    props: { ...props },
+    props: { ...data },
   }
 }
 
