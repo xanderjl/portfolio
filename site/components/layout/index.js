@@ -41,23 +41,7 @@ const Layout = ({ title, metadescription, children }) => {
         />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Flex
-        direction="column"
-        minH="100vh"
-        overflowX="hidden"
-        bg="transparent"
-        _after={{
-          display: ["none", "none", "block"],
-          position: "absolute",
-          right: 0,
-          top: 0,
-          zIndex: -1,
-          minW: "50vw",
-          minH: "100%",
-          bg: "blue.100",
-          content: "''",
-        }}
-      >
+      <Flex direction="column" minH="100vh" overflowX="hidden" bg="transparent">
         <Box flex={1}>
           <Navbar />
           {children}

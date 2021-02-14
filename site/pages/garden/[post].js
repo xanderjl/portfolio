@@ -1,5 +1,5 @@
 import Head from "next/head"
-import { Box, Heading, Text, Container } from "@chakra-ui/react"
+import { Box, Heading, Text, Container, theme } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import getShareImage from "@jlengstorf/get-share-image"
 import Layout from "../../components/layout"
