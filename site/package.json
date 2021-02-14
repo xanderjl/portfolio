@@ -34,8 +34,5 @@
   "prettier": {
     "semi": false
   },
-  "devDependencies": {
-    "eslint": "^7.20.0",
-    "eslint-plugin-react": "^7.22.0"
-  }
+  "devDependencies": {}
 }
