@@ -22,6 +22,7 @@
     "@sanity/image-url": "^0.140.22",
     "@sanity/ui": "^0.33.0",
     "framer-motion": "^3.3.0",
+    "fuse.js": "^6.4.6",
     "hamburger-react": "^2.4.0",
     "next": "10.0.6",
     "next-mdx-remote": "^2.1.3",
@@ -32,7 +33,8 @@
     "react-icons": "^4.2.0"
   },
   "prettier": {
-    "semi": false
+    "semi": false,
+    "arrowParens": "avoid"
   },
   "devDependencies": {}
 }

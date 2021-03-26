@@ -1,11 +1,30 @@
-import Layout from "../../components/layout"
+import { useState } from "react"
 import { Link as NextLink } from "next/link"
-import { Container, Stack, Link, Heading, StackDivider } from "@chakra-ui/react"
+import Fuse from "fuse.js"
+import Layout from "../../components/layout"
+import {
+  Container,
+  Stack,
+  Link,
+  Heading,
+  StackDivider,
+  InputGroup,
+  InputLeftElement,
+  Input,
+  Icon,
+} from "@chakra-ui/react"
+import { BiSearch } from "react-icons/bi"
 import { fetchSanityContent } from "../../lib/queries"
 
 const Garden = ({ data }) => {
+  const [query, setQuery] = useState("")
   const { title, metaDescription } = data.Blog
   const posts = data.allPost
+  const fuse = new Fuse(posts, {
+    keys: ["title", "content"],
+  })
+  const results = fuse.search(query)
+  const postResults = query ? results.map(result => result.item) : posts
 
   return (
     <Layout title={title} description={metaDescription}>
@@ -18,7 +37,18 @@ const Garden = ({ data }) => {
           spacing={3}
           divider={<StackDivider />}
         >
-          {posts.map((post) => {
+          <InputGroup size="lg">
+            <InputLeftElement>
+              <Icon as={BiSearch} />
+            </InputLeftElement>
+            <Input
+              type="text"
+              placeholder="Search for something!"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+            />
+          </InputGroup>
+          {postResults.map(post => {
             const { _id, title, slug } = post
             return (
               <Link
@@ -57,6 +87,7 @@ export const getStaticProps = async () => {
           slug {
             current
           }
+          content
         }
       }
     `,
