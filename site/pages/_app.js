@@ -19,13 +19,13 @@ function MyApp({ Component, pageProps }) {
       <AnimateSharedLayout>
         <DefaultSeo
           title="Xander Low"
-          description="Alex Low is a front end web developer focusing on the Jamstack, based in London, ON."
+          description="Xander Low is a front end web developer focusing on the Jamstack, based in London, ON."
           openGraph={{
             type: "website",
             locale: "en_CA",
             title: "Xander Low",
             description:
-              "Alex Low is a front end web developer focusing on the Jamstack, based in London, ON.",
+              "Xander Low is a front end web developer focusing on the Jamstack, based in London, ON.",
             url: "https://alexlow.dev",
             site_name: "Xander Low",
             images: [
@@ -33,8 +33,8 @@ function MyApp({ Component, pageProps }) {
                 url: shareCard,
                 width: 800,
                 height: 418,
-                alt: "Xander's Personal Site"
-              }
+                alt: "Xander's Personal Site",
+              },
             ],
           }}
           twitter={{

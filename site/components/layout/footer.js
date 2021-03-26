@@ -14,7 +14,7 @@ const Footer = () => {
           >
             me@alexlow.dev
           </ChakraLink>
-          <span>&copy; Alex Low {new Date().getFullYear()}</span>
+          <span>&copy; Xander Low {new Date().getFullYear()}</span>
         </Flex>
       </Container>
     </footer>

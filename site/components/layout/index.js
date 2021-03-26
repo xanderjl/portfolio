@@ -7,7 +7,7 @@ import Footer from "./footer"
 
 const Layout = ({ title, metadescription, children }) => {
   const shareCard = getShareImage({
-    title,
+    title: `${title && `${title} | `}Xander Low`,
     cloudName: `alexlow-dev`,
     imagePublicID: `share-card.jpg`,
     titleFont: `Poppins`,
@@ -18,7 +18,7 @@ const Layout = ({ title, metadescription, children }) => {
   return (
     <>
       <NextSeo
-        title={`${title && `${title} | `}Alex Low`}
+        title={`${title && `${title} | `}Xander Low`}
         description={metadescription && metadescription}
         openGraph={{
           title: title,

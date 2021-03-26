@@ -21,7 +21,7 @@ const IndexPage = ({ form }) => {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.4, type: "tween" }}
         >
-          Alex Low
+          Xander Low
         </MotionHeading>
         <MotionText
           initial={{ x: -30, opacity: 0 }}
