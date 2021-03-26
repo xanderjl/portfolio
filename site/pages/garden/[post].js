@@ -1,7 +1,5 @@
-import Head from "next/head"
-import { Box, Heading, Text, Container, theme } from "@chakra-ui/react"
+import { Box, Heading, Text, Container } from "@chakra-ui/react"
 import { motion } from "framer-motion"
-import getShareImage from "@jlengstorf/get-share-image"
 import Layout from "../../components/layout"
 import hydrate from "next-mdx-remote/hydrate"
 import renderToString from "next-mdx-remote/render-to-string"
@@ -12,24 +10,12 @@ const MotionBox = motion.custom(Box)
 
 const BlogPost = ({ pageData, title, content }) => {
   const { publishDate } = pageData
-  const shareCard = getShareImage({
-    title,
-    cloudName: `alexlow-dev`,
-    imagePublicID: `share-card.jpg`,
-    titleFont: `Poppins`,
-    textColor: `0c0e0f`,
-    titleFontSize: 80,
-  })
   const renderedContent = hydrate(content, {
     components: blogPostComponenets,
   })
 
   return (
-    <Layout title={`${title} - Garden`} shareCard={shareCard}>
-      <Head>
-        <meta name="og:image" content={shareCard} />
-        <meta name="twitter:image" content={shareCard} />
-      </Head>
+    <Layout title={`${title} - Garden`}>
       <MotionBox
         display="flex"
         flexDirection="column"
@@ -73,7 +59,7 @@ export const getStaticPaths = async () => {
     `,
   })
 
-  const paths = data.data.allPost.map((path) => {
+  const paths = data.data.allPost.map(path => {
     const { slug } = path
     return {
       params: { post: slug.current },

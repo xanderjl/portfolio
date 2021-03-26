@@ -1,46 +1,38 @@
 import React from "react"
-import Head from "next/head"
+import { NextSeo } from "next-seo"
+import getShareImage from "@jlengstorf/get-share-image"
 import { Box, Flex } from "@chakra-ui/react"
 import Navbar from "./navbar"
 import Footer from "./footer"
 
 const Layout = ({ title, metadescription, children }) => {
+  const shareCard = getShareImage({
+    title,
+    cloudName: `alexlow-dev`,
+    imagePublicID: `share-card.jpg`,
+    titleFont: `Poppins`,
+    textColor: `0c0e0f`,
+    titleFontSize: 80,
+  })
+
   return (
     <>
-      <Head>
-        <title>{title && `${title} | `}Alex Low</title>
-        <meta
-          name="description"
-          content={
-            metadescription
-              ? metadescription
-              : "Alex Low is a front end web developer focusing on the Jamstack, based in London, ON."
-          }
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={title} />
-        <meta
-          property="og:description"
-          content={
-            metadescription
-              ? metadescription
-              : "Alex Low is a front end web developer focusing on the Jamstack, based in London, ON."
-          }
-        />
-        <meta property="og:site_name" content="Alex Low" />
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:creator" content="Alex Low" />
-        <meta property="twitter:title" content={title} />
-        <meta
-          property="twitter:description"
-          content={
-            metadescription
-              ? metadescription
-              : "Alex Low is a front end web developer focusing on the Jamstack, based in London, ON."
-          }
-        />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <NextSeo
+        title={`${title && `${title} | `}Alex Low`}
+        description={metadescription && metadescription}
+        openGraph={{
+          title: title,
+          description: metadescription,
+          images: [
+            {
+              url: shareCard,
+              width: 800,
+              height: 418,
+              alt: title,
+            },
+          ],
+        }}
+      />
       <Flex direction="column" minH="100vh" overflowX="hidden" bg="transparent">
         <Box flex={1}>
           <Navbar />
