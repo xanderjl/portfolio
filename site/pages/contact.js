@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import Layout from "../components/layout"
 import ContactForm from "../components/contactForm"
 
-const MotionContainer = motion.custom(Container)
+const MotionContainer = motion(Container)
 
 const contact = ({ form }) => {
   return (

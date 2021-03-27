@@ -6,7 +6,7 @@ import renderToString from "next-mdx-remote/render-to-string"
 import blogPostComponenets from "../../lib/blogPostComponents"
 import { fetchSanityContent } from "../../lib/queries"
 
-const MotionBox = motion.custom(Box)
+const MotionBox = motion(Box)
 
 const BlogPost = ({ pageData, title, content }) => {
   const { publishDate } = pageData

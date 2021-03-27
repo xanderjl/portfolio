@@ -17,7 +17,7 @@ import { fetchSanityContent } from "../lib/queries"
 
 const Portfolio = ({ data }) => {
   const projects = data.projects
-  const MotionBox = motion.custom(Box)
+  const MotionBox = motion(Box)
 
   return (
     <Layout title="Portfolio">

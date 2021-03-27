@@ -6,8 +6,8 @@ import { LogoIcon } from "../icons"
 import { Squash as Hamburger } from "hamburger-react"
 import NavbarLink from "./navbarLink"
 
-const MotionBox = motion.custom(Box)
-const MotionNavbarLink = motion.custom(NavbarLink)
+const MotionBox = motion(Box)
+const MotionNavbarLink = motion(NavbarLink)
 
 const parent = {
   hidden: {

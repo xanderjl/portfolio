@@ -4,9 +4,9 @@ import { motion } from "framer-motion"
 import Layout from "../components/layout"
 import ContactForm from "../components/contactForm"
 
-const MotionHeading = motion.custom(Heading)
-const MotionText = motion.custom(Text)
-const MotionBox = motion.custom(Box)
+const MotionHeading = motion(Heading)
+const MotionText = motion(Text)
+const MotionBox = motion(Box)
 
 const IndexPage = ({ form }) => {
   return (

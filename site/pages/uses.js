@@ -47,11 +47,11 @@ const textChild = {
   },
 }
 
-const MotionBox = motion.custom(Box)
-const MotionLink = motion.custom(Link)
-const MotionContainer = motion.custom(Container)
-const MotionGrid = motion.custom(Grid)
-const MotionImage = motion.custom(Image)
+const MotionBox = motion(Box)
+const MotionLink = motion(Link)
+const MotionContainer = motion(Container)
+const MotionGrid = motion(Grid)
+const MotionImage = motion(Image)
 
 const Uses = ({ data }) => {
   const { title, metaDescription, body } = data.Uses
@@ -63,7 +63,7 @@ const Uses = ({ data }) => {
         variants={sectionVariants}
         p="3rem 1.25rem"
       >
-        {body.map((section) => {
+        {body.map(section => {
           const { _key, array, bodyRaw } = section
           return (
             <MotionContainer
