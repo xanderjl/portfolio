@@ -10,7 +10,7 @@ const shareCard = getShareImage({
   imagePublicID: `share-card.jpg`,
   titleFont: `Poppins`,
   textColor: `0c0e0f`,
-  titleFontSize: 80,
+  titleFontSize: 65,
 })
 
 function MyApp({ Component, pageProps }) {
