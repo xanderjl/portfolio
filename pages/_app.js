@@ -11,6 +11,7 @@ const shareCard = getShareImage({
   titleFont: `Poppins`,
   textColor: `0c0e0f`,
   titleFontSize: 65,
+  titleBottomOffset: 200,
 })
 
 function MyApp({ Component, pageProps }) {
