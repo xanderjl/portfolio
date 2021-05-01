@@ -12,7 +12,8 @@ const Layout = ({ title, metadescription, children }) => {
     imagePublicID: `share-card.jpg`,
     titleFont: `Poppins`,
     textColor: `0c0e0f`,
-    titleFontSize: 80,
+    titleFontSize: 65,
+    titleBottomOffset: 200,
   })
 
   return (
