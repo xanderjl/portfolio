@@ -1,18 +1,15 @@
 import { Box, Heading, Text, Container } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import Layout from "../../components/layout"
-import hydrate from "next-mdx-remote/hydrate"
-import renderToString from "next-mdx-remote/render-to-string"
-import blogPostComponenets from "../../lib/blogPostComponents"
+import { MDXRemote } from "next-mdx-remote"
+import { serialize } from "next-mdx-remote/serialize"
+import blogPostComponents from "../../lib/blogPostComponents"
 import { fetchSanityContent } from "../../lib/queries"
 
 const MotionBox = motion(Box)
 
 const BlogPost = ({ pageData, title, content }) => {
   const { publishDate } = pageData
-  const renderedContent = hydrate(content, {
-    components: blogPostComponenets,
-  })
 
   return (
     <Layout title={`${title} - Garden`}>
@@ -39,7 +36,7 @@ const BlogPost = ({ pageData, title, content }) => {
           <Text as="span">{publishDate}</Text>
         </Container>
         <Container maxW="3xl" p="0 1.25rem 7rem 1.25rem">
-          {renderedContent}
+          <MDXRemote {...content} components={blogPostComponents} />
         </Container>
       </MotionBox>
     </Layout>
@@ -94,7 +91,7 @@ export const getStaticProps = async ({ params }) => {
 
   const [pageData] = data.data.allPost
 
-  const content = await renderToString(pageData.content)
+  const content = await serialize(pageData.content)
 
   return {
     props: {
