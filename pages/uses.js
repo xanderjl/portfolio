@@ -1,9 +1,10 @@
-import { Box, Link, Container, Grid, Image } from "@chakra-ui/react"
-import PortableText from "@sanity/block-content-to-react"
-import { motion } from "framer-motion"
 import Layout from "../components/layout"
+import { Box, Link, Container, Grid, Image } from "@chakra-ui/react"
+import { motion } from "framer-motion"
+import PortableText from "@sanity/block-content-to-react"
 import serializers from "../lib/serializers"
-import { fetchSanityContent } from "../lib/queries"
+import { getClient } from "@lib/sanity/server"
+import { groq } from "next-sanity"
 
 const sectionVariants = {
   hidden: {
@@ -54,7 +55,7 @@ const MotionGrid = motion(Grid)
 const MotionImage = motion(Image)
 
 const Uses = ({ data }) => {
-  const { title, metaDescription, body } = data.Uses
+  const { title, metaDescription, body } = data
   return (
     <Layout title={title} description={metaDescription}>
       <MotionBox
@@ -64,7 +65,7 @@ const Uses = ({ data }) => {
         p="3rem 1.25rem"
       >
         {body.map(section => {
-          const { _key, array, bodyRaw } = section
+          const { _key, array, body } = section
           return (
             <MotionContainer
               key={_key}
@@ -86,7 +87,7 @@ const Uses = ({ data }) => {
               >
                 <MotionBox display="flex">
                   {array.map((item, i) => {
-                    const { id, title, url, icon } = item
+                    const { _id, title, url, icon } = item
                     return (
                       <MotionLink
                         maxW={{ base: "60px", sm: "72px", md: "80px" }}
@@ -98,7 +99,7 @@ const Uses = ({ data }) => {
                         flex={1}
                       >
                         <MotionImage
-                          src={icon.asset.url}
+                          src={icon.url}
                           alt={`${title} logo`}
                           initial={{ y: 20, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
@@ -121,7 +122,7 @@ const Uses = ({ data }) => {
                   })}
                 </MotionBox>
                 <MotionBox maxW="55ch" variants={textChild}>
-                  <PortableText blocks={bodyRaw} serializers={serializers} />
+                  <PortableText blocks={body} serializers={serializers} />
                 </MotionBox>
               </MotionGrid>
             </MotionContainer>
@@ -133,42 +134,27 @@ const Uses = ({ data }) => {
 }
 
 export const getStaticProps = async () => {
-  const data = await fetchSanityContent({
-    query: `
-      query {
-        Uses(id: "uses") {
-          title
-          metaDescription
-          body {
-            _key
-            bodyRaw
-            array {
-              _id
-              title
+  const data = await getClient().fetch(groq`
+    *[_type == "uses"]{
+        title,
+        metaDescription,
+        body[]{
+          _key,
+          array[]->{
+            _id,
+            title,
+            url,
+            "icon": icon.asset->{
               url
-              icon {
-                asset {
-                  url
-                }
-              }
             }
-          }
+          },
+          body[]
         }
-      }
-    `,
-  })
-
-  if (!data) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    }
-  }
+    }[0]
+  `)
 
   return {
-    props: { ...data },
+    props: { data },
   }
 }
 
