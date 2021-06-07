@@ -1,4 +1,3 @@
-import Image from "next/image"
 import {
   Link,
   Heading,
@@ -7,16 +6,18 @@ import {
   Grid,
   Flex,
   Icon,
+  Image,
 } from "@chakra-ui/react"
 import PortableText from "@sanity/block-content-to-react"
 import { motion } from "framer-motion"
 import Layout from "../components/layout"
 import { AiFillGithub } from "react-icons/ai"
 import serializers from "../lib/serializers"
-import { fetchSanityContent } from "../lib/queries"
+import { getClient } from "@lib/sanity/server"
+import groq from "groq"
+import { urlFor } from "@lib/sanity"
 
-const Portfolio = ({ data }) => {
-  const projects = data.projects
+const Portfolio = ({ projects }) => {
   const MotionBox = motion(Box)
 
   return (
@@ -55,13 +56,9 @@ const Portfolio = ({ data }) => {
               >
                 <Link href={projectUrl} _hover={{ opacity: "0.75" }}>
                   <Image
-                    src={image.asset.url}
+                    src={urlFor(image?.url).width(800).height(800)}
                     alt={`A screenshot of ${title}'s homepage.`}
-                    layout="intrinsic"
-                    quality={100}
                     objectFit="cover"
-                    width={800}
-                    height={600}
                   />
                 </Link>
                 <Flex flexDir="column" p="2rem 1.25rem 5rem 1.25rem">
@@ -131,47 +128,28 @@ const Portfolio = ({ data }) => {
 }
 
 export const getStaticProps = async () => {
-  const data = await fetchSanityContent({
-    query: `
-      query {
-        projects: allProjects {
-          _id
-          title
-          repoUrl
-          projectUrl
-          descriptionRaw
-          image {
-            asset {
-              title
-              description
-              url
-            }
-            hotspot {
-              x
-              y
-            }
-          }
-          technologies {
-            _id
-            title
-            url
-          }
-        }
-      }
-    `,
-  })
-
-  if (!data) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
+  const projects = await getClient().fetch(groq`
+    *[_type == "projects"]{
+      _id,
+      title,
+      repoUrl,
+      projectUrl,
+      description,
+      "image": image.asset->{
+        title,
+        description,
+        url
       },
+      technologies[]->{
+        _id,
+        title,
+        url
+      }
     }
-  }
+  `)
 
   return {
-    props: { ...data },
+    props: { projects },
   }
 }
 

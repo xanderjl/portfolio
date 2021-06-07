@@ -1,0 +1,327 @@
+---
+title: "A Gratuity Opportunity"
+date: "01/20/2021"
+---
+
+So the launch of the [True Taco site](https://github.com/XanderJL/true-taco/) seemingly went off without a hitch! I asked my friend to keep an eye out for any hiccups, and the only major thing people were asking for was a way to add a tip to their order.
+
+## Stripe Checkout Session, Meet Your Favourite New line_item
+
+I am by no means advocating for this implementation, as I find it quite messy, but I was able to get my desired end result with this:
+
+- A gratuity selector component
+- State management in the cart page with `useReducer()`
+- A new line_item object with logic to handle what was entered from the cart
+
+## The Selector Component
+
+```jsx
+const CartGratuity = ({
+  subText,
+  value,
+  gratuity,
+  gratuityType,
+  handleValue,
+  handleGratuity,
+  handleGratuityType,
+}) => {
+  const format = val => `$` + val
+
+  return (
+    <Stack direction="column" spacing={4} mb="1.25rem">
+      <Flex direction="column">
+        <Heading as="h3" size="md" fontWeight="bold" fontFamily="body">
+          Gratuity:
+        </Heading>
+        <Heading as="h3" size="sm" fontFamily="body">
+          {subText}
+        </Heading>
+      </Flex>
+      <Select
+        maxW="13ch"
+        size="sm"
+        value={gratuityType}
+        onChange={handleGratuityType}
+      >
+        <option value="none">None</option>
+        <option value="percentage">Percentage</option>
+        <option value="dollar">Dollar</option>
+      </Select>
+      {gratuityType === "percentage" ? (
+        <Select
+          maxW="13ch"
+          size="sm"
+          value={gratuity}
+          onChange={handleGratuity}
+        >
+          <option value="15%">15%</option>
+          <option value="18%">18%</option>
+          <option value="25%">25%</option>
+        </Select>
+      ) : gratuityType === "dollar" ? (
+        <NumberInput
+          maxW="13ch"
+          size="sm"
+          onChange={handleValue}
+          value={format(value)}
+        >
+          <NumberInputField />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
+      ) : null}
+    </Stack>
+  )
+}
+
+export default CartGratuity
+```
+
+This little doodad is fairly simple. The props of the CartGratuity component are bringing in the state and handler functions defined in the cart page and displaying different selectors or counters depending on which option you select in the initial selector. Whatever route you go, you end up passing a dollar amount or total percentage from CartGratuity to the cart page, which then gets passed onto the [create-session](https://github.com/XanderJL/true-taco/blob/main/site/functions/create-session.js) Netlify function as metadata.
+
+## Managing State in The Cart Page
+
+```jsx
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "setGratuity":
+      return { ...state, gratuity: action.payload }
+    case "setGratuityType":
+      return { ...state, gratuityType: action.payload }
+    case "setDollarValue":
+      return { ...state, dollarValue: action.payload }
+    default:
+      throw new Error("gratuity whatever didn't match")
+  }
+}
+
+const Cart = ({ data }) => {
+  const [notes, setNotes] = useState()
+  const [times, setTimes] = useState([])
+  const [selectedTime, setSelectedTime] = useState("8:00")
+  const [state, dispatch] = useReducer(reducer, {
+    gratuity: "18%",
+    gratuityType: "percentage",
+    dollarValue: "0.00",
+  })
+
+  const { gratuityType, gratuity, dollarValue } = state
+
+  const parse = val => val.replace(/^\$/, "")
+
+  useEffect(() => {
+    client.fetch(`*[_type == "cart"]{times}`).then(query => {
+      setTimes(query[0].times)
+    })
+  }, [])
+
+  const {
+    setItemQuantity,
+    removeItem,
+    cartCount,
+    cartDetails,
+    clearCart,
+    totalPrice,
+    redirectToCheckout,
+  } = useShoppingCart()
+
+  const subtotal = totalPrice / 100
+
+  const hst = subtotal * 0.13
+
+  const total = subtotal + hst
+
+  const cartItems = Object.values(cartDetails)
+
+  const handleSubmit = async event => {
+    event.preventDefault()
+
+    const response = await fetch("/.netlify/functions/create-session", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cart: cartDetails,
+        metadata: {
+          notes,
+          selectedTime,
+          gratuity:
+            gratuityType === "percentage"
+              ? gratuity
+              : gratuityType === "dollar"
+              ? dollarValue
+              : "0.00",
+        },
+        subtotal: totalPrice,
+      }),
+    })
+      .then(res => {
+        return res.json()
+      })
+      .catch(error => console.log(error))
+
+    redirectToCheckout({ sessionId: response.sessionId })
+    clearCart()
+  }
+
+  return (
+    <Layout title="Cart" bg="gray.100">
+      <Container>
+        <Section
+          maxW="960px"
+          m={[0, "5rem auto", "5rem auto"]}
+          mb={{ sm: "5rem" }}
+          p={["3rem 1.25rem", "3rem 2.5rem"]}
+          bg="white"
+          _after={{
+            width: "calc(100% + 5rem)",
+            height: "22px",
+            content: `""`,
+            display: "block",
+            position: "relative",
+            bottom: "calc(-5rem + 10px)",
+            left: "calc(-2.5rem)",
+            backgroundImage: `url(${bottomFrills})`,
+          }}
+        >
+          {cartCount > 0 ? (
+            cartItems.map((item, i) => {
+              const {
+                name,
+                id,
+                description,
+                price_data,
+                formattedValue,
+                quantity,
+              } = item
+
+              const options = []
+
+              for (let quantity = 1; quantity <= 20; ++quantity)
+                options.push(<option value={quantity}>{quantity}</option>)
+
+              return (
+
+                ...
+
+                {cartCount > 0 && (
+                  <Box marginTop="1rem">
+                    <CartGratuity
+                      subText={data.sanityCart.gratuityText}
+                      value={dollarValue}
+                      gratuity={gratuity}
+                      gratuityType={gratuityType}
+                      handleValue={valueString =>
+                        dispatch({
+                          type: "setDollarValue",
+                          payload: parse(valueString),
+                        })
+                      }
+                      handleGratuity={e =>
+                        dispatch({ type: "setGratuity", payload: e.target.value })
+                      }
+                      handleGratuityType={e =>
+                        dispatch({ type: "setGratuityType", payload: e.target.value })
+                      }
+                    />
+                    <Flex
+                      p="2rem 0 1rem 0"
+                      direction="column"
+                      align="flex-end"
+                      fontSize={["lg", "xl"]}
+                    >
+                      <Text>Subtotal: ${subtotal}</Text>
+                      <Text>HST: ${hst.toFixed(2)}</Text>
+                      <Text fontWeight={600}>Total: ${total.toFixed(2)}</Text>
+                    </Flex>
+                    <Flex justify="flex-end">
+                      <Button
+                        mb="1rem"
+                        colorScheme="green"
+                        borderRadius="0"
+                        onClick={handleSubmit}
+                        onKeyDown={e => e.key === "Enter" && handleSubmit}
+                      >
+                        Proceed to Checkout
+                      </Button>
+                    </Flex>
+                  </Box>
+                )}
+        </Section>
+      </Container>
+    </Layout>
+  )
+}
+
+export const data = graphql`
+  {
+    sanityCart {
+      notesPlaceholder
+      gratuityText
+    }
+  }
+`
+
+export default Cart
+```
+
+This block is a condensed version of the actual [cart page](https://github.com/XanderJL/true-taco/blob/main/site/src/pages/cart.js) component. The important stuff on this page is the reducer, which is handling state for the three parts of the CartGratuity component, and then the handlers that are altering the state using dispatch(). Gratuity gets passed as a percent or dollar value to the submission handler function and then it's onto the serverless function for creating the Stripe checkout session.
+
+## Creating The Gratuity line_item
+
+```jsx
+const stripe = require("stripe")(process.env.GATSBY_STRIPE_API_SECRET)
+
+exports.handler = async ({ body }) => {
+  const { cart, metadata, subtotal } = JSON.parse(body)
+  try {
+    const line_items = []
+
+    ...
+
+    const gratuity = {
+      price_data: {
+        currency: "cad",
+        product_data: {
+          name: "Gratuity",
+        },
+        unit_amount_decimal: metadata.gratuity.endsWith("%")
+          ? Math.ceil(subtotal * (parseInt(metadata?.gratuity) * 0.01))
+          : parseInt(metadata?.gratuity) * 100,
+      },
+      quantity: 1,
+    }
+
+    ...
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      billing_address_collection: "auto",
+      shipping_address_collection: {
+        allowed_countries: ["CA"],
+      },
+      success_url: `${process.env.GATSBY_PRODUCTION_URL}/success`,
+      cancel_url: process.env.GATSBY_PRODUCTION_URL,
+      mode: "payment",
+      line_items: [...line_items, gratuity, hst],
+      metadata,
+    })
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ sessionId: session.id }),
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+```
+
+This is the fun, tiny tweak that was the final piece of the puzzle. No matter the value of gratuity, it comes in as a string. That string needs to get parsed as a number. parseInt is used in either example to calculate x percent of the cart total, or a simple flat amount. That is then passed onto line_items in the `stripe.checkout.sessions.create({...})` call and badabing, badaboom. We now have a gratuity system implemented in our checkout flow!
+
+Again, this may not be the neatest or most concise implementation, but it's working for me and I wasn't able to find much literature on solutions to the problem, so I hope this helps someone out there.
+
+As always, if you have any questions, please hit me up over on [Twitter](https://twitter.com/XandyDandy), or send me an email at [me@alexlow.dev](mailto:me@alexlow.dev)

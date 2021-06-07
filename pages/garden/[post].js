@@ -1,15 +1,17 @@
+import path from "path"
+import { promises as fs } from "fs"
+import * as matter from "gray-matter"
 import { Box, Heading, Text, Container } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import Layout from "../../components/layout"
 import { MDXRemote } from "next-mdx-remote"
 import { serialize } from "next-mdx-remote/serialize"
 import blogPostComponents from "../../lib/blogPostComponents"
-import { fetchSanityContent } from "../../lib/queries"
 
 const MotionBox = motion(Box)
 
-const BlogPost = ({ pageData, title, content }) => {
-  const { publishDate } = pageData
+const BlogPost = ({ source, frontMatter }) => {
+  const { title, date } = frontMatter
 
   return (
     <Layout title={`${title} - Garden`}>
@@ -33,10 +35,10 @@ const BlogPost = ({ pageData, title, content }) => {
           <Heading as="h1" fontFamily="body">
             {title}
           </Heading>
-          <Text as="span">{publishDate}</Text>
+          <Text as="span">{date}</Text>
         </Container>
         <Container maxW="3xl" p="0 1.25rem 7rem 1.25rem">
-          <MDXRemote {...content} components={blogPostComponents} />
+          <MDXRemote {...source} components={blogPostComponents} />
         </Container>
       </MotionBox>
     </Layout>
@@ -44,24 +46,15 @@ const BlogPost = ({ pageData, title, content }) => {
 }
 
 export const getStaticPaths = async () => {
-  const data = await fetchSanityContent({
-    query: `
-      query {
-        allPost {
-          slug {
-            current
-          }
-        }
-      }
-    `,
-  })
-
-  const paths = data.data.allPost.map(path => {
-    const { slug } = path
+  const postsDir = path.join(process.cwd(), "./posts")
+  const filenames = await fs.readdir(postsDir)
+  const paths = await Promise.all(filenames.map(async filename => {
     return {
-      params: { post: slug.current },
+      params: {
+        post: filename.replace(".mdx", "")
+      }
     }
-  })
+  }))
 
   return {
     paths,
@@ -70,34 +63,18 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const data = await fetchSanityContent({
-    query: `
-    query($slug: String!) {
-      allPost(where: { slug: { current: { eq: $slug } } }) {
-        _id
-        title
-        publishDate
-        content
-        slug {
-          current
-        }
-      }
-    }
-    `,
-    variables: {
-      slug: params.post,
-    },
-  })
-
-  const [pageData] = data.data.allPost
-
-  const content = await serialize(pageData.content)
+  const postsDir = path.join(process.cwd(), "./posts")
+  const filenames = await fs.readdir(postsDir)
+  const matchingFile = filenames.find(file => file.includes(params.post))
+  const filePath = path.join(postsDir, matchingFile)
+  const fileContent = await fs.readFile(filePath, "utf-8")
+  const { content, data } = matter(fileContent)
+  const mdxSource = await serialize(content, { scope: data })
 
   return {
     props: {
-      pageData,
-      title: pageData.title,
-      content,
+      source: mdxSource,
+      frontMatter: data
     },
   }
 }

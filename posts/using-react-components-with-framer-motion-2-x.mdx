@@ -1,0 +1,44 @@
+---
+title: "Using React Components With Framer Motion 2.x"
+date: "10/18/2020"
+---
+
+So you've finished building out a design for a page. You've picked up some sort of styled component library to keep everything consistent. You take a moment to admire the perfect padding. The Tasteful, yet spicy font choices. The color palette? Immaculate.
+
+> Hmm. Could use a little more pizzazz.
+
+Heartbreak.
+
+You visit [the Framer Motion API docs](https://www.framer.com/api/motion/) and add this snazzy little library to your project.
+
+Oh...
+
+```jsx
+<motion.Heading>Animate me!</motion.Heading>
+```
+
+didn't work.
+
+No problem, we'll just wrap the component in a `<motion.div></motion.div>`.
+
+```jsx
+<motion.div>
+  <Heading>Animate Me!</Heading>
+</motion.div>
+```
+
+**NO!**
+
+While this works, It's not ideal and just continues to add to your ever-growing div soup. Let's try this sweet method out.
+
+```jsx
+const MotionHeading = motion.custom(Heading)
+
+<MotionHeading>
+  Animate Me!
+</MotionHeading>
+```
+
+And just like that, you're now able to access the framer-motion props while being able to style away with the props of the ui library you've come to know and love. Just a little less div clutter in your life.
+
+I had a hard time finding about this in the framer-motion docs, so I hope this helps someone out there running into the same thing.

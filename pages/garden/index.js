@@ -1,7 +1,10 @@
 import { useState } from "react"
 import { Link as NextLink } from "next/link"
+import path from "path"
+import { promises as fs } from "fs"
+import grayMatter from "gray-matter"
 import Fuse from "fuse.js"
-import Layout from "../../components/layout"
+import Layout from "@components/layout"
 import {
   Container,
   Stack,
@@ -14,12 +17,11 @@ import {
   Icon,
 } from "@chakra-ui/react"
 import { BiSearch } from "react-icons/bi"
-import { fetchSanityContent } from "../../lib/queries"
+import { getClient } from "@lib/sanity/server"
+import { groq } from "next-sanity"
 
-const Garden = ({ data }) => {
+const Garden = ({ title, metaDescription, posts }) => {
   const [query, setQuery] = useState("")
-  const { title, metaDescription } = data.Blog
-  const posts = data.allPost
   const fuse = new Fuse(posts, {
     keys: ["title", "content"],
   })
@@ -48,13 +50,13 @@ const Garden = ({ data }) => {
               onChange={e => setQuery(e.target.value)}
             />
           </InputGroup>
-          {postResults.map(post => {
-            const { _id, title, slug } = post
+          {postResults.map((post, i) => {
+            const { title, path } = post
             return (
               <Link
-                key={_id}
+                key={i}
                 as={NextLink}
-                href={`/garden/${slug.current}`}
+                href={path}
                 p="0.5rem"
                 borderRadius={4}
                 _hover={{
@@ -74,36 +76,32 @@ const Garden = ({ data }) => {
 }
 
 export const getStaticProps = async () => {
-  const data = await fetchSanityContent({
-    query: `
-      query {
-        Blog(id: "blog") {
-          title
-          metaDescription
-        }
-        allPost(sort: { publishDate: DESC }) {
-          _id
-          title
-          slug {
-            current
-          }
-          content
-        }
-      }
-    `,
+  const postsDir = path.join(process.cwd(), "./posts")
+  const filenames = await fs.readdir(postsDir)
+  const files = await Promise.all(filenames.map(async filename => {
+    const filePath = path.join(postsDir, filename)
+    const content = await fs.readFile(filePath, "utf-8")
+    const matter = grayMatter(content)
+
+    return {
+      filename,
+      content,
+      matter
+    }
+  }))
+
+  const posts = files.map(file => {
+    return {
+      path: `/garden/${file.filename.replace(".mdx", "")}`,
+      title: file.matter.data.title,
+      content: file.content
+    }
   })
 
-  if (!data) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    }
-  }
+  const pageData = await getClient().fetch(groq`*[_type == "blog"]{ title, metaDescription }[0]`)
 
   return {
-    props: { ...data },
+    props: { ...pageData, posts },
   }
 }
 

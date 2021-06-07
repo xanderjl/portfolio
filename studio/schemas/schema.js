@@ -6,8 +6,7 @@ import schemaTypes from "all:part:@sanity/base/schema-type";
 import settings from "./settings";
 import projects from "./projects";
 import uses from "./uses";
-import blog from "./blog/blog";
-import post from "./blog/post";
+import blog from "./blog";
 import blockContent from "./blockContent";
 import blockImage from "./blockImage";
 import blockTech from "./blockTech";
@@ -28,6 +27,5 @@ export default createSchema({
     blockTech,
     technologies,
     blog,
-    post,
   ]),
 });
