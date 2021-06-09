@@ -7,7 +7,7 @@ import ContactForm from "../components/contactForm"
 
 const MotionContainer = motion(Container)
 
-const contact = ({ form }) => {
+const Connect = ({ form }) => {
   return (
     <Layout title="Contact">
       <MotionContainer
@@ -37,4 +37,4 @@ export const getStaticProps = async ({ previewData = {} }) => {
   }
 }
 
-export default contact
+export default Connect

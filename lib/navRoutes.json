@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Home",
+    "slug": "/"
+  },
+  {
+    "title": "Portfolio",
+    "slug": "/portfolio"
+  },
+  {
+    "title": "Garden",
+    "slug": "/garden"
+  },
+  {
+    "title": "Uses",
+    "slug": "/uses"
+  },
+  {
+    "title": "Connect",
+    "slug": "/connect"
+  }
+]

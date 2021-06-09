@@ -1,0 +1,18 @@
+---
+title: "Kohi"
+date: "06/09/2021"
+layout: "fullscreenCanvas"
+canvasBg: "blackAlpha.300"
+---
+
+import { Suspense } from "react"
+import { Canvas } from "@react-three/fiber"
+import Lights from "@Three/Lighting/Lights"
+import Coffee from "@Three/Models/Coffee"
+
+<Canvas concurrent colorManagement camera={{ position: [0, 0, 10], fov: 40 }}>
+  <Lights />
+  <Suspense fallback={null}>
+    <Coffee />
+  </Suspense>
+</Canvas>

@@ -4,7 +4,7 @@ import { Link as NextLink } from "next/link"
 import { useRouter } from "next/router"
 import { theme, Box, Link, Text } from "@chakra-ui/react"
 
-const NavbarLink = ({ children, href }) => {
+const NavbarLink = ({ children, href, isAlpha = false }) => {
   const router = useRouter()
 
   return (
@@ -27,15 +27,20 @@ const NavbarLink = ({ children, href }) => {
         <Text
           as="span"
           bg={
-            router.pathname === href && {
-              base: `linear-gradient(to top, ${theme.colors.blue[100]} 50%, transparent 50% )`,
-              md: `linear-gradient(to top, ${theme.colors.white} 50%, transparent 50% )`,
+            router.pathname.includes(href) &&
+            href !== "/" && {
+              base: `linear-gradient(to top, ${theme.colors.blue[200]} 50%, transparent 50% )`,
+              md: `linear-gradient(to top, ${
+                isAlpha ? theme.colors.blue[200] : theme.colors.white
+              } 50%, transparent 50% )`,
             }
           }
           _hover={{
             bg: {
-              base: `linear-gradient(to top, ${theme.colors.blue[100]} 50%, transparent 50% )`,
-              md: `linear-gradient(to top, ${theme.colors.white} 50%, transparent 50% )`,
+              base: `linear-gradient(to top, ${theme.colors.blue[200]} 50%, transparent 50% )`,
+              md: `linear-gradient(to top, ${
+                isAlpha ? theme.colors.blue[200] : theme.colors.white
+              } 50%, transparent 50% )`,
             },
           }}
         >

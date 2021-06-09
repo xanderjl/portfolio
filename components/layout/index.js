@@ -5,7 +5,13 @@ import { Box, Flex } from "@chakra-ui/react"
 import Navbar from "./navbar"
 import Footer from "./footer"
 
-const Layout = ({ title, metadescription, children }) => {
+const Layout = ({
+  title,
+  metadescription,
+  children,
+  navFixed = false,
+  navAlpha = false,
+}) => {
   const shareCard = getShareImage({
     title: `${title && `${title} | `}Xander Low`,
     cloudName: `alexlow-dev`,
@@ -35,8 +41,12 @@ const Layout = ({ title, metadescription, children }) => {
         }}
       />
       <Flex direction="column" minH="100vh" overflowX="hidden" bg="transparent">
-        <Box flex={1}>
-          <Navbar />
+        <Navbar isAlpha={navAlpha} isFixed={navFixed} />
+        <Box
+          flex={1}
+          position={navFixed ? "relative" : "static"}
+          top={navFixed && "72px"}
+        >
           {children}
         </Box>
         <Footer />

@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { LogoIcon } from "../icons"
 import { Squash as Hamburger } from "hamburger-react"
 import NavbarLink from "./navbarLink"
+import navRoutes from "@lib/navRoutes.json"
 
 const MotionBox = motion(Box)
 const MotionNavbarLink = motion(NavbarLink)
@@ -31,11 +32,20 @@ const children = {
   },
 }
 
-const Navbar = () => {
+const Navbar = ({ isAlpha = false, isFixed = false }) => {
   const [menu, setMenu] = useState(false)
 
   return (
-    <Flex as="nav" bg="transparent" color="gray.700">
+    <Flex
+      as="nav"
+      w="100%"
+      position={isFixed ? "fixed" : "static"}
+      bg={{
+        base: isAlpha ? "blackAlpha.900" : "transparent",
+        md: isAlpha ? "blackAlpha.600" : "transparent",
+      }}
+      color={isAlpha ? "white" : "gray.700"}
+    >
       <Container
         maxW="xl"
         d="flex"
@@ -69,21 +79,19 @@ const Navbar = () => {
           inital="hidden"
           animate="visible"
         >
-          <MotionNavbarLink variants={children} href="/">
-            Home
-          </MotionNavbarLink>
-          <MotionNavbarLink variants={children} href="/portfolio">
-            Work
-          </MotionNavbarLink>
-          <MotionNavbarLink variants={children} href="/garden">
-            Garden
-          </MotionNavbarLink>
-          <MotionNavbarLink variants={children} href="/uses">
-            Uses
-          </MotionNavbarLink>
-          <MotionNavbarLink variants={children} href="/contact">
-            Connect
-          </MotionNavbarLink>
+          {navRoutes.map((route, i) => {
+            const { title, slug } = route
+            return (
+              <MotionNavbarLink
+                key={i}
+                variants={children}
+                href={slug}
+                isAlpha={isAlpha}
+              >
+                {title}
+              </MotionNavbarLink>
+            )
+          })}
         </MotionBox>
       </Container>
     </Flex>
