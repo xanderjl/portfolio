@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { Link as NextLink } from "next/link"
+import grayMatter from "gray-matter"
 import path from "path"
 import { promises as fs } from "fs"
-import grayMatter from "gray-matter"
 import Fuse from "fuse.js"
 import Layout from "@components/layout"
 import {
@@ -76,29 +76,33 @@ const Garden = ({ title, metaDescription, posts }) => {
 }
 
 export const getStaticProps = async () => {
-  const postsDir = path.join(process.cwd(), "./posts")
+  const postsDir = path.join(process.cwd(), "./pages/garden/posts")
   const filenames = await fs.readdir(postsDir)
-  const files = await Promise.all(filenames.map(async filename => {
-    const filePath = path.join(postsDir, filename)
-    const content = await fs.readFile(filePath, "utf-8")
-    const matter = grayMatter(content)
+  const files = await Promise.all(
+    filenames.map(async filename => {
+      const filePath = path.join(postsDir, filename)
+      const content = await fs.readFile(filePath, "utf-8")
+      const matter = grayMatter(content)
 
-    return {
-      filename,
-      content,
-      matter
-    }
-  }))
+      return {
+        filename,
+        content,
+        matter,
+      }
+    })
+  )
 
   const posts = files.map(file => {
     return {
-      path: `/garden/${file.filename.replace(".mdx", "")}`,
+      path: `/garden/posts/${file.filename.replace(".mdx", "")}`,
       title: file.matter.data.title,
-      content: file.content
+      content: file.content,
     }
   })
 
-  const pageData = await getClient().fetch(groq`*[_type == "blog"]{ title, metaDescription }[0]`)
+  const pageData = await getClient().fetch(
+    groq`*[_type == "blog"]{ title, metaDescription }[0]`
+  )
 
   return {
     props: { ...pageData, posts },

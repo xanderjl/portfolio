@@ -1,3 +1,6 @@
+const composePlugins = require("next-compose-plugins")
+const withMdxEnhanced = require("next-mdx-enhanced")
+
 const STUDIO_REWRITE = {
   source: "/studio/:path",
   destination:
@@ -6,12 +9,17 @@ const STUDIO_REWRITE = {
       : "/studio/index.html",
 }
 
-module.exports = {
-  images: {
-    domains: ["cdn.sanity.io"],
+module.exports = composePlugins([
+  withMdxEnhanced({
+    layoutPath: "./templates",
+  }),
+  {
+    images: {
+      domains: ["cdn.sanity.io"],
+    },
+    future: {
+      webpack5: false,
+    },
+    rewrites: () => [STUDIO_REWRITE],
   },
-  future: {
-    webpack5: false,
-  },
-  rewrites: () => [STUDIO_REWRITE],
-}
+])
