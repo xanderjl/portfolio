@@ -4,8 +4,81 @@ title: "One, Two, Three.js"
 date: "07/08/2021"
 ---
 
-import ThreejsCanvas from "../components/blogComponents/ThreejsCanvas"
+import { Canvas } from "@react-three/fiber"
+import TorusKnot from "@components/Three/TorusKnot"
+import { Box } from "@chakra-ui/react"
 
-<ThreejsCanvas />
+<Box w="100%" h="500px" mb="2rem" bg="black">
+  <Canvas colorManagement shadowMap camera={{ position: [-5, 2, 10], fov: 60 }}>
+    <ambientLight intensity={0.3} />
+    <pointLight position={[10, 10, 10]} />
+    <TorusKnot position={[-3, 6, -4]} />
+    <TorusKnot position={[-5, 0, 0]} />
+    <TorusKnot position={[-3, -4.5, 3]} />
+    <TorusKnot position={[5, 4.5, 5]} />
+    <TorusKnot position={[3, 1, 0]} />
+    <TorusKnot position={[8, -5, 0]} />
+    <TorusKnot position={[8, -10, -17]} />
+  </Canvas>
+</Box>
 
-If I get real lucky, this will just work one day :^ )
+## Behold my weird, hot-pink-when-hovered pretzels
+
+I'm gonna spend my free time picking up some of this math magic using [react-three-fiber](https://github.com/pmndrs/react-three-fiber).
+
+The code for this pretzel mess:
+
+```jsx
+//Canvas
+
+import { Canvas } from "@react-three/fiber"
+import TorusKnot from "@components/Three/TorusKnot"
+import { Box } from "@chakra-ui/react"
+
+<Box w="100%" h="500px" mb="2rem" bg="black">
+  <Canvas colorManagement shadowMap camera={{ position: [-5, 2, 10], fov: 60 }}>
+    <ambientLight intensity={0.3} />
+    <pointLight position={[10, 10, 10]} />
+    <TorusKnot position={[-3, 6, -4]} />
+    <TorusKnot position={[-5, 0, 0]} />
+    <TorusKnot position={[-3, -4.5, 3]} />
+    <TorusKnot position={[5, 4.5, 5]} />
+    <TorusKnot position={[3, 1, 0]} />
+    <TorusKnot position={[8, -5, 0]} />
+    <TorusKnot position={[8, -10, -17]} />
+  </Canvas>
+</Box>
+```
+
+```jsx
+//TorusKnot.js
+
+import { useState, useRef } from "react"
+import { useFrame } from "@react-three/fiber"
+
+const TorusKnot = props => {
+  const mesh = useRef()
+  const [hovered, setHover] = useState(false)
+  const [active, setActive] = useState(false)
+
+  useFrame(() => (mesh.current.rotation.x += 0.04))
+
+  return (
+    <mesh
+      {...props}
+      ref={mesh}
+      scale={active ? 1.5 : 1}
+      onClick={() => setActive(!active)}
+      onPointerOver={() => setHover(true)}
+      onPointerOut={() => setHover(false)}
+    >
+      <torusKnotGeometry args={[1.2, 0.6, 100, 16]} />
+      <meshStandardMaterial color={hovered ? "hotpink" : 0xffff00} />
+    </mesh>
+  )
+}
+
+export default TorusKnot
+```
+
+Tune in next week for whatever I learn next!

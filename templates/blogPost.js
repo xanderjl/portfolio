@@ -11,7 +11,7 @@ const BlogPost = ({ children, frontMatter }) => {
 
   return (
     <MDXProvider components={blogPostComponents}>
-      <Layout title={` - Garden`}>
+      <Layout title={`${title} - Garden`}>
         <MotionBox
           display="flex"
           flexDirection="column"
@@ -20,6 +20,8 @@ const BlogPost = ({ children, frontMatter }) => {
           m="0 auto"
           mt="3rem"
           bg="white"
+          border="1px solid"
+          borderColor="gray.200"
           borderRadius={4}
           boxShadow="lg"
           initial={{ y: 20, opacity: 0 }}
