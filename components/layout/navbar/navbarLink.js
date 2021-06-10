@@ -31,7 +31,7 @@ const NavbarLink = ({ children, href, isAlpha = false }) => {
             href !== "/" && {
               base: `linear-gradient(to top, ${theme.colors.blue[200]} 50%, transparent 50% )`,
               md: `linear-gradient(to top, ${
-                isAlpha ? theme.colors.blue[200] : theme.colors.white
+                isAlpha ? theme.colors.blue[300] : theme.colors.white
               } 50%, transparent 50% )`,
             }
           }
@@ -39,7 +39,7 @@ const NavbarLink = ({ children, href, isAlpha = false }) => {
             bg: {
               base: `linear-gradient(to top, ${theme.colors.blue[200]} 50%, transparent 50% )`,
               md: `linear-gradient(to top, ${
-                isAlpha ? theme.colors.blue[200] : theme.colors.white
+                isAlpha ? theme.colors.blue[300] : theme.colors.white
               } 50%, transparent 50% )`,
             },
           }}
