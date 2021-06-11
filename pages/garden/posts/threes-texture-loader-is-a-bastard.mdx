@@ -112,7 +112,8 @@ const texture = useTexture("/textures/missing-texture.png")
 
 ## I guess the takeaway here is:
 
-- To the best of my knowledge, this is specific to Nextjs apps
+- ~~To the best of my knowledge, this is specific to Nextjs apps~~
+- It appears to be an SSR issue; not exclusive to Next. I tried using `React.lazy()` and Next's `dynamic`, but neither solution ended up working
 - Whenever possible, be diligent with reading over the drei docs to see if there's a helper to solve these headaches for you
 - There are seemingly endless solves on stackoverflow and github, and sometimes none of them line up with your specific use case
 - 3D hard
