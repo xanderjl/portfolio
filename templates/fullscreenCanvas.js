@@ -9,7 +9,11 @@ const FullscreenCanvas = ({ children, frontMatter }) => {
   return (
     <MDXProvider components={blogPostComponents}>
       <Layout title={`${title} - Garden`} navAlpha navFixed>
-        <Box h="calc(100vh - 72px)" bg={canvasBg ? canvasBg : "transparent"}>
+        <Box
+          h="100vh"
+          bg={canvasBg ? canvasBg : "transparent"}
+          overflow="hidden"
+        >
           {children}
         </Box>
       </Layout>

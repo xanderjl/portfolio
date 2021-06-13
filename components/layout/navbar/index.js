@@ -42,6 +42,7 @@ const Navbar = ({ isAlpha = false, isFixed = false }) => {
       position={isFixed ? "fixed" : "static"}
       bg={isAlpha ? "blackAlpha.900" : "transparent"}
       color={isAlpha ? "white" : "gray.700"}
+      zIndex={10}
     >
       <Container
         maxW="xl"
