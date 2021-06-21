@@ -63,7 +63,7 @@ const ContactForm = ({ title }) => {
           <ValidationError prefix="Email" field="email" errors={errors} />
         </FormErrorMessage>
       </FormControl>
-      <FormControl>
+      <FormControl pb={4}>
         <FormLabel>Message</FormLabel>
         <Textarea id="message" name="message" rows={8} placeholder="Hello!" />
         <FormErrorMessage>

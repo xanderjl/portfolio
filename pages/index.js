@@ -4,7 +4,6 @@ import Layout from "@components/layout"
 import { Canvas, useFrame } from "@react-three/fiber"
 import {
   Dodecahedron,
-  Html,
   Icosahedron,
   Sphere,
   Stars,
