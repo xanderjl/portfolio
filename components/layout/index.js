@@ -20,7 +20,7 @@ const Layout = ({
     textColor: `000000`,
     titleFontSize: 65,
     titleLeftOffset: 180,
-    titleBottomOffset: 480,
+    titleBottomOffset: 380,
   })
 
   return (
