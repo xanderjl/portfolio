@@ -28,9 +28,6 @@ const NavbarLink = ({ children, href }) => {
             href !== "/" &&
             `linear-gradient(to top, ${theme.colors.primary[500]} 50%, transparent 50% )`
           }
-          _hover={{
-            bg: `linear-gradient(to top, ${theme.colors.primary[500]} 50%, transparent 50% )`,
-          }}
         >
           {children}
         </Text>
