@@ -2,8 +2,8 @@ import React from "react"
 import { NextSeo } from "next-seo"
 import getShareImage from "@jlengstorf/get-share-image"
 import { Box, Flex } from "@chakra-ui/react"
-import Navbar from "./navbar"
-import Footer from "./footer"
+import Navbar from "./Navbar"
+import Footer from "./Footer"
 
 const Layout = ({
   title,

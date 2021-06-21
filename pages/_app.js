@@ -2,7 +2,7 @@ import { AnimateSharedLayout } from "framer-motion"
 import { ChakraProvider } from "@chakra-ui/react"
 import { DefaultSeo } from "next-seo"
 import getShareImage from "@jlengstorf/get-share-image"
-import theme from "../lib/theme"
+import theme from "@lib/chakra/theme"
 
 const shareCard = getShareImage({
   title: "Xander Low",

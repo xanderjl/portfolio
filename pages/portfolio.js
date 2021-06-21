@@ -1,127 +1,122 @@
 import {
-  Link,
   Heading,
   Container,
   Box,
-  Grid,
-  Flex,
-  Icon,
   Image,
+  Stack,
+  Icon,
+  Flex,
 } from "@chakra-ui/react"
-import PortableText from "@sanity/block-content-to-react"
 import { motion } from "framer-motion"
-import Layout from "../components/layout"
 import { AiFillGithub } from "react-icons/ai"
-import serializers from "../lib/serializers"
+import { FiGlobe } from "react-icons/fi"
+import { groq } from "next-sanity"
 import { getClient } from "@lib/sanity/server"
-import groq from "groq"
-import { urlFor } from "@lib/sanity"
+import Layout from "@components/layout"
+import Link from "@components/Link"
+import { PortableText, urlFor } from "@lib/sanity"
+
+const MotionStack = motion(Stack)
+const MotionImage = motion(Image)
+
+const animations = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: {
+    ease: "easeInOut",
+    type: "spring",
+    stiffness: 100,
+    duration: 0.1,
+  },
+}
 
 const Portfolio = ({ projects }) => {
-  const MotionBox = motion(Box)
-
   return (
     <Layout title="Portfolio">
-      <Container maxW="xl" p="3rem 1.25rem">
-        <Grid
-          gridTemplateColumns={{
-            base: "minmax(0, 1fr)",
-            md: "repeat(auto-fill, minmax(400px, 1fr))",
-          }}
-          gap="3rem"
-        >
-          {projects.map((project, i) => {
-            const {
-              _id,
-              title,
-              repoUrl,
-              projectUrl,
-              image,
-              technologies,
-              descriptionRaw,
-            } = project
-
-            const { [technologies.length - 1]: last } = technologies
-
-            return (
-              <MotionBox
-                key={_id}
-                initial={{ y: 40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: `0.${i}`, type: "tween" }}
-                bg="white"
-                borderRadius={4}
-                boxShadow="lg"
-                overflow="hidden"
+      <Container maxW="container.lg" p="3rem 1.25rem 5rem 1.25rem">
+        {projects.map((project, i) => {
+          const {
+            title,
+            description,
+            image,
+            projectUrl,
+            repoUrl,
+            technologies,
+          } = project
+          return (
+            <Stack
+              key={i}
+              direction={{
+                base: "column-reverse",
+                md: i % 2 === 0 ? "row" : "row-reverse",
+              }}
+              spacing={10}
+              p="3rem 1.25rem"
+            >
+              <MotionStack
+                direction="column"
+                maxW={{ base: "100%", md: "50%" }}
+                initial={animations.initial}
+                animate={animations.animate}
+                transition={animations.transition}
               >
-                <Link href={projectUrl} _hover={{ opacity: "0.75" }}>
-                  <Image
-                    src={urlFor(image?.url).width(800).height(800)}
-                    alt={`A screenshot of ${title}'s homepage.`}
-                    objectFit="cover"
-                  />
-                </Link>
-                <Flex flexDir="column" p="2rem 1.25rem 5rem 1.25rem">
-                  <Heading pb="1rem" size="lg" fontFamily="body">
-                    <Link
-                      href={projectUrl}
-                      p="0.25rem 0.5rem"
-                      _hover={{
-                        textDecoration: "none",
-                        bg: "blue.100",
-                        color: "gray.700",
-                        borderRadius: "4px",
-                      }}
-                    >
-                      {title}
-                    </Link>
+                <Heading>{title}</Heading>
+                <Stack direction="row">
+                  <Link href={projectUrl} isExternal>
+                    <Icon as={FiGlobe} /> Site
+                  </Link>
+                  <Link href={repoUrl} isExternal>
+                    <Icon as={AiFillGithub} /> Repo
+                  </Link>
+                </Stack>
+                <Box pb={4}>
+                  <PortableText blocks={description} />
+                </Box>
+                <Stack>
+                  <Heading as="h3" size="md">
+                    The Stack
                   </Heading>
-                  <Flex>
-                    <Link
-                      href={repoUrl}
-                      _hover={{
-                        textDecoration: "none",
-                        bg: "blue.100",
-                        color: "gray.700",
-                        borderRadius: "4px",
-                      }}
-                    >
-                      <Icon as={AiFillGithub} boxSize={{ base: 8, md: 12 }} />
-                    </Link>
-                    <Flex pb="1rem" wrap="wrap">
-                      {technologies.map((tech) => {
-                        const { _id, title, url } = tech
-                        return (
-                          <Link
-                            key={_id}
-                            href={url}
-                            p="0.25rem 0.5rem"
-                            _hover={{
-                              textDecoration: "none",
-                              bg: "blue.100",
-                              color: "gray.700",
-                              borderRadius: "4px",
-                            }}
-                          >
-                            {title === last.title ? title : title}
-                          </Link>
-                        )
-                      })}
-                    </Flex>
+                  <Flex direction="row" flexWrap="wrap">
+                    {technologies.map(tech => {
+                      const { url, title, _id } = tech
+                      return (
+                        <Link key={_id} href={url} pr={2} whiteSpace="nowrap">
+                          {title}
+                        </Link>
+                      )
+                    })}
                   </Flex>
-                  <Flex>
-                    {descriptionRaw && (
-                      <PortableText
-                        blocks={descriptionRaw}
-                        serializers={serializers}
-                      />
-                    )}
-                  </Flex>
-                </Flex>
-              </MotionBox>
-            )
-          })}
-        </Grid>
+                </Stack>
+              </MotionStack>
+              <Link
+                href={projectUrl}
+                maxW={{ base: "100%", md: "50%" }}
+                h="auto"
+              >
+                <MotionImage
+                  alignSelf="flex-start"
+                  src={urlFor(image?.url)
+                    .size(800, 600)
+                    .focalPoint(0.5, 0)
+                    .fit("crop")
+                    .crop("focalpoint")
+                    .url()}
+                  placeholder={image?.metadata?.lqip}
+                  border="1px solid"
+                  borderColor="gray.300"
+                  borderRadius={4}
+                  boxShadow="md"
+                  initial={animations.initial}
+                  animate={animations.animate}
+                  transition={{
+                    ...animations.transition,
+                    delay: 0.2,
+                  }}
+                />
+              </Link>
+            </Stack>
+          )
+        })}
       </Container>
     </Layout>
   )
@@ -136,8 +131,7 @@ export const getStaticProps = async () => {
       projectUrl,
       description,
       "image": image.asset->{
-        title,
-        description,
+        metadata,
         url
       },
       technologies[]->{

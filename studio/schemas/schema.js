@@ -1,16 +1,14 @@
 // First, we must import the schema creator
-import createSchema from "part:@sanity/base/schema-creator";
+import createSchema from "part:@sanity/base/schema-creator"
 
 // Then import schema types from any plugins that might expose them
-import schemaTypes from "all:part:@sanity/base/schema-type";
-import settings from "./settings";
-import projects from "./projects";
-import uses from "./uses";
-import blog from "./blog";
-import blockContent from "./blockContent";
-import blockImage from "./blockImage";
-import blockTech from "./blockTech";
-import technologies from "./technologies";
+import schemaTypes from "all:part:@sanity/base/schema-type"
+import settings from "./settings"
+import projects from "./projects"
+import blockContent from "./blockContent"
+import blockImage from "./blockImage"
+import blockTech from "./blockTech"
+import technologies from "./technologies"
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -21,11 +19,9 @@ export default createSchema({
   types: schemaTypes.concat([
     settings,
     projects,
-    uses,
     blockContent,
     blockImage,
     blockTech,
     technologies,
-    blog,
   ]),
-});
+})

@@ -1,13 +1,12 @@
-import formium from "../lib/formiumClient"
 import { Container } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 
-import Layout from "../components/layout"
-import ContactForm from "../components/contactForm"
+import Layout from "@components/layout"
+import ContactForm from "@components/ContactForm"
 
 const MotionContainer = motion(Container)
 
-const Connect = ({ form }) => {
+const Connect = () => {
   return (
     <Layout title="Contact">
       <MotionContainer
@@ -23,18 +22,10 @@ const Connect = ({ form }) => {
           stiffness: 100,
         }}
       >
-        <ContactForm title="Reach Out." form={form} />
+        <ContactForm title="Reach Out." />
       </MotionContainer>
     </Layout>
   )
-}
-
-export const getStaticProps = async ({ previewData = {} }) => {
-  const form = await formium.getFormBySlug("contact", previewData)
-
-  return {
-    props: { form },
-  }
 }
 
 export default Connect

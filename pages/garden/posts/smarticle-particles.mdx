@@ -1,0 +1,45 @@
+---
+title: "Smarticle Particles"
+date: "06/13/2021"
+layout: "fullscreenCanvas"
+canvasBg: "gray.900"
+---
+
+import { useRef, Suspense } from "react"
+import { Canvas, useFrame } from "@react-three/fiber"
+import { Torus, OrbitControls, useTexture } from "@react-three/drei"
+import Lights from "@Three/Lighting/Lights"
+import * as THREE from "three"
+import HtmlOverlay from "@Three/HtmlOverlay"
+
+export const SpinnyBoi = () => {
+  const ref = useRef(null)
+  useFrame(() => (ref.current.rotation.y = ref.current.rotation.y += 0.01))
+  const material = new THREE.PointsMaterial({ transparent: true, size: 0.005 })
+  const texture = useTexture("/textures/x.png")
+  return (
+    <Torus ref={ref} args={[40, 10, 5, 15]}>
+      <pointsMaterial
+        attach="material"
+        map={texture}
+        size={0.5}
+        sizeAttenuation
+        transparent={false}
+        opacity={1}
+      />
+    </Torus>
+  )
+}
+
+<Canvas camera={{ position: [0, 0, 120], fov: 80 }}>
+  <Lights />
+  <Suspense fallback={null}>
+    <SpinnyBoi />
+  </Suspense>
+  <OrbitControls />
+</Canvas>
+<HtmlOverlay title="README">
+  <p>Sheeeeesh 🥶</p>
+</HtmlOverlay>
+
+<!-- TODO: figure out points material -->
