@@ -16,10 +16,11 @@ const Layout = ({
     title: `${title && `${title} | `}Xander Low`,
     cloudName: `alexlow-dev`,
     imagePublicID: `share-card.jpg`,
-    titleFont: `Poppins`,
-    textColor: `0c0e0f`,
+    titleFont: `Lato`,
+    textColor: `000000`,
     titleFontSize: 65,
-    titleBottomOffset: 200,
+    titleLeftOffset: 180,
+    titleBottomOffset: 480,
   })
 
   return (
