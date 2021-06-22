@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import grayMatter from "gray-matter"
 import path from "path"
 import { promises as fs } from "fs"
@@ -17,15 +17,19 @@ import {
 import Link from "@components/Link"
 import { motion } from "framer-motion"
 import { BiSearch } from "react-icons/bi"
+import Tags from "@components/Tags"
+import SelectedTagsContext from "@context/selectedTagsContext"
 
 const MotionContainer = motion(Container)
 
-const Garden = ({ posts }) => {
+const Garden = ({ posts, tags }) => {
   const [query, setQuery] = useState("")
+  const { filterTags } = useContext(SelectedTagsContext)
+
   const fuse = new Fuse(posts, {
-    keys: ["title", "content"],
+    keys: ["title", "content", "matter.tags"],
   })
-  const results = fuse.search(query)
+  const results = fuse.search(filterTags.join(" ") + query)
   const postResults = query ? results.map(result => result.item) : posts
 
   return (
@@ -66,6 +70,7 @@ const Garden = ({ posts }) => {
               onChange={e => setQuery(e.target.value)}
             />
           </InputGroup>
+          <Tags tags={tags} />
           {postResults.map((post, i) => {
             const { title, path } = post
             return (
@@ -75,7 +80,7 @@ const Garden = ({ posts }) => {
                 p="0.5rem"
                 borderRadius={4}
                 _hover={{
-                  background: "primary.50",
+                  background: "primary.100",
                 }}
               >
                 <Heading as="h2" size="lg" fontFamily="body">
@@ -107,6 +112,15 @@ export const getStaticProps = async () => {
     })
   )
 
+  const tmp = []
+  await files.map(file => {
+    file.matter.data.tags.map(tag => {
+      tmp.push(tag)
+    })
+  })
+
+  const tags = [...new Set(tmp)]
+
   const rawPosts = files.map(file => {
     return {
       path: `/garden/posts/${file.filename.replace(".mdx", "")}`,
@@ -123,7 +137,7 @@ export const getStaticProps = async () => {
   })
 
   return {
-    props: { posts },
+    props: { posts, tags },
   }
 }
 

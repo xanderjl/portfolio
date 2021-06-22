@@ -2,11 +2,24 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["components/*"],
-      "@pages/*": ["pages/*"],
-      "@posts/*": ["posts/*"],
-      "@lib/*": ["lib/*"],
-      "@Three/*": ["./components/Three/*"]
+      "@components/*": [
+        "components/*"
+      ],
+      "@pages/*": [
+        "pages/*"
+      ],
+      "@posts/*": [
+        "posts/*"
+      ],
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@Three/*": [
+        "components/Three/*"
+      ],
+      "@context/*": [
+        "context/*"
+      ]
     }
   }
 }

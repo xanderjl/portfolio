@@ -2,6 +2,7 @@
 layout: "blogPost"
 title: "Using React Components With Framer Motion 2.x"
 date: "10/18/2020"
+tags: ["framer-motion", "chakra-ui", "guide"]
 ---
 
 So you've finished building out a design for a page. You've picked up some sort of styled component library to keep everything consistent. You take a moment to admire the perfect padding. The Tasteful, yet spicy font choices. The color palette? Immaculate.
@@ -33,7 +34,7 @@ No problem, we'll just wrap the component in a `<motion.div></motion.div>`.
 While this works, It's not ideal and just continues to add to your ever-growing div soup. Let's try this sweet method out.
 
 ```jsx
-const MotionHeading = motion.custom(Heading)
+const MotionHeading = motion(Heading)
 
 <MotionHeading>
   Animate Me!
