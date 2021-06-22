@@ -12,7 +12,7 @@ const shareCard = getShareImage({
   textColor: `000000`,
   titleFontSize: 65,
   titleLeftOffset: 180,
-  titleBottomOffset: 380,
+  titleBottomOffset: 280,
 })
 
 function MyApp({ Component, pageProps }) {
