@@ -29,8 +29,9 @@ const Garden = ({ posts, tags }) => {
   const fuse = new Fuse(posts, {
     keys: ["title", "content", "matter.tags"],
   })
-  const results = fuse.search(filterTags.join(" ") + query)
-  const postResults = query ? results.map(result => result.item) : posts
+  const results = fuse.search(query + filterTags.join())
+  const postResults =
+    filterTags.length > 0 || query ? results.map(result => result.item) : posts
 
   return (
     <Layout
@@ -83,7 +84,7 @@ const Garden = ({ posts, tags }) => {
                   background: "primary.100",
                 }}
               >
-                <Heading as="h2" size="lg" fontFamily="body">
+                <Heading as="h2" size="md" fontFamily="body">
                   {title}
                 </Heading>
               </Link>
