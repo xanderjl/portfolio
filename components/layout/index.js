@@ -46,7 +46,7 @@ const Layout = ({
         <Box
           flex={1}
           position={navFixed ? "relative" : "static"}
-          top={navFixed && "72px"}
+          top={{ base: navFixed && "63px", md: navFixed && "72px" }}
         >
           {children}
         </Box>

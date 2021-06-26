@@ -40,7 +40,7 @@ const Navbar = ({ isAlpha = false, isFixed = false }) => {
       as="nav"
       w="100%"
       position={isFixed ? "fixed" : "static"}
-      bg={isAlpha ? "blackAlpha.900" : "transparent"}
+      bg={isAlpha ? "black" : "transparent"}
       color={isAlpha ? "white" : "gray.700"}
       zIndex={10}
     >

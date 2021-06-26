@@ -8,29 +8,11 @@ tags: ["r3f", "threejs", "drei", "sapling"]
 
 import { useRef, Suspense } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
-import { Torus, OrbitControls, useTexture } from "@react-three/drei"
-import Lights from "@Three/Lighting/Lights"
+import { OrbitControls } from "@react-three/drei"
 import * as THREE from "three"
+import SpinnyBoi from "@Three/Models/SpinnyBoi"
+import Lights from "@Three/Lighting/Lights"
 import HtmlOverlay from "@Three/HtmlOverlay"
-
-export const SpinnyBoi = () => {
-  const ref = useRef(null)
-  useFrame(() => (ref.current.rotation.y = ref.current.rotation.y += 0.01))
-  const material = new THREE.PointsMaterial({ transparent: true, size: 0.005 })
-  const texture = useTexture("/textures/x.png")
-  return (
-    <Torus ref={ref} args={[40, 10, 5, 15]}>
-      <pointsMaterial
-        attach="material"
-        map={texture}
-        size={0.5}
-        sizeAttenuation
-        transparent={false}
-        opacity={1}
-      />
-    </Torus>
-  )
-}
 
 <Canvas camera={{ position: [0, 0, 120], fov: 80 }}>
   <Lights />
@@ -40,7 +22,16 @@ export const SpinnyBoi = () => {
   <OrbitControls />
 </Canvas>
 <HtmlOverlay title="README">
-  <p>Sheeeeesh 🥶</p>
+  <p>
+    Managed to get some{" "}
+    <a
+      href="https://threejs.org/docs/index.html?q=buffer#api/en/objects/Points"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Points
+    </a>{" "}
+    to render on a Torus! Even splashed in the "x" asset from MDXNext as a point
+    material texture ❌
+  </p>
 </HtmlOverlay>
-
-<!-- TODO: figure out points material -->
