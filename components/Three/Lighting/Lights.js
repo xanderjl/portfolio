@@ -3,11 +3,11 @@ import React from "react"
 const Lights = () => (
   <>
     <ambientLight intensity={0.3} />
-    <directionalLight castShadow position={[10, 10, 5]} intensity={1} />
+    <directionalLight castShadow position={[10, 10, 5]} intensity={0.5} />
     <directionalLight
       castShadow
       position={[0, 10, 0]}
-      intensity={1.5}
+      intensity={1}
       shadow-mapSize-width={1024}
       shadow-mapSize-height={1024}
       shadow-camera-far={50}

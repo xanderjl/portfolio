@@ -1286,6 +1286,14 @@
     utility-types "^3.10.0"
     zustand "^3.5.1"
 
+"@react-three/postprocessing@^2.0.4-alpha.2":
+  version "2.0.4-alpha.2"
+  resolved "https://registry.yarnpkg.com/@react-three/postprocessing/-/postprocessing-2.0.4-alpha.2.tgz#24deb4044cd1aebae76147fc3ae0ec1a17def78d"
+  integrity sha512-7HD0Gg6qbsFnJHJEu813DT/KO+LUTA5/gjiK8lRixhpQLseixdZaSyXXqopW1EYR0zDKT/EzniJMU6x/u4Lhqw==
+  dependencies:
+    postprocessing "^6.22.0"
+    react-merge-refs "^1.1.0"
+
 "@rexxars/eventsource-polyfill@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@rexxars/eventsource-polyfill/-/eventsource-polyfill-1.0.0.tgz#ab46f2f44da23aedd6f51f13d92a194a5367525b"
@@ -3832,6 +3840,11 @@ postcss@8.2.13:
     colorette "^1.2.2"
     nanoid "^3.1.22"
     source-map "^0.6.1"
+
+postprocessing@^6.22.0:
+  version "6.22.0"
+  resolved "https://registry.yarnpkg.com/postprocessing/-/postprocessing-6.22.0.tgz#a36116d7cc16e2648c49e789825e780375e5c6e0"
+  integrity sha512-/Bv0mpcqeDZ+hbuk6l25kb9OK99DUInE1R8LszOQLUTnuv+MAWJR5hvdmT4c2dMSCEKYWtE70nf3p0BWvqEMVA==
 
 potpack@^1.0.1:
   version "1.0.1"

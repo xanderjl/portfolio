@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { useSpring, a } from "@react-spring/three"
 import { useGLTF, MeshWobbleMaterial } from "@react-three/drei"
 

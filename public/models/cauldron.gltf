@@ -34,6 +34,11 @@
         },
         {
             "name" : "GreenLight",
+            "emissiveFactor": [
+                0.1,
+                0.8,
+                0.1
+            ],
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     0.42695045471191406,
@@ -41,12 +46,17 @@
                     0.20689110457897186,
                     1
                 ],
-                "metallicFactor" : 0,
+                "metallicFactor" : 0.2,
                 "roughnessFactor" : 0.5
             }
         },
         {
             "name" : "Green",
+            "emissiveFactor": [
+                0.1,
+                0.6,
+                1
+            ],
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     0.0653415098786354,
@@ -54,7 +64,7 @@
                     0.2656450867652893,
                     1
                 ],
-                "metallicFactor" : 0,
+                "metallicFactor" : 0.2,
                 "roughnessFactor" : 0.4000000059604645
             }
         },

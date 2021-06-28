@@ -15,6 +15,7 @@ import { getClient } from "@lib/sanity/server"
 import Layout from "@components/layout"
 import Link from "@components/Link"
 import { PortableText, urlFor } from "@lib/sanity"
+import LinkHighlighted from "@components/LinkHighlighted"
 
 const MotionStack = motion(Stack)
 const MotionImage = motion(Image)
@@ -80,19 +81,15 @@ const Portfolio = ({ projects }) => {
                     {technologies.map(tech => {
                       const { url, title, _id } = tech
                       return (
-                        <Link key={_id} href={url} pr={2} whiteSpace="nowrap">
+                        <LinkHighlighted key={_id} href={url} mr={2} whiteSpace="nowrap">
                           {title}
-                        </Link>
+                        </LinkHighlighted>
                       )
                     })}
                   </Flex>
                 </Stack>
               </MotionStack>
-              <Link
-                href={projectUrl}
-                maxW={{ base: "100%", md: "50%" }}
-                h="auto"
-              >
+              <Link href={projectUrl} maxW={{ base: "100%", md: "50%" }}>
                 <MotionImage
                   alignSelf="flex-start"
                   src={urlFor(image?.url)

@@ -39,8 +39,8 @@
         },
         {
             "emissiveFactor" : [
-                0,
-                0,
+                1,
+                1,
                 0
             ],
             "name" : "Yellow.007",
@@ -51,7 +51,7 @@
                     0.017695415765047073,
                     1
                 ],
-                "metallicFactor" : 0,
+                "metallicFactor" : 1,
                 "roughnessFactor" : 0.20000000298023224
             }
         }

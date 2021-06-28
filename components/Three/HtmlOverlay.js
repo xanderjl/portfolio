@@ -23,7 +23,7 @@ const HtmlOverlay = ({ title, children, ...rest }) => {
       {...rest}
     >
       <AccordionItem border="none">
-        <AccordionPanel bg="white" maxW="50ch" maxH="500px" overflowY="scroll">
+        <AccordionPanel bg="white" py={8} px={5} maxW="50ch" maxH="500px" overflowY="scroll">
           {children}
         </AccordionPanel>
         <Heading fontFamily="body">
@@ -39,7 +39,7 @@ const HtmlOverlay = ({ title, children, ...rest }) => {
             }}
           >
             <Box flex={1} textAlign="left">
-              {title}
+              {title ? title : "README"}
             </Box>
             <AccordionIcon as={ChevronUpIcon} />
           </AccordionButton>
