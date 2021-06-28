@@ -23,13 +23,13 @@ function MyApp({ Component, pageProps }) {
         <SelectedTagsProvider>
           <DefaultSeo
             title="Xander Low"
-            description="Xander Low is a front end web developer focusing on the Jamstack, based in London, ON."
+            description="Xander is a front-end web developer focusing on implementing e-commerce solutions for small businesses on the Jamstack. He has been spending his spare time learning threejs to create unique experiences on the web."
             openGraph={{
               type: "website",
               locale: "en_CA",
               title: "Xander Low",
               description:
-                "Xander Low is a front end web developer focusing on the Jamstack, based in London, ON.",
+                "Xander is a front-end web developer focusing on implementing e-commerce solutions for small businesses on the Jamstack. He has been spending his spare time learning threejs to create unique experiences on the web.",
               url: "https://alexlow.dev",
               site_name: "Xander Low",
               images: [
