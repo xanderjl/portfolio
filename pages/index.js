@@ -18,7 +18,7 @@ const Lighting = () => (
   </>
 )
 
-const DodecahedronFrame = ({ theme }) => {
+const DodecahedronFrame = ({ theme, ...rest }) => {
   const ref = useRef()
 
   useFrame(() => {
@@ -26,7 +26,7 @@ const DodecahedronFrame = ({ theme }) => {
   }, [])
 
   return (
-    <Dodecahedron ref={ref} castShadow args={[4]} position={[-20, -14, 0]}>
+    <Dodecahedron ref={ref} castShadow args={[4]} {...rest}>
       <meshBasicMaterial
         attach="material"
         color={theme.colors.gray[600]}
@@ -36,7 +36,7 @@ const DodecahedronFrame = ({ theme }) => {
   )
 }
 
-const IcosahedronFrame = ({ theme }) => {
+const IcosahedronFrame = ({ theme, ...rest }) => {
   const ref = useRef()
 
   useFrame(() => {
@@ -44,7 +44,7 @@ const IcosahedronFrame = ({ theme }) => {
   }, [])
 
   return (
-    <Icosahedron ref={ref} castShadow args={[4]} position={[16, 20, 10]}>
+    <Icosahedron ref={ref} castShadow args={[4]} {...rest}>
       <meshBasicMaterial
         attach="material"
         color={theme.colors.gray[600]}
@@ -58,11 +58,11 @@ const Donut = ({ theme }) => {
   const ref = useRef()
 
   useFrame(() => {
-    ref.current.rotation.x = ref.current.rotation.y += 0.002
+    ref.current.rotation.y += 0.002
   }, [])
 
   return (
-    <Torus ref={ref} args={[14, 2.4, 40, 40]}>
+    <Torus ref={ref} args={[14, 2.4, 40, 40]} rotation={[35, 0, 0]}>
       <meshPhongMaterial
         attach="material"
         color={theme.colors.primary[400]}
@@ -121,6 +121,21 @@ const Orbit = () => {
   )
 }
 
+const PlaneGroup = ({ theme }) => {
+  const ref = useRef()
+
+  useFrame(() => {
+    ref.current.rotation.y -= 0.003
+  }, [])
+
+  return (
+    <group ref={ref} rotation={[3.7, 90, 0]}>
+      <DodecahedronFrame theme={theme} position={[-25, 0, 0]} />
+      <IcosahedronFrame theme={theme} position={[25, 0, 0]} />
+    </group>
+  )
+}
+
 const IndexPage = () => {
   const theme = useTheme()
 
@@ -135,11 +150,10 @@ const IndexPage = () => {
       >
         <Heading size="4xl">WELCOME</Heading>
       </Box>
-      <Box h="100vh">
+      <Box h={{ base: "calc(100vh - 64px)", md: "calc(100vh - 72px)" }}>
         <Canvas camera={{ position: [0, 0, 80], fov: 40 }}>
           <Lighting />
-          <DodecahedronFrame theme={theme} />
-          <IcosahedronFrame theme={theme} />
+          <PlaneGroup theme={theme} />
           <Donut theme={theme} />
           <Stars />
           <Orbit />
