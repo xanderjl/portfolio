@@ -1,6 +1,6 @@
 {
   "name": "site",
-  "version": "2.0.2",
+  "version": "2.1.2",
   "description": "My personal site rewritten in NextJS for 2021.",
   "author": "Xander Low",
   "private": true,

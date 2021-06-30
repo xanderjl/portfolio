@@ -11,7 +11,6 @@ const Circle = ({ radius, ...rest }) => {
       0
     )
   }
-  console.log(points)
 
   return <Line points={points} color="black" lineWidth={6} {...rest} />
 }

@@ -7,9 +7,9 @@ import {
   Icosahedron,
   Sphere,
   Stars,
-  Torus,
   useTexture,
 } from "@react-three/drei"
+import OrbitalRings from "@components/Three/Models/OrbitalRings"
 
 const Lighting = () => (
   <>
@@ -51,24 +51,6 @@ const IcosahedronFrame = ({ theme, ...rest }) => {
         wireframe
       />
     </Icosahedron>
-  )
-}
-
-const Donut = ({ theme }) => {
-  const ref = useRef()
-
-  useFrame(() => {
-    ref.current.rotation.y += 0.002
-  }, [])
-
-  return (
-    <Torus ref={ref} args={[14, 2.4, 40, 40]} rotation={[35, 0, 0]}>
-      <meshPhongMaterial
-        attach="material"
-        color={theme.colors.primary[400]}
-        reflectivity={1}
-      />
-    </Torus>
   )
 }
 
@@ -154,7 +136,7 @@ const IndexPage = () => {
         <Canvas camera={{ position: [0, 0, 80], fov: 40 }}>
           <Lighting />
           <PlaneGroup theme={theme} />
-          <Donut theme={theme} />
+          <OrbitalRings theme={theme} />
           <Stars />
           <Orbit />
           <OrbitDots theme={theme} />
