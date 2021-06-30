@@ -8,11 +8,11 @@ const Footer = () => {
         <Flex direction="column">
           <ChakraLink
             className="is-relative"
-            href="mailto:me@alexlow.dev"
+            href="mailto:xander@xandydandy.com"
             pb="1rem"
             isExternal
           >
-            me@alexlow.dev
+            xander@xandydandy.com
           </ChakraLink>
           <span>&copy; Xander Low {new Date().getFullYear()}</span>
         </Flex>
