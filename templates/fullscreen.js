@@ -1,13 +1,13 @@
 import { Box } from "@chakra-ui/react"
 import { MDXProvider } from "@mdx-js/react"
-import blogPostComponents from "@lib/blogPostComponents"
+import blogComponents from "@lib/blogComponents"
 import Layout from "@components/layout"
 
-const FullscreenCanvas = ({ children, frontMatter }) => {
+const fullscreen = ({ children, frontMatter }) => {
   const { title, date, canvasBg } = frontMatter
 
   return (
-    <MDXProvider components={blogPostComponents}>
+    <MDXProvider components={blogComponents}>
       <Layout title={`${title} - Garden`} navAlpha navFixed>
         <Box
           h="100vh"
@@ -21,4 +21,4 @@ const FullscreenCanvas = ({ children, frontMatter }) => {
   )
 }
 
-export default FullscreenCanvas
+export default fullscreen

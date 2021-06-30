@@ -1,16 +1,16 @@
 import { Box, Heading, Text, Container } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import { MDXProvider } from "@mdx-js/react"
-import blogPostComponents from "@lib/blogPostComponents"
+import blogComponents from "@lib/blogComponents"
 import Layout from "@components/layout"
 
 const MotionBox = motion(Box)
 
-const BlogPost = ({ children, frontMatter }) => {
+const blog = ({ children, frontMatter }) => {
   const { title, date } = frontMatter
 
   return (
-    <MDXProvider components={blogPostComponents}>
+    <MDXProvider components={blogComponents}>
       <Layout title={`${title} - Garden`}>
         <MotionBox
           display="flex"
@@ -45,4 +45,4 @@ const BlogPost = ({ children, frontMatter }) => {
   )
 }
 
-export default BlogPost
+export default blog
