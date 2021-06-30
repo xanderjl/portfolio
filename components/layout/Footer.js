@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <Container p="1.5rem 1rem" centerContent>
-        <Flex direction="column">
+        <Flex direction="column" align="center">
           <ChakraLink
             className="is-relative"
             href="mailto:xander@xandydandy.com"
