@@ -10,6 +10,7 @@ import {
   useTexture,
 } from "@react-three/drei"
 import OrbitalRings from "@components/Three/Models/OrbitalRings"
+import Circle from "@Three/Shapes/Circle"
 
 const Lighting = () => (
   <>
@@ -112,8 +113,49 @@ const PlaneGroup = ({ theme }) => {
 
   return (
     <group ref={ref} rotation={[3.7, 90, 0]}>
-      <DodecahedronFrame theme={theme} position={[-25, 0, 0]} />
-      <IcosahedronFrame theme={theme} position={[25, 0, 0]} />
+      <LilRings theme={theme} position={[-25, 0, 0]}>
+        <DodecahedronFrame theme={theme} />
+      </LilRings>
+      <LilRings
+        theme={theme}
+        position={[25, 0, 0]}
+        rotation={[55 * (Math.PI / 180), 0, 0]}
+      >
+        <IcosahedronFrame theme={theme} />
+      </LilRings>
+    </group>
+  )
+}
+
+const LilRings = ({ theme, children, ...rest }) => {
+  const innerRef = useRef()
+  const outerRef = useRef()
+
+  useFrame(() => {
+    innerRef.current.rotation.x = innerRef.current.rotation.y += 0.005
+    outerRef.current.rotation.x = outerRef.current.rotation.y += 0.004
+  }, [])
+
+  return (
+    <group {...rest}>
+      <mesh ref={innerRef}>
+        <Circle
+          rotation={[30 * (Math.PI / 180), 0, 0]}
+          lineWidth={0.2}
+          color={theme.colors.gray[200]}
+          radius={6}
+        />
+      </mesh>
+      {children}
+      <group ref={outerRef}>
+        <Circle
+          lineWidth={0.2}
+          color={theme.colors.primary[400]}
+          radius={5.7}
+        />
+        <Sphere args={[0.2, 8]} position={[5.7, 0, 0]} color={theme.colors.gray[700]} />
+        <Sphere args={[0.4, 8]} position={[-5.7, 0, 0]} color={theme.colors.gray[700]}/>
+      </group>
     </group>
   )
 }
@@ -136,7 +178,7 @@ const IndexPage = () => {
         <Canvas camera={{ position: [0, 0, 80], fov: 40 }}>
           <Lighting />
           <PlaneGroup theme={theme} />
-          <OrbitalRings theme={theme} />
+          <OrbitalRings theme={theme} position={[-0.5, 0.6, 0]} />
           <Stars />
           <Orbit />
           <OrbitDots theme={theme} />
