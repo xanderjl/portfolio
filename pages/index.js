@@ -141,7 +141,7 @@ const LilRings = ({ theme, children, ...rest }) => {
       <mesh ref={innerRef}>
         <Circle
           rotation={[30 * (Math.PI / 180), 0, 0]}
-          lineWidth={0.2}
+          lineWidth={0.7}
           color={theme.colors.gray[200]}
           radius={6}
         />
@@ -149,7 +149,7 @@ const LilRings = ({ theme, children, ...rest }) => {
       {children}
       <group ref={outerRef}>
         <Circle
-          lineWidth={0.2}
+          lineWidth={0.7}
           color={theme.colors.primary[400]}
           radius={5.7}
         />

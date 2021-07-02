@@ -1,14 +1,17 @@
 import React, { useState } from "react"
 import { Link as NextLink } from "next/link"
-import { Box, Flex, Container, Link } from "@chakra-ui/react"
+import { Box, Flex, Container, Link, forwardRef } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import { LogoIcon } from "../Icons"
 import { Squash as Hamburger } from "hamburger-react"
 import NavbarLink from "./navbarLink"
 import navRoutes from "@lib/navRoutes.json"
 
-const MotionBox = motion(Box)
-const MotionNavbarLink = motion(NavbarLink)
+const MotionBox = motion(
+  forwardRef((props, ref) => {
+    return <Box ref={ref} {...props} />
+  })
+)
 
 const parent = {
   hidden: {
@@ -18,16 +21,6 @@ const parent = {
     opacity: 1,
     transition: {
       staggerChildren: 0.2,
-    },
-  },
-}
-
-const children = {
-  hidden: { x: 100 },
-  visible: {
-    x: 0,
-    transition: {
-      duration: 0.4,
     },
   },
 }
@@ -80,14 +73,9 @@ const Navbar = ({ isAlpha = false, isFixed = false }) => {
           {navRoutes.map((route, i) => {
             const { title, slug } = route
             return (
-              <MotionNavbarLink
-                key={i}
-                variants={children}
-                href={slug}
-                isAlpha={isAlpha}
-              >
+              <NavbarLink key={i} href={slug} isAlpha={isAlpha}>
                 {title}
-              </MotionNavbarLink>
+              </NavbarLink>
             )
           })}
         </MotionBox>
