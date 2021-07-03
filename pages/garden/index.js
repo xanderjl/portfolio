@@ -73,21 +73,23 @@ const Garden = ({ posts, tags }) => {
           </InputGroup>
           <Tags tags={tags} />
           {postResults.map((post, i) => {
-            const { title, path } = post
+            const { title, path, matter } = post
             return (
-              <Link
-                key={i}
-                href={path}
-                p="0.5rem"
-                borderRadius={4}
-                _hover={{
-                  background: "primary.100",
-                }}
-              >
-                <Heading as="h2" size="md" fontFamily="body">
-                  {title}
-                </Heading>
-              </Link>
+              matter.published && (
+                <Link
+                  key={i}
+                  href={path}
+                  p="0.5rem"
+                  borderRadius={4}
+                  _hover={{
+                    background: "primary.100",
+                  }}
+                >
+                  <Heading as="h2" size="md" fontFamily="body">
+                    {title}
+                  </Heading>
+                </Link>
+              )
             )
           })}
         </Stack>

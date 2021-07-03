@@ -1,0 +1,50 @@
+---
+title: "Let's Move Some Nodes"
+date: "07/02/2021"
+layout: "fullscreen"
+canvasBg: "gray.50"
+tags: ["r3f", "threejs", "lines", "movement"]
+published: false
+---
+
+import { useRef, useMemo } from "react"
+import { Canvas, useFrame } from "@react-three/fiber"
+import {
+  Line,
+  Circle,
+  OrbitControls,
+  MeshDistortMaterial,
+} from "@react-three/drei"
+import * as THREE from "three"
+import HtmlOverlay from "@Three/HtmlOverlay"
+
+export const Cluster = () => {
+  const min = 3
+  const max = 4
+  const nodeNum = Math.floor(Math.random() * (max - min + 1)) + min
+  const nodes = []
+  for (let i = 0; i <= nodeNum; i++) {
+    nodes.push([
+      Math.floor(Math.random() * 200 - 1),
+      Math.floor(Math.random() * 200 - 1),
+      0,
+    ])
+  }
+  return (
+    <group>
+      {nodes.map((node, i) => {
+        return (
+          <Circle key={i} position={node} args={[5, 32]}>
+            <meshBasicMaterial attach="material" color="black" />
+          </Circle>
+        )
+      })}
+      <Line points={nodes} color="black" lineWidth={0.5} />
+    </group>
+  )
+}
+
+<Canvas orthographic camera={{ position: [0, 0, 10], fov: 75 }}>
+  <Cluster />
+</Canvas>
+<HtmlOverlay></HtmlOverlay>
