@@ -1,0 +1,27 @@
+---
+title: "A Real Slim Shader"
+date: "07/03/2021"
+layout: "fullscreen"
+canvasBg: "gray.900"
+tags: ["r3f", "threejs", "shaders"]
+published: true
+---
+
+import { Canvas, extend } from "@react-three/fiber"
+import { OrbitControls } from "@react-three/drei"
+import ColorMaterial from "@Three/Shaders/ColorMaterial"
+
+export const Orb = () => {
+  extend({ ColorMaterial })
+  return (
+    <mesh>
+      <icosahedronGeometry attach="geometry" args={[20, 4]} />
+      <colorMaterial />
+    </mesh>
+  )
+}
+
+<Canvas camera={{ position: [0, 0, 100], fov: 30 }}>
+  <Orb />
+  <OrbitControls />
+</Canvas>
