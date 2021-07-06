@@ -153,8 +153,16 @@ const LilRings = ({ theme, children, ...rest }) => {
           color={theme.colors.primary[400]}
           radius={5.7}
         />
-        <Sphere args={[0.2, 8]} position={[5.7, 0, 0]} color={theme.colors.gray[700]} />
-        <Sphere args={[0.4, 8]} position={[-5.7, 0, 0]} color={theme.colors.gray[700]}/>
+        <Sphere
+          args={[0.2, 8]}
+          position={[5.7, 0, 0]}
+          color={theme.colors.gray[700]}
+        />
+        <Sphere
+          args={[0.4, 8]}
+          position={[-5.7, 0, 0]}
+          color={theme.colors.gray[700]}
+        />
       </group>
     </group>
   )
