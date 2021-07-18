@@ -1,9 +1,9 @@
-import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import React, { useRef } from "react"
+import { useGLTF } from "@react-three/drei"
 
 export default function Peely(props) {
   const group = useRef()
-  const { nodes, materials } = useGLTF('/models/agent-peely/scene.gltf')
+  const { nodes, materials } = useGLTF("/models/agent-peely/scene.gltf")
   return (
     <group ref={group} {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
@@ -31,4 +31,4 @@ export default function Peely(props) {
   )
 }
 
-useGLTF.preload('/models/agent-peely/scene.gltf')
+useGLTF.preload("/models/agent-peely/scene.gltf")

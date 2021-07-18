@@ -1,9 +1,10 @@
 import React from "react"
 import Highlight, { defaultProps } from "prism-react-renderer"
-import theme from "prism-react-renderer/themes/oceanicNext"
+import theme from "prism-react-renderer/themes/nightOwl"
+import { Box } from "@chakra-ui/react"
 
 const CodeBlock = ({ children, className }) => {
-  const language = className ? className.replace(/language-/, "") : "js"
+  const language = className ? className.replace(/language-/, "") : "bash"
 
   return (
     <Highlight
@@ -13,28 +14,34 @@ const CodeBlock = ({ children, className }) => {
       language={language}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre
+        <Box
+          as="pre"
           className={className}
-          style={{
-            ...style,
-            padding: "1rem 1rem 2rem 1rem",
-            overflow: "auto",
-            maxWidth: "100vw",
-            maxHeight: "40em",
-            borderRadius: "4px",
-            fontSize: "16px",
-          }}
+          style={style}
+          maxW="100%"
+          maxH="40em"
+          mb="1rem"
+          borderRadius={4}
+          fontSize={{ base: "14px", md: "16px" }}
+          padding="1rem"
+          overflow="auto"
         >
-          {tokens.map((line, i) => {
-            return i === tokens.length - 1 && line[0].empty ? null : (
-              <div key={i} {...getLineProps({ line, key: i })}>
-                {line.map((token, key) => (
-                  <span key={key} {...getTokenProps({ token, key })} />
-                ))}
-              </div>
-            )
-          })}
-        </pre>
+          <Box as="code" display="inline-block" minW="100%" p={0}>
+            {tokens.map((line, i) => {
+              return i === tokens.length - 1 && line[0].empty ? null : (
+                <Box key={i} {...getLineProps({ line, key: i })}>
+                  {line.map((token, key) => (
+                    <Box
+                      as="span"
+                      key={key}
+                      {...getTokenProps({ token, key })}
+                    />
+                  ))}
+                </Box>
+              )
+            })}
+          </Box>
+        </Box>
       )}
     </Highlight>
   )
