@@ -1,15 +1,18 @@
-import { Container, Flex } from '@chakra-ui/react'
+import { Box, Container, Flex } from '@chakra-ui/react'
+import Logo from 'components/Logo'
 import React from 'react'
 import NavLinks from './NavLinks'
 
 const Navbar = () => {
   return (
-    <Container maxW='container.lg'>
-      <Flex justify='space-between'>
-        <div>Logo</div>
-        <NavLinks />
-      </Flex>
-    </Container>
+    <Box bgColor='purple.600' color='white'>
+      <Container maxW='container.lg' py={4} fontSize='1.125rem'>
+        <Flex justify='space-between'>
+          <Logo />
+          <NavLinks />
+        </Flex>
+      </Container>
+    </Box>
   )
 }
 
