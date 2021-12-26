@@ -1,0 +1,74 @@
+---
+title: "Let's Get Physical"
+date: "07/01/2021"
+layout: "fullscreen"
+canvasBg: "pink"
+tags: ["r3f", "threejs", "cannonjs", "physics"]
+published: true
+---
+
+import { Suspense } from "react"
+import { Canvas } from "@react-three/fiber"
+import { useTexture, OrbitControls } from "@react-three/drei"
+import { Physics, usePlane, useBox } from "@react-three/cannon"
+import HtmlOverlay from "@Three/HtmlOverlay"
+
+export const Plane = props => {
+  const [ref] = usePlane(() => ({ rotation: [-Math.PI / 2, 0, 0], ...props }))
+  return (
+    <mesh ref={ref}>
+      <planeBufferGeometry args={[100, 100]} />3
+      <meshBasicMaterial color="#89CFF0" />
+    </mesh>
+  )
+}
+
+export const Cube = props => {
+  const [ref] = useBox(() => ({ mass: 1, position: [0, 5, 0], ...props }))
+  const map = useTexture("/textures/olivia.jpg")
+  return (
+    <mesh ref={ref}>
+      <boxBufferGeometry />
+      <meshBasicMaterial attach="material" map={map} />
+    </mesh>
+  )
+}
+
+<Canvas camera={{ position: [0, 1.75, 2.5], fov: 75 }}>
+  <Physics>
+    <Plane />
+    <Suspense fallback={null}>
+      <Cube rotation={[50 * (Math.PI / 180), 45 * (Math.PI / 180), 0]} />
+    </Suspense>
+  </Physics>
+  <OrbitControls />
+</Canvas>
+
+<HtmlOverlay>
+  <h1>Olivia Newton-John Said It Best:</h1>
+  <blockquote>Let's get physical</blockquote>
+  <p>
+    I want to start making scenes interactive. Using the{" "}
+    <a
+      href="https://github.com/pmndrs/use-cannon"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      @react-three/cannon
+    </a>{" "}
+    package will hopefully warm me up to it 😅
+  </p>
+  <p>
+    Following along with their example in the README was pretty straight
+    forward. If anyone could link me to code examples of being able to pick up
+    an object with your cursor on{" "}
+    <a
+      href="https://www.twitter.com/XandyDandy"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Twitter
+    </a>
+    , that'd be greatly appreciated 😭
+  </p>
+</HtmlOverlay>

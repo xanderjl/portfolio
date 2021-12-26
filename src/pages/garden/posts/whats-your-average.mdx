@@ -1,0 +1,220 @@
+---
+layout: "blog"
+title: "What's Your Average?"
+date: "05/01/2021"
+tags: ["stripe", "use-shopping-cart", "printful", "walk-through"]
+published: true
+---
+
+So, a few weeks back, a friend of mine asked me what I knew about the stock market.
+
+... Absolutely nothing. Nada. Not a clue.
+![stonks!](https://cdn.gamer-network.net/2021/articles/2021-04-01-14-58/-1617285526935.jpg/EG11/thumbnail/1920x1075/format/jpg/quality/80)
+
+The premise was simple. It seems like investors and tech bro's alike have been comparing their proverbial 3mm defeaters on Twitter by posting their tickers and averages. "What's your average?"
+
+- How to capitalise on it? Sell them shirts to plunk their averages on.
+- How does this translate to a tech stack?
+
+## Let's Take a Lil' Look-see
+
+```
+// Steps to stonks:
+// 1. create an input form with two fields; one for the ticker and one for the average.
+// 2. display those fields on a mock up image on the landing page
+// 3. convert that text to a high res, transparent png
+// 4. send off said image along with shipping information upon successful charge to client's credit card
+// 5. set up automated emails for received orders and order fulfilment
+```
+
+## So What's the Stack, Xandy?
+
+We'll get there, jeez! Here's what I went with:
+
+- [Gatsby v3](https://www.gatsbyjs.com/)
+- [Chakra UI](https://chakra-ui.com/)
+- [use-shopping-cart](https://useshoppingcart.com/getting-started)
+- [Stripe Elements](https://stripe.com/en-ca/payments/elements)
+- [Printful's API](https://www.printful.com/docs)
+- [SendGrid](https://sendgrid.com/)
+- [Netlify](https://www.netlify.com/)
+
+There's plenty of nitty gritty to dig into with these choices, but I just want to go over the meat and potatoes, so to speak.
+
+(**Quick editor's note;** All of the links from this point on will go to highlighted blocks of code to try and give as much context to where things are happening in this project as possible. I'll still have blocks in this post to break things down, but y'know- I always get pissed when there's zero context given to what code is doing or where it's coming from in posts.)
+
+## Familiarity Forever
+
+If we're being honest, use-shopping-cart was total overkill for this project, but I'm familiar enough with it and its rough edges to move quickly. Same goes for Gatsby and Chakra, no real reason to go with these tools other than I'm comfortable with them and we wanted to get this project done as soon as possible.
+
+## Literally this part can and will be its own post, so hold tight
+
+The method for generating the high res image to send to Printful is... a lot. My friend [Chris](https://twitter.com/chrisbiscardi), along with the other corgis over at [The PCN](https://discord.com/invite/partycorgi) helped me navigate this [total cluster](https://github.com/XanderJL/whats-your-average/tree/main/netlify/functions/make-a-da-image). When I have the emotional fortitude to dive into this, I'll do the write up. Swear on my mama.
+
+## New Territory
+
+The checkout flow with this project is a tad unconventional compared to the usual e-comm experience. In this case, I'm creating a stripe payment intent to strictly gather the funds and using a `payment.success` webook from Stripe to start the order process with Printful.
+
+You can go through Stripe's documentation on Stripe Elements here, but here's how it's being applied in context of [this project](https://github.com/XanderJL/whats-your-average/blob/267b3a7cc68bf74ad3f96428a9c972675d60caf2/src/components/CheckoutForm.js#L171-L194) It's effectively an iframe, styled to match the aesthetic of the rest of the site and collects the user's credit card info without it ever hitting our site. That info is being collected in this submit handler [here](https://github.com/XanderJL/whats-your-average/blob/267b3a7cc68bf74ad3f96428a9c972675d60caf2/src/pages/checkout.js#L57-L104)
+
+I'd like to break down what's going on in the `create-payment-intent` serverless function. The whole thing looks like:
+
+```js
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+const stripe = require("stripe")(process.env.GATSBY_STRIPE_SECRET_KEY)
+
+exports.handler = async ({ body }) => {
+  const { subtotal, shipping, total, values, cartDetails } = JSON.parse(body)
+
+  const cartArray = Object.values(cartDetails)
+
+  const line_items = JSON.stringify(
+    cartArray.map(item => {
+      const { name, price, description, product_data, quantity } = item
+      return {
+        name: `${name} || ${description}`,
+        quantity,
+        variant_id: product_data.metadata.variant_id,
+        files: [{ url: product_data.metadata.imageUrl }],
+        retail_price: (price / 100).toFixed(2),
+      }
+    })
+  )
+
+  const retail_costs = JSON.stringify({
+    subtotal,
+    shipping,
+    total,
+  })
+
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: total,
+    currency: "cad",
+    payment_method_types: ["card"],
+    receipt_email: values.email || null,
+    shipping: {
+      name: values.name || null,
+      phone: values.phone || null,
+      address: {
+        city: values.city || null,
+        country: values.country || null,
+        line1: values.address || null,
+        line2: values.address_2 || null,
+        postal_code: values.postal_code || null,
+        state: values.state || null,
+      },
+    },
+    metadata: {
+      line_items,
+      retail_costs,
+    },
+  })
+
+  return {
+    statusCode: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+    body: JSON.stringify({
+      clientSecret: paymentIntent.client_secret,
+    }),
+  }
+}
+```
+
+So here's Xandy's cliff notes on what's going on up there:
+
+- The cart's subtotal, shipping cost, total, shipping form field values, and line items are coming in from the fetch request in that submit handler mentioned earlier.
+- The line items are being put together in an array from the `cartDetails` object
+- They're then being passed along with the costs as metadata to the Stripe payment intent
+- The shipping info is being placed where necessary in the paymentIntent object
+- What happens next is, again, handled in the latter half of the submit handler. We check to see if the payment intent was created successfully, and then we charge the user's card
+- Once the payment has been captured, it triggers the fun stuff. Messing with that finicky bastard that is the Printful API
+
+## Printful? More like UGH...ful. I'll workshop it.
+
+I won't lie to y'all, Printful's dev experience is thorny to put it lightly. Test data JSON doesn't match the shape of what actually gets fired in real events, testing against their webhooks is a colossal pain to do locally, and they only allow one endpoint to fire off logic for multiple events. Idk what the norm is with print services like this, but it was a pain. Full stop.
+
+The [printful-webhooks](https://github.com/XanderJL/whats-your-average/blob/main/netlify/functions/printful-webhooks.js) function is rather lengthy, so I won't post the whole thing in here, but feel free to take a look and we'll go over some of the finer points in smaller chunks here.
+
+```js
+exports.handler = async ({ body }) => {
+  let type
+  let data
+
+  try {
+    ;({ type, data } = JSON.parse(body)) //re-descture type and data from body (adds that bonkers semicolon)
+  } catch (err) {
+    console.error(err)
+    return {
+      statusCode: 500,
+      body: "oops",
+    }
+  }
+
+...
+
+}
+```
+
+So two immediate things here, the weird destructuring going on is looking for the type of event and the data that comes along with it from the body of the Printful webhook. You don't necessarily need this try/catch step, but
+my friend, Darrik, pointed out sometimes JSON.parse(...) can fail in serverless functions and this is just a safety net to exit early and give us an idea of where things are going awry in the function. Next, I'll go over forming the message objects:
+
+```js
+
+...
+
+  const {
+    id,
+    shipping,
+    recipient,
+    items,
+    incomplete_items,
+    retail_costs,
+    shipments,
+    gift,
+    packing_slip,
+  } = data.order
+
+  const templates = {
+    order_created: process.env.SENDGRID_ORDER_CREATED,
+    order_canceled: process.env.SENDGRID_ORDER_CANCELED,
+    order_failed: process.env.SENDGRID_ORDER_FAILED,
+    package_shipped: process.env.SENDGRID_PACKAGE_SHIPPED,
+    package_returned: process.env.SENDGRID_PACKAGE_RETURNED,
+  }
+
+  const msg = {
+    to: recipient.email,
+    from: process.env.FROM_EMAIL_ADDRESS,
+    templateId: templates[type],
+    dynamicTemplateData: {
+      subject: `${type} (noreply)`,
+      id,
+      recipient,
+      shipping,
+      items,
+      incomplete_items,
+      retail_costs,
+      shipments,
+      gift,
+      packing_slip,
+    },
+  }
+
+...
+
+```
+
+So what's goin' on here? I have a series of dynamic email templates set up in SendGrid that have corresponding IDs, I'm indexing the one required from the templates object in my message object. This is the base of each email and get's tweaked to meet the criteria for each event type. I won't go over how each email is being tweaked, but feel free to [take a gander](https://github.com/XanderJL/whats-your-average/blob/de850c2992e442d6498c30111f360287a9873810/netlify/functions/printful-webhooks.js#L62-L130) (This honestly should've just been a switch case, but mistakes were made and here we are :' ) )
+
+## Whoa, whoa, whoa. When is the Printful order even getting generated?
+
+Good point. I got ahead of myself, didn't I? Feel free to scan over the function [here.](https://github.com/XanderJL/whats-your-average/blob/main/netlify/functions/send-printful-design.js) Long story short, I'm taking the shipping information and metadata from the Stripe webhook and reshaping the data to fit what Printful expects to create an order, and I fire it off. Once the order is generated and in my Printful Order dashboard, the `order_created` event fires and begins the automated email flow!
+
+That's all I really wanted to cover in this post I think - I'm sure I've missed large gaps of the fun stuff in this project, but it's totally open source and y'all should [take a gander](https://github.com/XanderJL/whats-your-average)
+
+If anyone needs more of an explanation on anything in the repo, feel free to reach out to me via email at [xander@xandydandy.com](mailto:xander@xandydandy.com) or @ me on [Twitter](https://twitter.com/XandyDandy)

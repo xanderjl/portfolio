@@ -1,0 +1,53 @@
+---
+title: "First, Draw a Circle"
+date: "06/29/2021"
+layout: "blog"
+tags: ["r3f", "threejs", "drei", "lines", "drawing"]
+published: true
+---
+
+import { Suspense } from "react"
+import { Box } from "@chakra-ui/react"
+import { Canvas } from "@react-three/fiber"
+import { OrbitControls } from "@react-three/drei"
+import Circle from "@Three/Shapes/Circle"
+
+<Box w="100%" h="400px" bg="gray.100" mb={4} borderRadius={4}>
+  <Canvas shadowMap camera={{ position: [0, 0, 15], fov: 75 }}>
+    <ambientLight intensity={1} />
+    <Circle radius={8} />
+    <OrbitControls />
+  </Canvas>
+</Box>
+
+## Baby Steps
+
+A friend of mine lent me a copy of [Sacred Geometry: Deciphering the Code](https://www.amazon.ca/Sacred-Geometry-Deciphering-Stephen-Skinner/dp/1402765827), and it's inspired me. I don't buy into the mysticism behind it, but I am very intrigued by how it works. I want to recreate [The Flower of Life](https://cdn.shopify.com/s/files/1/1226/1682/files/flower_of_life_large.png?v=1572056272), and I figure learning how to render a circle is the first step to doing so.
+![The Flower of Life](https://cdn.shopify.com/s/files/1/1226/1682/files/flower_of_life_large.png?v=1572056272)
+
+### Here's the code snippet for rendering the circle:
+
+```jsx
+// Circle.js
+
+import { Line } from "@react-three/drei"
+
+const Circle = ({ radius, ...rest }) => {
+  const points = []
+  const rad = (radius && radius) || 10
+
+  for (let i = 0; i <= 360; i++) {
+    points.push(
+      Math.sin(i * (Math.PI / 180)) * rad,
+      Math.cos(i * (Math.PI / 180)) * rad,
+      0
+    )
+  }
+
+  return <Line points={points} color="black" lineWidth={6} {...rest} />
+}
+
+export default Circle
+```
+
+Really looking forward to making this thing a reality 👀
