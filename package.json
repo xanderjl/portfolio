@@ -9,12 +9,14 @@
     "studio:login": "cd studio && sanity login",
     "studio:start": "cd studio && sanity start",
     "studio:build": "cd studio && sanity build",
+    "studio:upgrade": "cd studio && sanity upgrade",
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/react": "^1.7.3",
+    "@chakra-ui/react": "1.6",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@react-three/drei": "^8.3.1",
     "@react-three/fiber": "^7.0.24",
     "framer-motion": "^5.5.5",
     "next": "12.0.7",
@@ -27,6 +29,7 @@
   "devDependencies": {
     "@types/node": "17.0.4",
     "@types/react": "17.0.38",
+    "@types/three": "^0.135.0",
     "eslint": "8.5.0",
     "eslint-config-next": "12.0.7",
     "typescript": "4.5.4"

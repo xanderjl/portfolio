@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { Container, Flex } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import Footer from 'components/Footer'
 import Navbar from 'components/Navbar'
 
@@ -11,9 +11,7 @@ const Layout = ({ children }: Props): ReactElement => {
   return (
     <Flex direction='column' minH='100vh'>
       <Navbar />
-      <Container flex={1} maxW='container.lg'>
-        {children}
-      </Container>
+      <Box flex={1}>{children}</Box>
       <Footer />
     </Flex>
   )

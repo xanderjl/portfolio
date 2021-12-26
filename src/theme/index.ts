@@ -3,7 +3,6 @@ import fonts from './fonts'
 import colors from './colors'
 
 const theme = extendTheme({
-  ...baseTheme,
   fonts,
   colors
 })
