@@ -2,11 +2,12 @@ import { ReactElement } from 'react'
 import { Box, Heading, Text, Container } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Layout from 'components/Layout'
+import FrontMatter from 'types/FrontMatter'
 
 const MotionBox = motion(Box)
 
 interface Props {
-  frontMatter: any
+  frontMatter: FrontMatter
   children: ReactElement | ReactElement[] | string
 }
 
