@@ -1,5 +1,3 @@
-const withMdxEnhanced = require('next-mdx-enhanced')
-
 const STUDIO_REWRITE = {
   source: '/studio/:path',
   destination:
@@ -15,21 +13,12 @@ const nextConfig = {
     domains: ['cdn.sanity.io']
   },
   rewrites: () => [STUDIO_REWRITE],
-  swcMinify: true
-}
+  swcMinify: true,
+  webpack: config => {
+    config.resolve.fallback = { fs: false, path: false }
 
-// module.exports = withMdxEnhanced({
-//   layoutpath: 'layouts',
-//   defaultLayout: true,
-//   fileExtensions: ['md', 'mdx'],
-//   remarkPlugins: [],
-//   rehypePlugins: [],
-//   usesSrc: false,
-//   extendFrontMatter: {
-//     process: (mdxContent, frontMatter) => {},
-//     phase: 'prebuild|loader|both'
-//   },
-//   reExportDataFetching: false
-// })(nextConfig)
+    return config
+  }
+}
 
 module.exports = nextConfig

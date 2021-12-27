@@ -11,7 +11,7 @@ import { ReactElement } from 'react'
 import Tag from './Tag'
 
 interface Props {
-  tags: Tag[]
+  tags: string[]
 }
 
 const Tags = ({ tags }: Props): ReactElement => {

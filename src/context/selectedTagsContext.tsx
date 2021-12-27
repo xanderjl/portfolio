@@ -1,24 +1,19 @@
-import {
-  createContext,
-  Dispatch,
-  ReactElement,
-  SetStateAction,
-  useState,
-  useContext
-} from 'react'
+import { createContext, ReactElement, useState } from 'react'
 
 interface ProviderProps {
   children?: ReactElement | ReactElement[] | string
 }
 
 interface ContextProps {
-  filterTags?: string[]
-  setTags?: Dispatch<SetStateAction<never[]>>
+  filterTags: string[]
+  setTags?: any
 }
 
-const SelectedTagsContext = createContext<ContextProps | null>(null)
+const defaultState = {
+  filterTags: []
+}
 
-export const useSelectedTagsContext = useContext(SelectedTagsContext)
+const SelectedTagsContext = createContext<ContextProps>(defaultState)
 
 export const SelectedTagsProvider = ({ children }: ProviderProps) => {
   const [filterTags, setTags] = useState([])

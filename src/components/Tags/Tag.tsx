@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Tag as ChTag } from '@chakra-ui/react'
-import { useSelectedTagsContext } from 'context/selectedTagsContext'
+import SelectedTagsContext from 'context/selectedTagsContext'
 
-const Tag = ({ tag }) => {
+interface Props {
+  tag: string
+}
+
+const Tag = ({ tag }: Props) => {
   const [isSelected, setSelected] = useState(false)
-  const { filterTags, setTags } = useSelectedTagsContext()
+  const { filterTags, setTags } = useContext(SelectedTagsContext)
 
   return (
     <ChTag

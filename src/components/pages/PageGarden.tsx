@@ -1,10 +1,9 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, ReactElement } from 'react'
 import Fuse from 'fuse.js'
 import Layout from 'components/Layout'
 import {
   Container,
   Stack,
-  Heading,
   StackDivider,
   InputGroup,
   InputLeftElement,
@@ -15,10 +14,17 @@ import { motion } from 'framer-motion'
 import { BiSearch } from 'react-icons/bi'
 import Tags from 'components/Tags'
 import SelectedTagsContext from 'context/selectedTagsContext'
+import PostResults from 'components/PostResults'
+import PostResult from 'types/PostResult'
+
+interface Props {
+  posts?: any
+  tags: string[]
+}
 
 const MotionContainer = motion(Container)
 
-const PageGarden = ({ posts, tags }) => {
+const PageGarden = ({ posts, tags }: Props): ReactElement => {
   const [query, setQuery] = useState('')
   const { filterTags } = useContext(SelectedTagsContext)
 
@@ -26,13 +32,13 @@ const PageGarden = ({ posts, tags }) => {
     keys: ['title', 'content', 'matter.tags']
   })
   const results = fuse.search(query + filterTags.join())
-  const postResults =
+  const postResults: PostResult[] =
     filterTags.length > 0 || query ? results.map(result => result.item) : posts
 
   return (
     <Layout
       title='Welcome to my Garden'
-      description='Welcome to my digital garden, where I share whatever has been on my mind.'
+      metadescription='Welcome to my digital garden, where I share whatever has been on my mind.'
     >
       <MotionContainer
         maxW='container.md'
@@ -68,26 +74,7 @@ const PageGarden = ({ posts, tags }) => {
             />
           </InputGroup>
           <Tags tags={tags} />
-          {postResults.map((post, i) => {
-            const { title, path, matter } = post
-            return (
-              matter.published && (
-                <Link
-                  key={i}
-                  href={path}
-                  p='0.5rem'
-                  borderRadius={4}
-                  _hover={{
-                    background: 'primary.100'
-                  }}
-                >
-                  <Heading as='h2' size='md' fontFamily='body'>
-                    {title}
-                  </Heading>
-                </Link>
-              )
-            )
-          })}
+          <PostResults postResults={postResults} />
         </Stack>
       </MotionContainer>
     </Layout>
