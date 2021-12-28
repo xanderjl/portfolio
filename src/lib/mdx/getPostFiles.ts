@@ -4,7 +4,7 @@ import grayMatter from 'gray-matter'
 import PostFile from 'types/PostFile'
 
 const getPostFiles = async (): Promise<PostFile[]> => {
-  const postsDir = path.join(process.cwd(), './src/pages/garden/posts')
+  const postsDir = path.join(process.cwd(), './src/posts')
   const filenames = await fs.readdir(postsDir)
   const files: PostFile[] = await Promise.all(
     filenames.map(async filename => {
