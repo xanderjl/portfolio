@@ -1,17 +1,18 @@
-import { ReactElement } from 'react'
 import { Box, Heading, Text, Container } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Layout from 'components/Layout'
 import FrontMatter from 'types/FrontMatter'
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import BlogComponents from 'components/blogComponents'
 
 const MotionBox = motion(Box)
 
 interface Props {
+  mdxSource: MDXRemoteSerializeResult
   frontMatter: FrontMatter
-  children: ReactElement | ReactElement[] | string
 }
 
-const blog = ({ frontMatter, children }: Props) => {
+const Blog = ({ mdxSource, frontMatter }: Props) => {
   const { title, date } = frontMatter
 
   return (
@@ -41,11 +42,11 @@ const blog = ({ frontMatter, children }: Props) => {
           <Text as='span'>{date}</Text>
         </Container>
         <Container maxW='3xl' p='0 1.25rem 7rem 1.25rem'>
-          {children}
+          <MDXRemote {...mdxSource} components={BlogComponents} />
         </Container>
       </MotionBox>
     </Layout>
   )
 }
 
-export default blog
+export default Blog
