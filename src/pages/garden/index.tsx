@@ -1,9 +1,8 @@
 import React from 'react'
 import { GetStaticProps } from 'next'
 import PageGarden from 'components/pages/PageGarden'
-import path from 'path'
-import { promises as fs } from 'fs'
-import grayMatter from 'gray-matter'
+import getPostFiles from 'lib/mdx/getPostFiles'
+import getTags from 'lib/mdx/getTags'
 
 interface Props {
   posts?: any
@@ -15,31 +14,8 @@ const Garden = ({ posts, tags }: Props) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const postsDir = path.join(process.cwd(), './src/pages/garden/posts')
-  const filenames = await fs.readdir(postsDir)
-  const files = await Promise.all(
-    filenames.map(async filename => {
-      const filePath = path.join(postsDir, filename)
-      const content = await fs.readFile(filePath, 'utf-8')
-      const matter = grayMatter(content)
-
-      return {
-        filename,
-        content,
-        matter
-      }
-    })
-  )
-
-  const tmp: string[] = []
-
-  files.map(file => {
-    file.matter.data.tags.map((tag: string) => {
-      tmp.push(tag)
-    })
-  })
-
-  const tags = [...new Set(tmp)]
+  const files = await getPostFiles()
+  const tags = getTags(files)
 
   const rawPosts = files.map(file => {
     return {
