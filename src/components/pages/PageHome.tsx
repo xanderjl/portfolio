@@ -13,7 +13,7 @@ const PageHome = (): ReactElement => {
   const theme = useTheme()
 
   return (
-    <Layout>
+    <Layout title='Home'>
       <Box
         position='absolute'
         left='50%'

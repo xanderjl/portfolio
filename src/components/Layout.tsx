@@ -14,7 +14,7 @@ const Layout = ({ title, metadescription, children }: Props): ReactElement => {
   return (
     <>
       <NextSeo
-        title={`${title && `${title} | `}Xander Low`}
+        title={`${title ? `${title} | ` : ``}Xander Low`}
         description={metadescription}
         openGraph={{
           title: title,
