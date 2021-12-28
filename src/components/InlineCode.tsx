@@ -1,11 +1,11 @@
 import { Box } from '@chakra-ui/react'
-import { ReactElement } from 'react'
+import { ReactNode, ReactElement } from 'react'
 
 interface Props {
-  children?: ReactElement | ReactElement[] | string
+  children?: ReactNode | ReactNode[] | string
 }
 
-const InlineCode = ({ children }: Props) => {
+const InlineCode = ({ children }: Props): ReactElement => {
   return (
     <Box
       as='code'

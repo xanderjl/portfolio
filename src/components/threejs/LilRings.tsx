@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react'
+import React, { ReactElement, ReactNode, useRef } from 'react'
 import { useFrame, GroupProps } from '@react-three/fiber'
 import { Sphere } from '@react-three/drei'
 import * as three from 'three'
@@ -7,7 +7,7 @@ import ChakraTheme from 'types/ChakraTheme'
 
 interface Props extends GroupProps {
   theme: ChakraTheme
-  children?: ReactElement | ReactElement[] | string
+  children?: ReactNode | ReactNode[] | string
   rest?: any
 }
 

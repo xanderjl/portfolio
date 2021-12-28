@@ -1,7 +1,7 @@
-import { createContext, ReactElement, useState } from 'react'
+import { createContext, ReactNode, useState } from 'react'
 
 interface ProviderProps {
-  children?: ReactElement | ReactElement[] | string
+  children?: ReactNode | ReactNode[] | string
 }
 
 interface ContextProps {

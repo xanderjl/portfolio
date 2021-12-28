@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, ReactNode } from 'react'
 import { Box, Flex } from '@chakra-ui/react'
 import Footer from 'components/Footer'
 import Navbar from 'components/Navbar'
@@ -7,7 +7,7 @@ import { NextSeo } from 'next-seo'
 interface Props {
   title?: string
   metadescription?: string
-  children?: ReactElement | ReactElement[] | string
+  children?: ReactNode | ReactNode[] | string
 }
 
 const Layout = ({ title, metadescription, children }: Props): ReactElement => {
