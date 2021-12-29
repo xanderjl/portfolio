@@ -10,7 +10,7 @@ published: true
 import { useRef, useMemo } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import * as THREE from "three"
-import HtmlOverlay from "@Three/HtmlOverlay"
+import HtmlOverlay from "threejs/HtmlOverlay"
 
 export const roundedSquareWave = (t, delta, a, f) => {
   return ((2 * a) / Math.PI) * Math.atan(Math.sin(2 * Math.PI * t * f) / delta)

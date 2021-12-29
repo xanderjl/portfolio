@@ -1,5 +1,5 @@
 import React from 'react'
-import { GetStaticProps } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import PageGarden from 'components/pages/PageGarden'
 import getPostFiles from 'lib/mdx/getPostFiles'
 import getTags from 'lib/mdx/getTags'
@@ -9,7 +9,7 @@ interface Props {
   tags: string[]
 }
 
-const Garden = ({ posts, tags }: Props) => {
+const Garden: NextPage<Props> = ({ posts, tags }) => {
   return <PageGarden posts={posts} tags={tags} />
 }
 
@@ -19,7 +19,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const rawPosts = files.map(file => {
     return {
-      path: `/garden/posts/${file.filename.replace('.mdx', '')}`,
+      path: `/garden/${file.filename.replace('.mdx', '')}`,
       title: file.matter.data.title,
       content: file.content,
       matter: file.matter.data

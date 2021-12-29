@@ -4,6 +4,7 @@ import Layout from 'components/Layout'
 import FrontMatter from 'types/FrontMatter'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import BlogComponents from 'components/blogComponents'
+import { ReactElement } from 'react'
 
 const MotionBox = motion(Box)
 
@@ -12,7 +13,7 @@ interface Props {
   frontMatter: FrontMatter
 }
 
-const Blog = ({ mdxSource, frontMatter }: Props) => {
+const Blog = ({ mdxSource, frontMatter }: Props): ReactElement => {
   const { title, date } = frontMatter
 
   return (

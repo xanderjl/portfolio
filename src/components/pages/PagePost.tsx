@@ -1,8 +1,18 @@
-import Layout from 'components/Layout'
 import React, { ReactElement } from 'react'
+import Blog from 'src/layouts/blog'
+import Fullscreen from 'src/layouts/fullscreen'
+import { Props } from 'types/PostPage'
 
-const PagePost = (): ReactElement => {
-  return <Layout>Post</Layout>
+const PagePost = ({ content, frontMatter }: Props): ReactElement => {
+  const { layout } = frontMatter
+
+  return layout === 'blog' ? (
+    <Blog mdxSource={content} frontMatter={frontMatter} />
+  ) : layout === 'fullscreen' ? (
+    <Fullscreen mdxSource={content} frontMatter={frontMatter} />
+  ) : (
+    <></>
+  )
 }
 
 export default PagePost

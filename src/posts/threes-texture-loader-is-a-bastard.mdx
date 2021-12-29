@@ -9,9 +9,9 @@ published: true
 import { Suspense } from "react"
 import { Canvas } from "@react-three/fiber"
 import { Plane, ContactShadows, OrbitControls } from "@react-three/drei"
-import Lights from "@Three/Lighting/Lights"
+import Lights from "threejs/Lighting/Lights"
 import { Box, Image } from "@chakra-ui/react"
-import Orb from "@Three/Models/Orb"
+import Orb from "threejs/Models/Orb"
 
 <Box w="100%" h="500px" bg="cyan" p="1rem" mb="2rem" borderRadius={4}>
   <Canvas shadowMap camera={{ position: [0, 0, 20], fov: 30 }}>

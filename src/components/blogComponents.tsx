@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import {
   Box,
   Heading,
@@ -14,61 +14,57 @@ import BlockQuote from 'components/BlockQuote'
 import CodeBlock from 'components/CodeBlock'
 import InlineCode from 'components/InlineCode'
 
-interface BlogComponents {
-  code: FC<any>
-  inlineCode: FC<any>
-  h1: FC<any>
-  h2: FC<any>
-  h3: FC<any>
-  h4: FC<any>
-  h5: FC<any>
-  h6: FC<any>
-  p: FC<any>
-  a: FC<any>
-  ul: FC<any>
-  ol: FC<any>
-  li: FC<any>
-  blockquote: FC<any>
-  img: FC<any>
+type BlogComponentTypes = Record<string, ReactNode> | undefined
+
+interface Props {
+  className?: string
+  children?: ReactNode | ReactNode[]
+  src?: string
+  alt?: string
+  href?: string
 }
 
-const BlogComponents: BlogComponents = {
-  code: ({ className, children }) => (
+interface CodeBlock extends Props {
+  children: string
+}
+
+const BlogComponents: BlogComponentTypes = {
+  code: ({ className, children }: CodeBlock) => (
     <CodeBlock className={className}>{children}</CodeBlock>
   ),
-  inlineCode: ({ children }) => <InlineCode>{children}</InlineCode>,
-  h1: ({ children }) => (
+  inlineCode: ({ children }: Props) => <InlineCode>{children}</InlineCode>,
+  h1: ({ children }: Props) => (
     <Heading size='xl' fontFamily='body' pb='1rem'>
       {children}
     </Heading>
   ),
-  h2: ({ children }) => (
+  h2: ({ children }: Props) => (
     <Heading size='lg' fontFamily='body' pb='1rem'>
       {children}
     </Heading>
   ),
-  h3: ({ children }) => (
+  h3: ({ children }: Props) => (
     <Heading size='md' fontFamily='body' pb='1rem'>
       {children}
     </Heading>
   ),
-  h4: ({ children }) => (
+  h4: ({ children }: Props) => (
     <Heading size='md' fontFamily='body' pb='1rem'>
       {children}
     </Heading>
   ),
-  h5: ({ children }) => (
+  h5: ({ children }: Props) => (
     <Heading size='md' fontFamily='body' pb='1rem'>
       {children}
     </Heading>
   ),
-  h6: ({ children }) => (
+  h6: ({ children }: Props) => (
     <Heading size='sm' fontFamily='body' pb='1rem'>
       {children}
     </Heading>
   ),
-  p: ({ children }) => <Text pb='1rem'>{children}</Text>,
-  a: ({ href, children }) => {
+  p: ({ children }: Props) => <Text pb='1rem'>{children}</Text>,
+  a: ({ href, children }: Props) => {
     const theme = useTheme()
     return (
       <Link
@@ -83,15 +79,17 @@ const BlogComponents: BlogComponents = {
       </Link>
     )
   },
-  ul: ({ children }) => <UnorderedList pb='1rem'>{children}</UnorderedList>,
-  ol: ({ children }) => <OrderedList pb='1rem'>{children}</OrderedList>,
-  li: ({ children }) => <ListItem>{children}</ListItem>,
-  blockquote: ({ children }) => <BlockQuote>{children}</BlockQuote>,
-  img: ({ src, alt }) => (
+  ul: ({ children }: Props) => (
+    <UnorderedList pb='1rem'>{children}</UnorderedList>
+  ),
+  ol: ({ children }: Props) => <OrderedList pb='1rem'>{children}</OrderedList>,
+  li: ({ children }: Props) => <ListItem>{children}</ListItem>,
+  blockquote: ({ children }: Props) => <BlockQuote>{children}</BlockQuote>,
+  img: ({ src, alt }: Props) => (
     <Box maxW='max-content' m='0 auto' pb={4}>
       <Image src={src} alt={alt} py={2} />
       <Text fontSize='sm' color='gray.400'>
-        ({alt})
+        ({alt}: Props)
       </Text>
     </Box>
   )

@@ -12,11 +12,11 @@ import LinkHighlighted from "@components/LinkHighlighted"
 import { Canvas } from "@react-three/fiber"
 import { Box, Plane, OrbitControls } from "@react-three/drei"
 import { EffectComposer, Bloom, Noise } from "@react-three/postprocessing"
-import Witch from "@Three/Models/Witch"
-import Cauldron from "@Three/Models/Cauldron"
-import LampPost from "@Three/Models/LampPost"
-import Wall from "@Three/Models/Wall"
-import HtmlOverlay from "@Three/HtmlOverlay"
+import Witch from "threejs/Models/Witch"
+import Cauldron from "threejs/Models/Cauldron"
+import LampPost from "threejs/Models/LampPost"
+import Wall from "threejs/Models/Wall"
+import HtmlOverlay from "threejs/HtmlOverlay"
 
 <Canvas camera={{ position: [-1.6, 2, 3.8], fov: 75 }} shadowMap>
   <Suspense fallback={null}>
