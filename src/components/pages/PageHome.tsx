@@ -3,11 +3,11 @@ import Layout from 'components/Layout'
 import { Box, Heading, useTheme } from '@chakra-ui/react'
 import { Canvas } from '@react-three/fiber'
 import Lighting from 'components/threejs/Lighting/Lighting'
-import PlaneGroup from 'components/threejs/PlaneGroup'
+import PlaneGroup from 'components/threejs/Models/PlaneGroup'
 import { Stars } from '@react-three/drei'
-import Orbit from 'components/threejs/Orbit'
-import OrbitDots from 'components/threejs/Orbitdots'
-import OrbitalRings from 'components/threejs/OrbitalRings'
+import Orbit from 'components/threejs/Models/Orbit'
+import OrbitDots from 'components/threejs/Models/Orbitdots'
+import OrbitalRings from 'components/threejs/Models/OrbitalRings'
 
 const PageHome = (): ReactElement => {
   const theme = useTheme()

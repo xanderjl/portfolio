@@ -1,4 +1,4 @@
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { ReactNode } from 'react'
 import FrontMatter from 'types/FrontMatter'
 import Content from './Content'
 
@@ -8,6 +8,6 @@ export interface Props {
 }
 
 export interface PostProps {
-  mdxSource: MDXRemoteSerializeResult
+  children?: ReactNode[]
   frontMatter: FrontMatter
 }

@@ -7,9 +7,9 @@ const PagePost = ({ content, frontMatter }: Props): ReactElement => {
   const { layout } = frontMatter
 
   return layout === 'blog' ? (
-    <Blog mdxSource={content} frontMatter={frontMatter} />
+    <Blog children={content} frontMatter={frontMatter} />
   ) : layout === 'fullscreen' ? (
-    <Fullscreen mdxSource={content} frontMatter={frontMatter} />
+    <Fullscreen children={content} frontMatter={frontMatter} />
   ) : (
     <></>
   )

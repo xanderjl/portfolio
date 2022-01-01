@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import {
   Box,
   Heading,
@@ -14,8 +14,6 @@ import BlockQuote from 'components/BlockQuote'
 import CodeBlock from 'components/CodeBlock'
 import InlineCode from 'components/InlineCode'
 
-type BlogComponentTypes = Record<string, ReactNode> | undefined
-
 interface Props {
   className?: string
   children?: ReactNode | ReactNode[]
@@ -28,7 +26,7 @@ interface CodeBlock extends Props {
   children: string
 }
 
-const BlogComponents: BlogComponentTypes = {
+const BlogComponents: any = {
   code: ({ className, children }: CodeBlock) => (
     <CodeBlock className={className}>{children}</CodeBlock>
   ),
