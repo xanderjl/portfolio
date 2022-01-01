@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
-import { Projects } from 'types/Sanity'
 import FrontMatter from 'types/FrontMatter'
+import { Project } from './CustomSanity'
 
 export interface PagePostProps {
   children?: ReactNode[]
@@ -8,5 +8,9 @@ export interface PagePostProps {
 }
 
 export interface PageProjectsProps {
-  projects: Projects[]
+  projects: Project[]
+}
+
+export interface PageProjectProps {
+  project: Project
 }

@@ -13,3 +13,18 @@ export const projectsQuery = groq`
     technologies
   }
 `
+
+export const projectQuery = groq`
+  *[_type == "projects" && slug.current == $slug]{
+    title,
+    "slug": slug.current,
+    description,
+    "image": image.asset->{
+      metadata,
+      url
+    },
+    projectUrl,
+    repoUrl,
+    technologies
+  }
+`

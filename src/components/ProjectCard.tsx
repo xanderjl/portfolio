@@ -1,17 +1,31 @@
-import { Box, Heading } from '@chakra-ui/react'
-import { PortableText } from 'lib/sanity'
-import { Projects } from 'types/Sanity'
+import { Box, Heading, Text } from '@chakra-ui/react'
+import Link from 'components/Link'
+import Image from 'next/image'
+import { Project } from 'types/CustomSanity'
+
 interface ProjectProps {
-  project: Projects
+  project: Project
 }
 
 const ProjectCard = ({ project }: ProjectProps) => {
-  const { title, image, projectUrl, repoUrl, description } = project
+  const { title, image, projectUrl, repoUrl, slug } = project
 
   return (
     <Box>
-      <Heading>{title}</Heading>
-      <PortableText blocks={description} />
+      <Box width={300} height={300}>
+        <Image
+          src={image.url as string}
+          width={400}
+          height={400}
+          layout='responsive'
+        />
+      </Box>
+      <Box>
+        <Heading>{title}</Heading>
+        <Link href={`/projects/${slug}`} textTransform='uppercase'>
+          read more &#8594;
+        </Link>
+      </Box>
     </Box>
   )
 }

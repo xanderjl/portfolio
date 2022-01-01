@@ -1,7 +1,6 @@
 import { LinkProps as ChLinkProps } from '@chakra-ui/react'
-import { UrlObject } from 'url'
+import Url from './Url'
 
-type Url = string | UrlObject
 
 interface LinkProps extends Omit<ChLinkProps, 'href'> {
   href: Url

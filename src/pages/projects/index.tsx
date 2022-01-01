@@ -1,17 +1,17 @@
 import React from 'react'
 import PageProjects from 'components/pages/PageProjects'
-import { GetStaticProps } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import { sanityClient } from 'lib/sanity/sanity.server'
 import { projectsQuery } from 'lib/sanity/queries'
-import { Projects } from 'types/Sanity'
 import { PageProjectsProps } from 'types/Pages'
+import { Project } from 'types/CustomSanity'
 
-const Projects = ({ projects }: PageProjectsProps) => {
+const Projects: NextPage<PageProjectsProps> = ({ projects }) => {
   return <PageProjects projects={projects} />
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const projects: Projects[] = await sanityClient.fetch(projectsQuery)
+  const projects: Project[] = await sanityClient.fetch(projectsQuery)
 
   return {
     props: { projects }
