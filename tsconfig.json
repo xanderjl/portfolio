@@ -21,6 +21,7 @@
       "lib/*": ["src/lib/*"],
       "util/*": ["src/util/*"],
       "types/*": ["src/types/*"],
+      "layouts/*": ["src/layouts/*"],
       "theme/*": ["src/theme/*"]
     },
     "downlevelIteration": true

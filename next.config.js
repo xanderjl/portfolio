@@ -27,7 +27,6 @@ const nextConfig = {
           /** @type {import('@mdx-js/loader').Options} */
           options: {
             /* jsxImportSource: …, otherOptions… */
-            
           }
         }
       ]
