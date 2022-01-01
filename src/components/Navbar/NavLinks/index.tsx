@@ -1,15 +1,30 @@
 import React from 'react'
-import NLink from 'next/link'
-import { Grid, Link } from '@chakra-ui/react'
+import Link from 'components/Link'
+import { Grid, useTheme } from '@chakra-ui/react'
 import links from './links'
+import { useRouter } from 'next/router'
 
 const NavLinks = () => {
+  const router = useRouter()
+  const theme = useTheme()
+
   return (
-    <Grid templateColumns={`repeat(${links.length}, fit-content(100%))`} gap={4}>
+    <Grid
+      templateColumns={`repeat(${links.length}, fit-content(100%))`}
+      gap={4}
+    >
       {links.map((link, i) => {
         const { href, title } = link
         return (
-          <Link key={i} as={NLink} href={href}>
+          <Link
+            key={i}
+            href={href}
+            bg={
+              router.pathname.includes(href) && href !== '/'
+                ? `linear-gradient(to top, ${theme.colors.primary[500]} 50%, transparent 50% )`
+                : ''
+            }
+          >
             {title}
           </Link>
         )

@@ -26,6 +26,7 @@
     "fuse.js": "^6.5.3",
     "gatsby-plugin-typescript": "^4.4.0",
     "gray-matter": "^4.0.3",
+    "hamburger-react": "^2.4.1",
     "next": "12.0.7",
     "next-compose-plugins": "^2.2.1",
     "next-mdx-builder": "^0.4.4",

@@ -1,7 +1,8 @@
-import { Link as ChLink, LinkProps } from '@chakra-ui/react'
-import NLink, { LinkProps as NLinkProps } from 'next/link'
+import { Link as ChLink } from '@chakra-ui/react'
+import NLink from 'next/link'
+import LinkProps from 'types/LinkProps'
 
-const Link = ({ children, href, ...rest }: NLinkProps & LinkProps) => {
+const Link = ({ children, href, ...rest }: LinkProps) => {
   return (
     <NLink href={href} passHref>
       {/* @ts-ignore */}
