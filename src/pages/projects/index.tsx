@@ -11,7 +11,7 @@ const Projects = ({ projects }: PageProjectsProps) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const projects: Projects = await sanityClient.fetch(projectsQuery)
+  const projects: Projects[] = await sanityClient.fetch(projectsQuery)
 
   return {
     props: { projects }

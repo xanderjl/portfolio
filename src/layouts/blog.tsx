@@ -23,8 +23,8 @@ const Blog = ({ children, frontMatter }: Props): ReactElement => {
           display='flex'
           flexDirection='column'
           alignItems='center'
-          maxW='70ch'
-          m='0 auto'
+          maxW='90ch'
+          margin={['0 1.25rem', '0 auto']}
           mt='3rem'
           bg='white'
           border='1px solid'
@@ -37,13 +37,13 @@ const Blog = ({ children, frontMatter }: Props): ReactElement => {
             duration: 0.5
           }}
         >
-          <Container maxW='3xl' p='3rem 1.25rem 1.25rem 1.25rem'>
+          <Container maxW='70ch' p='3rem 1.25rem 1.25rem 1.25rem'>
             <Heading as='h1' fontFamily='body'>
               {title}
             </Heading>
             <Text as='span'>{date}</Text>
           </Container>
-          <Container maxW='3xl' p='0 1.25rem 7rem 1.25rem'>
+          <Container maxW='70ch' p='0 1.25rem 7rem 1.25rem'>
             {children}
           </Container>
         </MotionBox>

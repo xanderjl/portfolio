@@ -8,5 +8,5 @@ export interface PagePostProps {
 }
 
 export interface PageProjectsProps {
-  projects: Projects
+  projects: Projects[]
 }
