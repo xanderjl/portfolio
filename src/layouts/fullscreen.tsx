@@ -1,11 +1,11 @@
 import { ReactElement } from 'react'
 import { Box } from '@chakra-ui/react'
 import Layout from 'components/Layout'
-import { PostProps } from 'types/PostPage'
+import { PagePostProps } from 'types/Pages'
 import { MDXProvider } from '@mdx-js/react'
 import BlogComponents from 'components/blogComponents'
 
-const Fullscreen = ({ children, frontMatter }: PostProps): ReactElement => {
+const Fullscreen = ({ children, frontMatter }: PagePostProps): ReactElement => {
   const { title, canvasBg } = frontMatter
 
   return (

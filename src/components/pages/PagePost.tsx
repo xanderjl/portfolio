@@ -1,15 +1,15 @@
 import React, { ReactElement } from 'react'
 import Blog from 'src/layouts/blog'
 import Fullscreen from 'src/layouts/fullscreen'
-import { Props } from 'types/PostPage'
+import { PagePostProps } from 'types/Pages'
 
-const PagePost = ({ content, frontMatter }: Props): ReactElement => {
+const PagePost = ({ children, frontMatter }: PagePostProps): ReactElement => {
   const { layout } = frontMatter
 
   return layout === 'blog' ? (
-    <Blog children={content} frontMatter={frontMatter} />
+    <Blog children={children} frontMatter={frontMatter} />
   ) : layout === 'fullscreen' ? (
-    <Fullscreen children={content} frontMatter={frontMatter} />
+    <Fullscreen children={children} frontMatter={frontMatter} />
   ) : (
     <></>
   )

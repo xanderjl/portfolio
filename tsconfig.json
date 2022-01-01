@@ -18,14 +18,20 @@
     "paths": {
       "components/*": ["src/components/*"],
       "context/*": ["src/context/*"],
-      "lib/*": ["src/lib/*"],
-      "util/*": ["src/util/*"],
-      "types/*": ["src/types/*"],
       "layouts/*": ["src/layouts/*"],
-      "theme/*": ["src/theme/*"]
+      "lib/*": ["src/lib/*"],
+      "studio/*": ["src/studio/*"],
+      "theme/*": ["src/theme/*"],
+      "types/*": ["src/types/*"],
+      "util/*": ["src/util/*"]
     },
     "downlevelIteration": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "studio/sanity-codegen.config.js"
+  ],
   "exclude": ["node_modules"]
 }

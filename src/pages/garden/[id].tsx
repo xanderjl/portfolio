@@ -3,10 +3,10 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import PagePost from 'components/pages/PagePost'
 import getPostFiles from 'lib/mdx/getPostFiles'
 import getFileContent from 'lib/mdx/getFileContent'
-import { Props } from 'types/PostPage'
+import { PagePostProps } from 'types/Pages'
 
-const Post: NextPage<Props> = ({ content, frontMatter }) => {
-  return <PagePost content={content} frontMatter={frontMatter} />
+const Post: NextPage<PagePostProps> = ({ children, frontMatter }) => {
+  return <PagePost children={children} frontMatter={frontMatter} />
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -30,10 +30,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params || {}
 
-  const { content, frontMatter } = await getFileContent(id as string)
+  const { content: children, frontMatter } = await getFileContent(id as string)
 
   return {
-    props: { content, frontMatter }
+    props: { children, frontMatter }
   }
 }
 
