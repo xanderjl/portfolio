@@ -3,6 +3,7 @@ import { useGLTF } from '@react-three/drei'
 
 const Wall = (props: any) => {
   const group = useRef()
+   // @ts-ignore
   const { nodes, materials } = useGLTF('/models/wall.gltf')
   return (
     <group ref={group} {...props} dispose={null}>

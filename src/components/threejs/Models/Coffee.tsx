@@ -8,6 +8,7 @@ const Coffee = ({ factor, speed, ...rest }: any) => {
   const bippy = useSpring({
     scale: expand ? [1.1, 1.1, 1.1] : [1, 1, 1]
   })
+   // @ts-ignore
   const { nodes } = useGLTF('/models/coffee.gltf')
   return (
     <a.group

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Projects } from 'studio/schema'
+import { Projects } from 'types/Sanity'
 import FrontMatter from 'types/FrontMatter'
 
 export interface PagePostProps {

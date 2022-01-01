@@ -1,9 +1,10 @@
 import { useRef } from "react"
 import { useFrame } from "@react-three/fiber"
 import { useTexture } from "@react-three/drei"
+import * as three from 'three'
 
 const SpinnyBoi = () => {
-  const ref = useRef(null)
+  const ref = useRef<three.Points>(null)
   const texture = useTexture("/textures/x.png")
   useFrame(() => (ref.current!.rotation.y = ref.current!.rotation.y += 0.005))
 

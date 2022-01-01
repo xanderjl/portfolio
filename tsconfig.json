@@ -20,7 +20,6 @@
       "context/*": ["src/context/*"],
       "layouts/*": ["src/layouts/*"],
       "lib/*": ["src/lib/*"],
-      "studio/*": ["src/studio/*"],
       "theme/*": ["src/theme/*"],
       "types/*": ["src/types/*"],
       "util/*": ["src/util/*"]

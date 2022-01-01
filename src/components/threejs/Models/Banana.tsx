@@ -3,6 +3,7 @@ import { useGLTF } from '@react-three/drei'
 
 const Banana = (props: any) => {
   const group = useRef()
+  // @ts-ignore
   const { nodes, materials } = useGLTF('/models/banana.gltf')
   return (
     <group ref={group} {...props} dispose={null}>

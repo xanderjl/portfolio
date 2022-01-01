@@ -3,13 +3,20 @@ import {
   AccordionItem,
   AccordionButton,
   AccordionPanel,
-  AccordionIcon,
   Heading,
-  Box
+  Box,
+  Icon
 } from '@chakra-ui/react'
 import { ChevronUpIcon } from '@chakra-ui/icons'
+import { ReactNode } from 'react'
 
-const HtmlOverlay = ({ title, children, ...rest }: any) => {
+interface HTMLOverlayProps {
+  title?: string
+  children?: ReactNode[]
+  [x: string]: any
+}
+
+const HtmlOverlay = ({ title, children, ...rest }: HTMLOverlayProps) => {
   return (
     <Accordion
       allowToggle
@@ -48,7 +55,7 @@ const HtmlOverlay = ({ title, children, ...rest }: any) => {
             <Box flex={1} textAlign='left'>
               {title ? title : 'README'}
             </Box>
-            <AccordionIcon as={ChevronUpIcon} />
+            <Icon as={ChevronUpIcon} />
           </AccordionButton>
         </Heading>
       </AccordionItem>

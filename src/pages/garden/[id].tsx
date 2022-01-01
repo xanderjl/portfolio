@@ -6,7 +6,7 @@ import getFileContent from 'lib/mdx/getFileContent'
 import { PagePostProps } from 'types/Pages'
 
 const Post: NextPage<PagePostProps> = ({ children, frontMatter }) => {
-  return <PagePost children={children} frontMatter={frontMatter} />
+  return <PagePost frontMatter={frontMatter}>{children}</PagePost>
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {

@@ -3,6 +3,7 @@ import { useGLTF } from '@react-three/drei'
 
 const LampPost = (props: any) => {
   const group = useRef()
+   // @ts-ignore
   const { nodes, materials } = useGLTF('/models/lamp-post.gltf')
   return (
     <group ref={group} {...props} dispose={null}>

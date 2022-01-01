@@ -3,6 +3,7 @@ import { useGLTF } from '@react-three/drei'
 
 const Peely = (props: any) => {
   const group = useRef()
+   // @ts-ignore
   const { nodes, materials } = useGLTF('/models/agent-peely/scene.gltf')
   return (
     <group ref={group} {...props} dispose={null}>

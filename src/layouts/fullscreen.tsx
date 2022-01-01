@@ -10,7 +10,7 @@ const Fullscreen = ({ children, frontMatter }: PagePostProps): ReactElement => {
 
   return (
     <MDXProvider components={BlogComponents}>
-      <Layout title={`${title} - Garden`} navAlpha navFixed>
+      <Layout title={`${title} - Garden`}>
         <Box
           h='100vh'
           bg={canvasBg ? canvasBg : 'transparent'}

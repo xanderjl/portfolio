@@ -3,6 +3,7 @@ import { useGLTF } from '@react-three/drei'
 
 const Witch = (props: any) => {
   const group = useRef()
+   // @ts-ignore
   const { nodes, materials } = useGLTF('/models/witch.gltf')
   return (
     <group ref={group} {...props} dispose={null}>

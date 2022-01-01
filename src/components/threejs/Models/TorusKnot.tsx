@@ -1,8 +1,9 @@
 import { useState, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
+import * as three from 'three'
 
 const TorusKnot = (props: any) => {
-  const mesh = useRef()
+  const mesh = useRef<three.Mesh>()
   const [hovered, setHover] = useState(false)
   const [active, setActive] = useState(false)
 
