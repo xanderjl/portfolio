@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Heading } from '@chakra-ui/react'
+import { AspectRatio, Box, Container, Grid, Heading } from '@chakra-ui/react'
 import Layout from 'components/Layout'
 import { PortableText } from 'lib/sanity'
 import Image from 'next/image'
@@ -17,14 +17,19 @@ const PageProject = ({ project }: PageProjectProps): ReactElement => {
           {title}
         </Heading>
         <Grid gridTemplateColumns={{ md: '1fr', lg: 'repeat(2, 1fr)' }} gap={6}>
-          <Box pos='relative' borderRadius={8} overflow='hidden' boxShadow='md'>
+          <AspectRatio
+            borderRadius={8}
+            overflow='hidden'
+            boxShadow='md'
+            ratio={4 / 3}
+          >
             <Image
               src={image?.url as unknown as string}
-              width={800}
-              height={800}
-              layout='intrinsic'
+              layout='fill'
+              objectFit='cover'
+              objectPosition='top'
             />
-          </Box>
+          </AspectRatio>
           <Box>
             <Technologies technologies={technologies} />
             <Heading as='h3' size='xl'>

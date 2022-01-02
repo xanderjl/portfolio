@@ -4,7 +4,7 @@ import LinkProps from 'types/LinkProps'
 
 const Link = ({ children, href, ...rest }: LinkProps) => {
   return (
-    <NLink href={href} passHref>
+    <NLink href={href || ''} passHref>
       {/* @ts-ignore */}
       <ChLink {...rest}>{children}</ChLink>
     </NLink>

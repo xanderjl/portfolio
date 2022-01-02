@@ -1,4 +1,4 @@
-import { Box, Heading, Text } from '@chakra-ui/react'
+import { AspectRatio, Box, Heading, Text, useTheme } from '@chakra-ui/react'
 import Link from 'components/Link'
 import Image from 'next/image'
 import { Project } from 'types/CustomSanity'
@@ -9,20 +9,28 @@ interface ProjectProps {
 
 const ProjectCard = ({ project }: ProjectProps) => {
   const { title, image, projectUrl, repoUrl, slug } = project
+  const theme = useTheme()
 
   return (
-    <Box>
-      <Box width={300} height={300}>
+    <Box maxW={800} borderRadius={8} overflow='hidden' boxShadow='md'>
+      <AspectRatio ratio={4 / 3}>
         <Image
-          src={image.url as string}
-          width={400}
-          height={400}
-          layout='responsive'
+          src={image?.url as unknown as string}
+          layout='fill'
+          objectFit='cover'
+          objectPosition='top'
         />
-      </Box>
-      <Box>
+      </AspectRatio>
+      <Box px={4} py={8}>
         <Heading>{title}</Heading>
-        <Link href={`/projects/${slug}`} textTransform='uppercase'>
+        <Link
+          href={`/projects/${slug}`}
+          textTransform='uppercase'
+          bg={`linear-gradient(to top, ${theme.colors.primary[400]} 50%, transparent 50% )`}
+          _hover={{
+            background: `linear-gradient(to top, ${theme.colors.primary[200]} 50%, transparent 50% )`
+          }}
+        >
           read more &#8594;
         </Link>
       </Box>
