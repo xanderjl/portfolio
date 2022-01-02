@@ -1,11 +1,4 @@
-import {
-  Box,
-  BoxProps,
-  forwardRef,
-  Grid,
-  Heading,
-  Tooltip
-} from '@chakra-ui/react'
+import { Box, Grid, Heading, Tooltip } from '@chakra-ui/react'
 import Link from 'components/Link'
 import Image from 'next/image'
 import React from 'react'
@@ -26,23 +19,16 @@ const Technologies = ({ technologies }: Props) => {
       <Grid
         gridTemplateColumns={`repeat(${techLength}, 1fr)`}
         maxW='max-content'
-        gap={{ sm: 2, md: 4 }}
-        pb={{ sm: 2, md: 4 }}
+        gap={{ sm: 2, md: 2 }}
+        pb={{ sm: 4, md: 6 }}
       >
         {technologies?.map((tech, i) => {
           const { title, icon, url } = tech
 
           return (
             <Tooltip label={title}>
-              <Box>
-                <Link
-                  key={i}
-                  href={url}
-                  maxW='max-content'
-                  isExternal
-                  w={{ sm: 6, md: 10 }}
-                  h={{ sm: 6, md: 10 }}
-                >
+              <Box boxSize={{ sm: 5, md: 7 }}>
+                <Link key={i} href={url} maxW='max-content' isExternal>
                   <Image
                     src={icon?.url as unknown as string}
                     width={36}

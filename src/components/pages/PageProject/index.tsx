@@ -1,5 +1,6 @@
 import { AspectRatio, Box, Container, Grid, Heading } from '@chakra-ui/react'
 import Layout from 'components/Layout'
+import ProjectLinks from 'components/ProjectLinks'
 import { PortableText } from 'lib/sanity'
 import Image from 'next/image'
 import React, { ReactElement } from 'react'
@@ -12,11 +13,11 @@ const PageProject = ({ project }: PageProjectProps): ReactElement => {
 
   return (
     <Layout>
-      <Container maxW='container.lg' py={{ sm: 8, md: 14 }}>
+      <Container maxW='container.md' py={{ sm: 8, md: 14 }}>
         <Heading size='2xl' pb={{ sm: 4, md: 8 }}>
           {title}
         </Heading>
-        <Grid gridTemplateColumns={{ md: '1fr', lg: 'repeat(2, 1fr)' }} gap={6}>
+        <Box pb={{ sm: 2, md: 4 }}>
           <AspectRatio
             borderRadius={8}
             overflow='hidden'
@@ -30,14 +31,19 @@ const PageProject = ({ project }: PageProjectProps): ReactElement => {
               objectPosition='top'
             />
           </AspectRatio>
-          <Box>
-            <Technologies technologies={technologies} />
-            <Heading as='h3' size='xl'>
-              Overview
-            </Heading>
-            <PortableText blocks={description} />
-          </Box>
-        </Grid>
+        </Box>
+        <Box>
+          <ProjectLinks
+            projectUrl={projectUrl}
+            repoUrl={repoUrl}
+            pb={{ sm: 4, md: 6 }}
+          />
+          <Technologies technologies={technologies} />
+          <Heading as='h3' size='xl'>
+            Overview
+          </Heading>
+          <PortableText blocks={description} />
+        </Box>
       </Container>
     </Layout>
   )
