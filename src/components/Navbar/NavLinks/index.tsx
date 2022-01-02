@@ -10,7 +10,10 @@ const NavLinks = () => {
 
   return (
     <Grid
-      templateColumns={`repeat(${links.length}, fit-content(100%))`}
+      templateColumns={{
+        sm: '1fr',
+        md: `repeat(${links.length}, fit-content(100%))`
+      }}
       gap={4}
     >
       {links.map((link, i) => {
@@ -19,12 +22,19 @@ const NavLinks = () => {
           <Link
             key={i}
             href={href}
+            maxW='max-content'
+            px={1}
             bg={
               router.pathname.includes(href) && href !== '/'
                 ? `linear-gradient(to top, ${theme.colors.primary[500]} 50%, transparent 50% )`
                 : ''
             }
             textTransform='uppercase'
+            _hover={{
+              bg: 'primary.500',
+              textDecor: 'none',
+              borderRadius: '4px'
+            }}
           >
             {title}
           </Link>
