@@ -22,7 +22,7 @@ const Technologies = ({ technologies }: Props) => {
         pb={{ sm: 2, md: 4 }}
       >
         {technologies?.map((tech, i) => {
-          const { title, icon, url } = tech
+          const { icon, url } = tech
 
           return (
             <Link
