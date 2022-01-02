@@ -1,13 +1,25 @@
 import { SanityImageMetadata } from './Sanity'
 import Url from './Url'
-import { Projects as SanityProjects } from './Sanity'
+import {
+  Projects as SanityProjects,
+  Technology as SanityTechnology
+} from './Sanity'
 
 export interface Image {
-  url: Url
-  metadata: SanityImageMetadata
+  url?: Url
+  metadata?: SanityImageMetadata
 }
 
-export type Project = Omit<SanityProjects, 'image' | 'slug'> & {
-  image: Image
-  slug: string
+export interface Technology extends Omit<SanityTechnology, 'icon'> {
+  icon?: {
+    url?: Url
+    metadata?: SanityImageMetadata
+  }
+}
+
+export interface Project
+  extends Omit<SanityProjects, 'image' | 'slug' | 'technologies'> {
+  image?: Image
+  slug?: string
+  technologies?: Technology[]
 }

@@ -10,7 +10,6 @@ export const projectsQuery = groq`
     },
     projectUrl,
     repoUrl,
-    technologies
   }
 `
 
@@ -25,6 +24,13 @@ export const projectQuery = groq`
     },
     projectUrl,
     repoUrl,
-    technologies
-  }
+    technologies[]->{
+      title,
+      "icon": icon.asset->{
+        metadata,
+        url
+      },
+      url
+    }
+  }[0]
 `

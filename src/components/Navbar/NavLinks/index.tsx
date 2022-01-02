@@ -24,6 +24,7 @@ const NavLinks = () => {
                 ? `linear-gradient(to top, ${theme.colors.primary[500]} 50%, transparent 50% )`
                 : ''
             }
+            textTransform='uppercase'
           >
             {title}
           </Link>
