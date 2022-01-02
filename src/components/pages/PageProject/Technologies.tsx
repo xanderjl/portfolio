@@ -12,18 +12,27 @@ const Technologies = ({ technologies }: Props) => {
 
   return (
     <>
-      <Heading as='h2'>Technologies</Heading>
+      <Heading as='h2' size='xl'>
+        Technologies
+      </Heading>
       <Grid
         gridTemplateColumns={`repeat(${techLength}, 1fr)`}
         maxW='max-content'
-        gap={6}
-        pb={4}
+        gap={{ sm: 2, md: 4 }}
+        pb={{ sm: 2, md: 4 }}
       >
         {technologies?.map((tech, i) => {
           const { title, icon, url } = tech
 
           return (
-            <Link key={i} href={url} maxW='max-content' isExternal>
+            <Link
+              key={i}
+              href={url}
+              maxW='max-content'
+              isExternal
+              w={{ sm: 6, md: 10 }}
+              h={{ sm: 6, md: 10 }}
+            >
               <Image
                 src={icon?.url as unknown as string}
                 width={36}

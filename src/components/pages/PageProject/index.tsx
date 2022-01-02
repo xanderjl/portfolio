@@ -12,8 +12,10 @@ const PageProject = ({ project }: PageProjectProps): ReactElement => {
 
   return (
     <Layout>
-      <Container maxW='container.lg'>
-        <Heading>{title}</Heading>
+      <Container maxW='container.lg' py={{ sm: 8, md: 14 }}>
+        <Heading size='2xl' pb={{ sm: 4, md: 8 }}>
+          {title}
+        </Heading>
         <Grid gridTemplateColumns={{ md: '1fr', lg: 'repeat(2, 1fr)' }} gap={6}>
           <Box pos='relative' borderRadius={8} overflow='hidden' boxShadow='md'>
             <Image
@@ -25,7 +27,9 @@ const PageProject = ({ project }: PageProjectProps): ReactElement => {
           </Box>
           <Box>
             <Technologies technologies={technologies} />
-            <Heading as='h3'>Overview</Heading>
+            <Heading as='h3' size='xl'>
+              Overview
+            </Heading>
             <PortableText blocks={description} />
           </Box>
         </Grid>
