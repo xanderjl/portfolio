@@ -3,6 +3,7 @@ import { Box, Flex } from '@chakra-ui/react'
 import Footer from 'components/Footer'
 import Navbar from 'components/Navbar'
 import { NextSeo } from 'next-seo'
+import useOgImage from 'hooks/useOgImage'
 
 interface Props {
   title?: string
@@ -11,6 +12,8 @@ interface Props {
 }
 
 const Layout = ({ title, metadescription, children }: Props): ReactElement => {
+  const ogImage = useOgImage(`${title ? `${title} | ` : ``}Xander Low`)
+
   return (
     <>
       <NextSeo
@@ -18,7 +21,15 @@ const Layout = ({ title, metadescription, children }: Props): ReactElement => {
         description={metadescription}
         openGraph={{
           title: title,
-          description: metadescription
+          description: metadescription,
+          images: [
+            {
+              url: ogImage,
+              width: 800,
+              height: 418,
+              alt: title
+            }
+          ]
         }}
       />
       <Flex direction='column' minH='100vh'>
