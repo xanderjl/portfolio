@@ -16,6 +16,7 @@ const ProjectCard = ({ project }: ProjectProps) => {
     <Box maxW={800} borderRadius={8} overflow='hidden' boxShadow='md'>
       <AspectRatio ratio={4 / 3} boxShadow='inner'>
         <Image
+          alt={`screenshot of ${title}`}
           src={image?.url as unknown as string}
           layout='fill'
           objectFit='cover'

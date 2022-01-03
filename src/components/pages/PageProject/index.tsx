@@ -1,4 +1,4 @@
-import { AspectRatio, Box, Container, Grid, Heading } from '@chakra-ui/react'
+import { AspectRatio, Box, Container, Heading } from '@chakra-ui/react'
 import Layout from 'components/Layout'
 import ProjectLinks from 'components/ProjectLinks'
 import { PortableText } from 'lib/sanity'
@@ -25,6 +25,7 @@ const PageProject = ({ project }: PageProjectProps): ReactElement => {
             ratio={4 / 3}
           >
             <Image
+              alt={`screenshot of ${title}`}
               src={image?.url as unknown as string}
               layout='fill'
               objectFit='cover'

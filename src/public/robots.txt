@@ -1,0 +1,7 @@
+# Block all crawlers on Sanity studio's route
+User-agent: *
+Disallow: /studio/
+
+# Block all crawlers on garden route
+User-agent: *
+Disallow: /garden/

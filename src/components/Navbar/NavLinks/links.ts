@@ -12,10 +12,10 @@ const links: Link[] = [
     href: '/projects',
     title: 'Projects'
   },
-  {
-    href: '/garden',
-    title: 'Garden'
-  }
+  // {
+  //   href: '/garden',
+  //   title: 'Garden'
+  // }
 ]
 
 export default links

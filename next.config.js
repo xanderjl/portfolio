@@ -14,27 +14,11 @@ const nextConfig = {
   },
   rewrites: () => [STUDIO_REWRITE],
   swcMinify: true,
-  webpack: (config, options) => {
+  webpack: config => {
     config.resolve.fallback = { fs: false, path: false }
 
-    // config.module.rules.push({
-    //   test: /\.mdx?$/,
-    //   use: [
-    //     // The default `babel-loader` used by Next:
-    //     options.defaultLoaders.babel,
-    //     {
-    //       loader: '@mdx-js/loader',
-    //       /** @type {import('@mdx-js/loader').Options} */
-    //       options: {
-    //         /* jsxImportSource: …, otherOptions… */
-    //       }
-    //     }
-    //   ]
-    // })
-
     return config
-  },
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx']
+  }
 }
 
 module.exports = nextConfig

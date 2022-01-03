@@ -26,10 +26,11 @@ const Technologies = ({ technologies }: Props) => {
           const { title, icon, url } = tech
 
           return (
-            <Tooltip label={title}>
+            <Tooltip key={i} label={title}>
               <Box boxSize={{ sm: 5, md: 7 }}>
-                <Link key={i} href={url} maxW='max-content' isExternal>
+                <Link href={url} maxW='max-content' isExternal>
                   <Image
+                    alt={`${title} logo`}
                     src={icon?.url as unknown as string}
                     width={36}
                     height={36}

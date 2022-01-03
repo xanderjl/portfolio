@@ -20,7 +20,6 @@ interface Props {
   src?: string
   alt?: string
   href?: string
-  theme?: any
 }
 
 interface CodeBlock extends Props {
@@ -63,7 +62,8 @@ const BlogComponents: any = {
     </Heading>
   ),
   p: ({ children }: Props) => <Text pb='1rem'>{children}</Text>,
-  a: ({ href, children, theme }: Props) => {
+  a: ({ href, children }: Props) => {
+    const theme = useTheme()
     return (
       <Link
         href={href}
