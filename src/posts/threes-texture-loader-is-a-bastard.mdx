@@ -1,0 +1,123 @@
+---
+title: "Three's TextureLoader is a Bastard"
+date: "06/11/2021"
+layout: "blog"
+tags: ["r3f", "threejs", "drei", "textures"]
+published: true
+---
+
+import { Suspense } from "react"
+import { Canvas } from "@react-three/fiber"
+import { Plane, ContactShadows, OrbitControls } from "@react-three/drei"
+import Lights from "threejs/Lighting/Lights"
+import { Box, Image } from "@chakra-ui/react"
+import Orb from "threejs/Models/Orb"
+
+<Box w="100%" h="500px" bg="cyan" p="1rem" mb="2rem" borderRadius={4}>
+  <Canvas shadowMap camera={{ position: [0, 0, 20], fov: 30 }}>
+    <Lights />
+    <Suspense fallback={null}>
+      <Orb />
+    </Suspense>
+    <ContactShadows />
+    <OrbitControls />
+  </Canvas>
+</Box>
+
+## The Good
+
+Orb.
+
+## The Abundantly Bad
+
+So I had the intention of writing this up quickly in the morning to experiment with applying an image texture to a mesh and it lead me down a rabit hole of React-y problems.
+
+Here's the WORKING code for the orb:
+
+```jsx
+//Orb.js
+import { useRef } from "react"
+import { useFrame } from "@react-three/fiber"
+import { useTexture } from "@react-three/drei"
+import { Sphere } from "@react-three/drei"
+
+const Orb = () => {
+  const orbRef = useRef(null)
+  const texture = useTexture("/textures/missing-texture.png")
+  useFrame(
+    () => (orbRef.current.rotation.x = orbRef.current.rotation.y += 0.01)
+  )
+
+  return (
+    <Sphere ref={orbRef} castShadow args={[3, 80, 80]}>
+      <meshStandardMaterial map={texture} />
+    </Sphere>
+  )
+}
+
+export default Orb
+```
+
+This is what the [R3F docs](https://docs.pmnd.rs/react-three-fiber/getting-started/loading-textures) want you to do:
+
+```jsx
+//TextureLoader example from their site
+import React, { Suspense } from "react"
+import { Canvas, useLoader } from "@react-three/fiber"
+import { TextureLoader } from "three/src/loaders/TextureLoader"
+
+function Scene() {
+  const [colorMap] = useLoader(TextureLoader, ["PavingStones092_1K_Color.jpg"])
+  return (
+    <>
+      <ambientLight intensity={0.2} />
+      <directionalLight />
+      <mesh>
+        <sphereGeometry args={[1, 100, 100]} />
+        <meshStandardMaterial />
+      </mesh>
+    </>
+  )
+}
+
+export default function App() {
+  return (
+    <div className="App">
+      <Canvas>
+        <Suspense fallback={null}>
+          <Scene />
+        </Suspense>
+      </Canvas>
+    </div>
+  )
+}
+```
+
+Which, I'm sure, is fine in most contexts, but Next was putting up a STINK.
+
+<Image
+  src="/images/next-js-error-output.png"
+  alt={`The error reads as: Server Error/ SyntaxError: Cannot use import statement outside a module. module.exports = requre("three/src/loaders/TextureLoader");`}
+  mb="1rem"
+  border="1px solid"
+  borderColor="gray.400"
+  borderRadius={4}
+  boxShadow="md"
+  overflow="hidden"
+/>
+
+I was about to give up and go lay face-down on the lawn when I found [this hook](https://github.com/pmndrs/drei#usetexture) in the drei docs. `useTexture` solved whatever import muckery was going on. All I had to do was define my texture and pass the hook a url and we were back in business.
+
+```js
+const texture = useTexture("/textures/missing-texture.png")
+```
+
+## I guess the takeaway here is:
+
+- ~~To the best of my knowledge, this is specific to Nextjs apps~~
+- It appears to be an SSR issue; not exclusive to Next. I tried using `React.lazy()` and Next's `dynamic`, but neither solution ended up working
+- Whenever possible, be diligent with reading over the drei docs to see if there's a helper to solve these headaches for you
+- There are seemingly endless solves on stackoverflow and github, and sometimes none of them line up with your specific use case
+- 3D hard
+- It's okay to cry 😭
+- orb

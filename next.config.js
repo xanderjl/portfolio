@@ -1,25 +1,24 @@
-const composePlugins = require("next-compose-plugins")
-const withMdxEnhanced = require("next-mdx-enhanced")
-
 const STUDIO_REWRITE = {
-  source: "/studio/:path",
+  source: '/studio/:path',
   destination:
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3333/studio/:path*"
-      : "/studio/index.html",
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3333/studio/:path*'
+      : '/studio/index.html'
 }
 
-module.exports = composePlugins([
-  withMdxEnhanced({
-    layoutPath: "./templates",
-  }),
-  {
-    images: {
-      domains: ["cdn.sanity.io"],
-    },
-    future: {
-      webpack5: false,
-    },
-    rewrites: () => [STUDIO_REWRITE],
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    domains: ['cdn.sanity.io']
   },
-])
+  rewrites: () => [STUDIO_REWRITE],
+  swcMinify: true,
+  webpack: config => {
+    config.resolve.fallback = { fs: false, path: false }
+
+    return config
+  }
+}
+
+module.exports = nextConfig

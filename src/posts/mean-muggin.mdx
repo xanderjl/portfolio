@@ -1,0 +1,61 @@
+---
+title: "Mean Muggin'"
+date: "06/09/2021"
+layout: "fullscreen"
+canvasBg: "white"
+tags: ["r3f", "threejs", "drei", "coffee"]
+published: true
+---
+
+import { Suspense } from "react"
+import { Box, Heading } from "@chakra-ui/react"
+import { Canvas, useFrame } from "@react-three/fiber"
+import {
+  Plane,
+  OrbitControls,
+  ContactShadows,
+  softShadows,
+} from "@react-three/drei"
+import Lights from "threejs/Lighting/Lights"
+import Coffee from "threejs/Models/Coffee"
+
+<Canvas
+  concurrent
+  shadowMap
+  colorManagement
+  camera={{ position: [0, 1, 10], fov: 35 }}
+>
+  <Lights />
+  <Plane
+    receiveShadow
+    args={[20, 20]}
+    position={[0, -1.5, 0]}
+    rotation={[-Math.PI / 2, 0, 0]}
+  >
+    <meshStandardMaterial attach="material" color="yellow" />
+  </Plane>
+  <Suspense fallback={null}>
+    <Coffee
+      castShadow
+      position={[-0.5, 1, 0]}
+      rotation={[1.5, 2, 1.5]}
+      factor={0.5}
+      speed={2}
+    />
+  </Suspense>
+  <ContactShadows
+    opacity={1}
+    width={1}
+    height={1}
+    blur={1}
+    far={10}
+    resolution={256}
+  />
+  <OrbitControls />
+</Canvas>
+
+<Box position="absolute" left="1.25rem" top="1.25rem">
+  <Heading size="xl" fontFamily="body">
+    Meanest Mug Out There
+  </Heading>
+</Box>
