@@ -28,7 +28,7 @@
     "fuse.js": "^6.5.3",
     "gray-matter": "^4.0.3",
     "hamburger-react": "^2.4.1",
-    "next": "12.0.7",
+    "next": "12.0.9",
     "next-mdx-builder": "^0.4.4",
     "next-sanity": "^0.4.0",
     "next-seo": "^4.28.1",
